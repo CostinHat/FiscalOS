@@ -1,33 +1,20 @@
 # FiscalOS
 
-FiscalOS v0.0.1 starts with one validated vertical slice:
+AI-first fiscal operating system for Romanian SMEs.
 
-```text
-Observed Fact
-→ Rule Evaluation
-→ Knowledge Assertion
-→ Explanation
-```
+## Vision
 
-## Run
+FiscalOS transforms Romanian fiscal compliance from a reactive process into an autonomous operating system powered by AI.
 
-```bash
-dotnet test
-```
+## Modules
 
-## First test
+- Eligibility Engine
+- Microenterprise Monitoring
+- Tax Optimization
+- Fiscal Risk Detection
+- ANAF Integration
+- AI Fiscal Copilot
 
-`Should_Derive_Microenterprise_Eligibility`
+## Status
 
-Given:
-
-```text
-Revenue = 320000
-EmployeeCount = 3
-```
-
-Then:
-
-```text
-MICROENTERPRISE_ELIGIBLE = true
-```
+Sprint 0 – Architecture & Domain Modeling
