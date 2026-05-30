@@ -13,3 +13,4 @@ C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\F
 C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\refint\FiscalOS.Runtime.dll
 C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\FiscalOS.Runtime.pdb
 C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\ref\FiscalOS.Runtime.dll
+C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\FiscalOS.Runtime.sourcelink.json

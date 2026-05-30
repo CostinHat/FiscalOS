@@ -102,3 +102,4 @@ C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\D
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.pdb
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.genruntimeconfig.cache
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\ref\FiscalOS.VerticalSliceTests.dll
+C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.sourcelink.json

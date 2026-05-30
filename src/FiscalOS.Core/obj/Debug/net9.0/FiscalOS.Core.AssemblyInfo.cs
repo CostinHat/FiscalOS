@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FiscalOS.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aca1bcfb2b6e770e963c331c2690e4805ee483d9")]
 [assembly: System.Reflection.AssemblyProductAttribute("FiscalOS.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FiscalOS.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
