@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FiscalOS.VerticalSliceTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aca1bcfb2b6e770e963c331c2690e4805ee483d9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4e19003f50e9b0ba0ada84ef79948a94c4551715")]
 [assembly: System.Reflection.AssemblyProductAttribute("FiscalOS.VerticalSliceTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FiscalOS.VerticalSliceTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

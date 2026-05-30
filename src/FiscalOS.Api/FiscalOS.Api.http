@@ -1,0 +1,9 @@
+@FiscalOS.Api_HostAddress = http://localhost:5230
+
+POST {{FiscalOS.Api_HostAddress}}/microenterprise-eligibility
+Content-Type: application/json
+
+{
+  "revenue": 320000,
+  "employeeCount": 3
+}

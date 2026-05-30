@@ -1,5 +1,4 @@
 namespace FiscalOS.Core.Rules;
-
 public sealed class MicroenterpriseEligibilityRule : IRule
 {
     public EvaluationResult Evaluate(IEnumerable<ObservedFact> facts)

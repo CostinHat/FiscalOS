@@ -8,9 +8,9 @@ C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\F
 C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\FiscalOS.Runtime.AssemblyInfoInputs.cache
 C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\FiscalOS.Runtime.AssemblyInfo.cs
 C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\FiscalOS.Runtime.csproj.CoreCompileInputs.cache
+C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\FiscalOS.Runtime.sourcelink.json
 C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\FiscalOS.16D050B1.Up2Date
 C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\FiscalOS.Runtime.dll
 C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\refint\FiscalOS.Runtime.dll
 C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\FiscalOS.Runtime.pdb
 C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\ref\FiscalOS.Runtime.dll
-C:\Users\conta\OneDrive\Desktop\FiscalOS\src\FiscalOS.Runtime\obj\Debug\net9.0\FiscalOS.Runtime.sourcelink.json

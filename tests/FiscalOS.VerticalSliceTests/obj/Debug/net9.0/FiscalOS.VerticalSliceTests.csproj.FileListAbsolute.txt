@@ -1,10 +1,5 @@
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\bin\Debug\net9.0\.msCoverageSourceRootsMapping_FiscalOS.VerticalSliceTests
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\bin\Debug\net9.0\CoverletSourceRootsMapping_FiscalOS.VerticalSliceTests
-C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.csproj.AssemblyReference.cache
-C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.AssemblyInfoInputs.cache
-C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.AssemblyInfo.cs
-C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.csproj.CoreCompileInputs.cache
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\bin\Debug\net9.0\testhost.dll
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\bin\Debug\net9.0\testhost.exe
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\bin\Debug\net9.0\xunit.runner.visualstudio.testadapter.dll
@@ -96,10 +91,15 @@ C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\bin\D
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\bin\Debug\net9.0\FiscalOS.Runtime.dll
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\bin\Debug\net9.0\FiscalOS.Core.pdb
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\bin\Debug\net9.0\FiscalOS.Runtime.pdb
+C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.csproj.AssemblyReference.cache
+C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.AssemblyInfoInputs.cache
+C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.AssemblyInfo.cs
+C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.csproj.CoreCompileInputs.cache
+C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.sourcelink.json
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.E74A369E.Up2Date
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.dll
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\refint\FiscalOS.VerticalSliceTests.dll
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.pdb
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.genruntimeconfig.cache
 C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\ref\FiscalOS.VerticalSliceTests.dll
-C:\Users\conta\OneDrive\Desktop\FiscalOS\tests\FiscalOS.VerticalSliceTests\obj\Debug\net9.0\FiscalOS.VerticalSliceTests.sourcelink.json
