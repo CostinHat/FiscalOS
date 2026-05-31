@@ -2,7 +2,7 @@ namespace FiscalOS.LegalKnowledge;
 
 public sealed class LegalSourceRepository
 {
-    private readonly List<LegalSource> _sources = new();
+    private readonly List<LegalSource> _sources = [];
 
     public void Add(LegalSource source)
     {
