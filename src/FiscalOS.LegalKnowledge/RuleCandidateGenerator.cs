@@ -14,4 +14,13 @@ public sealed class RuleCandidateGenerator
             Conclusion = string.Empty
         };
     }
+
+    public IReadOnlyCollection<RuleCandidate> GenerateFromFragments(
+        IReadOnlyCollection<LegalFragment> fragments)
+    {
+        return fragments
+            .Select(GenerateFromFragment)
+            .ToList()
+            .AsReadOnly();
+    }
 }

@@ -8,9 +8,12 @@ public sealed class FiscalRuleFactory
         {
             Id = Guid.NewGuid(),
             Name = candidate.Name,
+            Version = "1.0",
+            EffectiveFrom = DateOnly.FromDateTime(DateTime.Today),
+            EffectiveTo = null,
             ConditionExpression = candidate.ConditionExpression,
             Conclusion = candidate.Conclusion,
-            Version = "1.0"
+            LegalReference = candidate.FragmentId.ToString()
         };
     }
 }
