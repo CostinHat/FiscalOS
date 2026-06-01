@@ -38,10 +38,14 @@ public sealed class ClassificationEngine
         ? $"Executed {rules.Count} rule(s). No winning rule."
         : $"Executed {rules.Count} rule(s). Winning rule: {winningEvaluation.RuleId}.");
 
+        var legalBasis = DecisionLegalBasis.Resolve(
+    winningEvaluation?.Citations ?? []);
+
         var decision = new ClassificationDecision(
     Result: result,
     WinningRuleId: winningEvaluation?.RuleId,
-    RuleResults: evaluations);
+    RuleResults: evaluations,
+    LegalBasis: legalBasis);
         return Task.FromResult(decision);
     }
 }

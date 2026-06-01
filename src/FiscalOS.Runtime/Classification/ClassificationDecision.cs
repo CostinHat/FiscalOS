@@ -5,4 +5,8 @@ namespace FiscalOS.Runtime.Classification;
 public sealed record ClassificationDecision(
     ClassificationResult Result,
     string? WinningRuleId,
-    IReadOnlyList<Evaluation.RuleEvaluationResult> RuleResults);
+    IReadOnlyList<Evaluation.RuleEvaluationResult> RuleResults,
+    DecisionLegalBasis LegalBasis)
+{
+    public bool HasUnresolvedLegalConflict => LegalBasis.IsUnresolved;
+}
