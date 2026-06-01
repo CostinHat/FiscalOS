@@ -6,10 +6,7 @@ public sealed class EvaluationEngine : IEvaluationEngine
         EvaluationContext context,
         CancellationToken cancellationToken = default)
     {
-        var result = new EvaluationResult(
-            IsCompliant: true,
-            RuleResults: Array.Empty<RuleEvaluationResult>());
-
-        return Task.FromResult(result);
+        return Task.FromResult(
+            new EvaluationResult(Array.Empty<RuleEvaluationResult>()));
     }
 }
