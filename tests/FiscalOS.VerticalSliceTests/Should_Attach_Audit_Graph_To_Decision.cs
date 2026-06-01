@@ -51,8 +51,8 @@ public sealed class Should_Attach_Audit_Graph_To_Decision
 
         var decision = await engine.ClassifyAsync(new FiscalSubject());
 
-        Assert.NotNull(decision.AuditGraph);
-        var decisionNode = decision.AuditGraph.NodeById("decision");
+        Assert.NotNull(decision.Explanation.AuditGraph);
+        var decisionNode = decision.Explanation.AuditGraph.NodeById("decision");
         Assert.NotNull(decisionNode);
         Assert.Equal(AuditNodeType.Decision, decisionNode!.Type);
         Assert.Equal("StubCategory", decisionNode.Description);
@@ -67,15 +67,15 @@ public sealed class Should_Attach_Audit_Graph_To_Decision
 
         var decision = await engine.ClassifyAsync(new FiscalSubject());
 
-        Assert.Equal(2, decision.AuditGraph.NodesOfType(AuditNodeType.Rule).Count);
+        Assert.Equal(2, decision.Explanation.AuditGraph.NodesOfType(AuditNodeType.Rule).Count);
 
-        var winnerEdge = Assert.Single(decision.AuditGraph.EdgesFrom("rule:WINNER"));
+        var winnerEdge = Assert.Single(decision.Explanation.AuditGraph.EdgesFrom("rule:WINNER"));
         Assert.Equal("decision", winnerEdge.ToNodeId);
         Assert.Equal(AuditEdgeType.Produces, winnerEdge.Type);
 
         // The non-winning rule is recorded as a node but is not linked to the decision.
-        Assert.NotNull(decision.AuditGraph.NodeById("rule:LOSER"));
-        Assert.Empty(decision.AuditGraph.EdgesFrom("rule:LOSER"));
+        Assert.NotNull(decision.Explanation.AuditGraph.NodeById("rule:LOSER"));
+        Assert.Empty(decision.Explanation.AuditGraph.EdgesFrom("rule:LOSER"));
     }
 
     [Fact]
@@ -86,12 +86,12 @@ public sealed class Should_Attach_Audit_Graph_To_Decision
 
         var decision = await engine.ClassifyAsync(new FiscalSubject());
 
-        var conflict = decision.AuditGraph.NodeById("conflict");
+        var conflict = decision.Explanation.AuditGraph.NodeById("conflict");
         Assert.NotNull(conflict);
         Assert.Equal(AuditNodeType.ConflictResolution, conflict!.Type);
         Assert.Contains("Resolved", conflict.Description);
 
-        var justifies = Assert.Single(decision.AuditGraph.EdgesFrom("conflict"));
+        var justifies = Assert.Single(decision.Explanation.AuditGraph.EdgesFrom("conflict"));
         Assert.Equal("decision", justifies.ToNodeId);
         Assert.Equal(AuditEdgeType.Justifies, justifies.Type);
     }
@@ -105,8 +105,8 @@ public sealed class Should_Attach_Audit_Graph_To_Decision
 
         var decision = await engine.ClassifyAsync(new FiscalSubject());
 
-        Assert.True(decision.HasUnresolvedLegalConflict);
-        Assert.Contains("Unresolved", decision.AuditGraph.NodeById("conflict")!.Description);
+        Assert.True(decision.Explanation.HasUnresolvedLegalConflict);
+        Assert.Contains("Unresolved", decision.Explanation.AuditGraph.NodeById("conflict")!.Description);
         Assert.Equal("StubCategory", decision.Result.Category);
     }
 
@@ -119,8 +119,8 @@ public sealed class Should_Attach_Audit_Graph_To_Decision
         var decision = await engine.ClassifyAsync(eligible);
 
         Assert.Equal("MICROENTERPRISE_ELIGIBILITY", decision.WinningRuleId);
-        Assert.Null(decision.AuditGraph.NodeById("conflict"));
-        Assert.Empty(decision.AuditGraph.NodesOfType(AuditNodeType.ConflictResolution));
+        Assert.Null(decision.Explanation.AuditGraph.NodeById("conflict"));
+        Assert.Empty(decision.Explanation.AuditGraph.NodesOfType(AuditNodeType.ConflictResolution));
     }
 
     [Fact]
@@ -132,9 +132,9 @@ public sealed class Should_Attach_Audit_Graph_To_Decision
         var decision = await engine.ClassifyAsync(ineligible);
 
         Assert.Null(decision.WinningRuleId);
-        Assert.Equal("Unclassified", decision.AuditGraph.NodeById("decision")!.Description);
-        Assert.Null(decision.AuditGraph.NodeById("conflict"));
-        Assert.Single(decision.AuditGraph.NodesOfType(AuditNodeType.Rule));
+        Assert.Equal("Unclassified", decision.Explanation.AuditGraph.NodeById("decision")!.Description);
+        Assert.Null(decision.Explanation.AuditGraph.NodeById("conflict"));
+        Assert.Single(decision.Explanation.AuditGraph.NodesOfType(AuditNodeType.Rule));
     }
 
     [Fact]
@@ -159,10 +159,10 @@ public sealed class Should_Attach_Audit_Graph_To_Decision
         var second = await MakeEngine().ClassifyAsync(new FiscalSubject());
 
         Assert.Equal(
-            first.AuditGraph.Nodes.Select(n => (n.Id, n.Type, n.Description)),
-            second.AuditGraph.Nodes.Select(n => (n.Id, n.Type, n.Description)));
+            first.Explanation.AuditGraph.Nodes.Select(n => (n.Id, n.Type, n.Description)),
+            second.Explanation.AuditGraph.Nodes.Select(n => (n.Id, n.Type, n.Description)));
         Assert.Equal(
-            first.AuditGraph.Edges.Select(e => (e.FromNodeId, e.ToNodeId, e.Type)),
-            second.AuditGraph.Edges.Select(e => (e.FromNodeId, e.ToNodeId, e.Type)));
+            first.Explanation.AuditGraph.Edges.Select(e => (e.FromNodeId, e.ToNodeId, e.Type)),
+            second.Explanation.AuditGraph.Edges.Select(e => (e.FromNodeId, e.ToNodeId, e.Type)));
     }
 }

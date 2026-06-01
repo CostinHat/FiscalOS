@@ -47,12 +47,13 @@ public sealed class ClassificationEngine
     result,
     legalBasis);
 
+        var explanation = new DecisionExplanation(legalBasis, auditGraph);
+
         var decision = new ClassificationDecision(
     Result: result,
     WinningRuleId: winningEvaluation?.RuleId,
     RuleResults: evaluations,
-    LegalBasis: legalBasis,
-    AuditGraph: auditGraph);
+    Explanation: explanation);
         return Task.FromResult(decision);
     }
 }

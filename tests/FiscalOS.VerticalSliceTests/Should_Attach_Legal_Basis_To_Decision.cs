@@ -44,10 +44,10 @@ public sealed class Should_Attach_Legal_Basis_To_Decision
 
         var decision = await engine.ClassifyAsync(new FiscalSubject());
 
-        Assert.True(decision.LegalBasis.IsResolved);
-        Assert.False(decision.HasUnresolvedLegalConflict);
-        Assert.Equal(new[] { citation }, decision.LegalBasis.ConsideredCitations);
-        Assert.Equal(new[] { citation }, decision.LegalBasis.GoverningCitations);
+        Assert.True(decision.Explanation.LegalBasis.IsResolved);
+        Assert.False(decision.Explanation.HasUnresolvedLegalConflict);
+        Assert.Equal(new[] { citation }, decision.Explanation.LegalBasis.ConsideredCitations);
+        Assert.Equal(new[] { citation }, decision.Explanation.LegalBasis.GoverningCitations);
     }
 
     [Fact]
@@ -59,8 +59,8 @@ public sealed class Should_Attach_Legal_Basis_To_Decision
 
         var decision = await engine.ClassifyAsync(new FiscalSubject());
 
-        Assert.True(decision.LegalBasis.IsResolved);
-        Assert.Equal(new[] { law }, decision.LegalBasis.GoverningCitations);
+        Assert.True(decision.Explanation.LegalBasis.IsResolved);
+        Assert.Equal(new[] { law }, decision.Explanation.LegalBasis.GoverningCitations);
     }
 
     [Fact]
@@ -72,9 +72,9 @@ public sealed class Should_Attach_Legal_Basis_To_Decision
 
         var decision = await engine.ClassifyAsync(new FiscalSubject());
 
-        Assert.True(decision.HasUnresolvedLegalConflict);
-        Assert.True(decision.LegalBasis.IsUnresolved);
-        Assert.Equal(new[] { a, b }, decision.LegalBasis.GoverningCitations);
+        Assert.True(decision.Explanation.HasUnresolvedLegalConflict);
+        Assert.True(decision.Explanation.LegalBasis.IsUnresolved);
+        Assert.Equal(new[] { a, b }, decision.Explanation.LegalBasis.GoverningCitations);
         Assert.Equal("StubCategory", decision.Result.Category);
     }
 
@@ -87,8 +87,8 @@ public sealed class Should_Attach_Legal_Basis_To_Decision
         var decision = await engine.ClassifyAsync(ineligible);
 
         Assert.Null(decision.WinningRuleId);
-        Assert.True(decision.LegalBasis.IsEmpty);
-        Assert.False(decision.HasUnresolvedLegalConflict);
+        Assert.True(decision.Explanation.LegalBasis.IsEmpty);
+        Assert.False(decision.Explanation.HasUnresolvedLegalConflict);
     }
 
     [Fact]
@@ -100,7 +100,7 @@ public sealed class Should_Attach_Legal_Basis_To_Decision
         var decision = await engine.ClassifyAsync(eligible);
 
         Assert.Equal("MICROENTERPRISE_ELIGIBILITY", decision.WinningRuleId);
-        Assert.True(decision.LegalBasis.IsEmpty);
+        Assert.True(decision.Explanation.LegalBasis.IsEmpty);
     }
 
     [Fact]
