@@ -14,5 +14,11 @@ public sealed class FiscalSubject
 
     public string RegistrationNumber { get; init; } = string.Empty;
 
+    public FiscalPeriod ActivePeriod { get; init; }
+    = new(DateOnly.FromDateTime(DateTime.UtcNow),
+          DateOnly.FromDateTime(DateTime.UtcNow.AddYears(1)));
+
     public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
+    
+    public FiscalPeriod? CurrentFiscalPeriod { get; init; }
 }
