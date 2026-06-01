@@ -1,4 +1,5 @@
 using System.Linq;
+using FiscalOS.Core;
 using FiscalOS.Core.Classification;
 
 namespace FiscalOS.Runtime.Classification;
@@ -14,6 +15,7 @@ public sealed class ClassificationEngine
     }
 
     public Task<ClassificationResult> ClassifyAsync(
+        FiscalSubject subject,
         CancellationToken cancellationToken = default)
     {
         var rules = _ruleRegistry
@@ -24,14 +26,14 @@ public sealed class ClassificationEngine
         var evaluations = rules
     .Select(rule => rule.Evaluate(
         new ClassificationContext(
-            new object())))
+            subject)))
     .ToList();
 
         var winningEvaluation = evaluations
     .FirstOrDefault(evaluation => evaluation.Passed);
 
         var result = new ClassificationResult(
-    Category: "Unclassified",
+    Category: winningEvaluation?.Category ?? "Unclassified",
     Explanation: winningEvaluation is null
         ? $"Executed {rules.Count} rule(s). No winning rule."
         : $"Executed {rules.Count} rule(s). Winning rule: {winningEvaluation.RuleId}.");
