@@ -8,7 +8,7 @@ namespace FiscalOS.VerticalSliceTests;
 public sealed class Should_Resolve_Lex_Superior
 {
     private static LegalCitation Citation(LegalSourceType sourceType, string article) =>
-        new(sourceType, "Legea 227/2015", article);
+        new(sourceType, "Legea 227/2015", article, SpecificityLevel.General);
 
     [Fact]
     public void Higher_authority_eliminates_lower_authority()
