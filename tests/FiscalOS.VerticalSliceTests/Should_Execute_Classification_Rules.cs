@@ -21,7 +21,7 @@ public sealed class Should_Execute_Classification_Rules
         var result = await engine.ClassifyAsync();
 
         Assert.Equal(
-            "Executed 1 rule(s).",
-            result.Explanation);
+    "Executed 1 rule(s). Winning rule: ALWAYS_PASS.",
+    result.Explanation);
     }
 }

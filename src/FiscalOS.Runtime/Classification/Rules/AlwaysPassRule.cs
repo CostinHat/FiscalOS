@@ -9,6 +9,8 @@ public sealed class AlwaysPassRule : ClassificationRule
     public string Description =>
         "Temporary rule used for pipeline validation.";
 
+        public int Priority => 0;
+
     public RuleEvaluationResult Evaluate(
         ClassificationContext context)
     {

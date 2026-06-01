@@ -7,6 +7,8 @@ public interface ClassificationRule
 
     string Description { get; }
 
+    int Priority { get; }
+
     RuleEvaluationResult Evaluate(
         ClassificationContext context
     );

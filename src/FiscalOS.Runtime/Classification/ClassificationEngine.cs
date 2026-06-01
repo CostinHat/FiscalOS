@@ -1,3 +1,4 @@
+using System.Linq;
 using FiscalOS.Core.Classification;
 
 namespace FiscalOS.Runtime.Classification;
@@ -15,19 +16,25 @@ public sealed class ClassificationEngine
     public Task<ClassificationResult> ClassifyAsync(
         CancellationToken cancellationToken = default)
     {
-        var rules = _ruleRegistry.GetRules();
+        var rules = _ruleRegistry
+    .GetRules()
+    .OrderByDescending(rule => rule.Priority)
+    .ToList();
 
-        foreach (var rule in rules)
-        {
-            rule.Evaluate(
-                new ClassificationContext(
-                    new object()));
-        }
+        var evaluations = rules
+    .Select(rule => rule.Evaluate(
+        new ClassificationContext(
+            new object())))
+    .ToList();
+
+        var winningEvaluation = evaluations
+    .FirstOrDefault(evaluation => evaluation.Passed);
 
         var result = new ClassificationResult(
-            Category: "Unclassified",
-            Explanation: $"Executed {rules.Count} rule(s).");
-
+    Category: "Unclassified",
+    Explanation: winningEvaluation is null
+        ? $"Executed {rules.Count} rule(s). No winning rule."
+        : $"Executed {rules.Count} rule(s). Winning rule: {winningEvaluation.RuleId}.");
         return Task.FromResult(result);
     }
 }
