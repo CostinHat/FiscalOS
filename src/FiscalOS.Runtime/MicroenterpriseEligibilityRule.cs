@@ -1,3 +1,4 @@
+
 using FiscalOS.Core;
 
 namespace FiscalOS.Runtime;
@@ -28,8 +29,15 @@ public sealed class MicroenterpriseEligibilityRule
             return new EvaluationResult([assertion], explanation);
         }
 
-        return new EvaluationResult([], new Explanation(
-            "MICROENTERPRISE_ELIGIBLE was not produced because at least one condition failed.",
-            evidence));
+        return new EvaluationResult(
+            [],
+            new Explanation(
+                "MICROENTERPRISE_ELIGIBLE was not produced because at least one condition failed.",
+                evidence));
+    }
+
+    public EvaluationResult Evaluate(FiscalSubject subject)
+    {
+        return Evaluate(subject.Revenue, subject.EmployeeCount);
     }
 }

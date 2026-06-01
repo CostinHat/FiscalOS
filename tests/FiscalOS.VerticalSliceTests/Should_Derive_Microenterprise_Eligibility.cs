@@ -1,5 +1,6 @@
 using Xunit;
 using FiscalOS.Runtime;
+using FiscalOS.Core;
 
 namespace FiscalOS.VerticalSliceTests;
 
@@ -11,7 +12,17 @@ public sealed class Should_Derive_Microenterprise_Eligibility
         var revenue = 320_000m;
         var employeeCount = 3;
 
-        var result = EvaluationEngine.Evaluate(revenue, employeeCount);
+        var subject = new FiscalSubject
+{
+    FiscalCode = new FiscalCode("TEST"),
+    Name = "Test Company",
+    Revenue = revenue,
+    EmployeeCount = employeeCount,
+    TaxIdentificationNumber = new TaxIdentificationNumber("12345678")
+};
+var rule = new MicroenterpriseEligibilityRule();
+
+var result = rule.Evaluate(subject);
 
         Assert.True(result.HasAssertion("MICROENTERPRISE_ELIGIBLE", true));
         Assert.NotNull(result.Explanation);
