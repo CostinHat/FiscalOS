@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FiscalOS.Core\FiscalOS.Core.csproj" />
-  </ItemGroup>
+  <ProjectReference Include="..\FiscalOS.Core\FiscalOS.Core.csproj" />
+  <ProjectReference Include="..\FiscalOS.LegalKnowledge\FiscalOS.LegalKnowledge.csproj" />
+</ItemGroup>
 </Project>
