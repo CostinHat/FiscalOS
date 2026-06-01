@@ -41,11 +41,18 @@ public sealed class ClassificationEngine
         var legalBasis = DecisionLegalBasis.Resolve(
     winningEvaluation?.Citations ?? []);
 
+        var auditGraph = DecisionAuditGraphBuilder.Build(
+    evaluations,
+    winningEvaluation,
+    result,
+    legalBasis);
+
         var decision = new ClassificationDecision(
     Result: result,
     WinningRuleId: winningEvaluation?.RuleId,
     RuleResults: evaluations,
-    LegalBasis: legalBasis);
+    LegalBasis: legalBasis,
+    AuditGraph: auditGraph);
         return Task.FromResult(decision);
     }
 }
