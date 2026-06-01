@@ -7,7 +7,7 @@ namespace FiscalOS.VerticalSliceTests;
 public sealed class Should_Resolve_Citation_Authority
 {
     private static LegalCitation Citation(LegalSourceType sourceType) =>
-        new(sourceType, "Legea 227/2015", "Art. 47", SpecificityLevel.General);
+        new(sourceType, "Legea 227/2015", "Art. 47", SpecificityLevel.General, new DateOnly(2020, 1, 1));
 
     [Theory]
     [InlineData(LegalSourceType.Law, SourceAuthorityLevel.Statutory)]
