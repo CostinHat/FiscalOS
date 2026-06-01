@@ -19,10 +19,10 @@ public sealed class Should_Execute_Classification_Rules
         var engine = new ClassificationEngine(
             registry);
 
-        var result = await engine.ClassifyAsync(new FiscalSubject());
+        var decision = await engine.ClassifyAsync(new FiscalSubject());
 
         Assert.Equal(
     "Executed 1 rule(s). Winning rule: ALWAYS_PASS.",
-    result.Explanation);
+    decision.Result.Explanation);
     }
 }

@@ -14,7 +14,7 @@ public sealed class ClassificationEngine
         _ruleRegistry = ruleRegistry;
     }
 
-    public Task<ClassificationResult> ClassifyAsync(
+    public Task<ClassificationDecision> ClassifyAsync(
         FiscalSubject subject,
         CancellationToken cancellationToken = default)
     {
@@ -37,6 +37,11 @@ public sealed class ClassificationEngine
     Explanation: winningEvaluation is null
         ? $"Executed {rules.Count} rule(s). No winning rule."
         : $"Executed {rules.Count} rule(s). Winning rule: {winningEvaluation.RuleId}.");
-        return Task.FromResult(result);
+
+        var decision = new ClassificationDecision(
+    Result: result,
+    WinningRuleId: winningEvaluation?.RuleId,
+    RuleResults: evaluations);
+        return Task.FromResult(decision);
     }
 }

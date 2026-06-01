@@ -65,10 +65,10 @@ public sealed class Should_Classify_Microenterprise
 
         var engine = new ClassificationEngine(registry);
 
-        var result = await engine.ClassifyAsync(Subject(320_000m, 3));
+        var decision = await engine.ClassifyAsync(Subject(320_000m, 3));
 
-        Assert.Equal("Microenterprise", result.Category);
-        Assert.Contains("MICROENTERPRISE_ELIGIBILITY", result.Explanation);
+        Assert.Equal("Microenterprise", decision.Result.Category);
+        Assert.Contains("MICROENTERPRISE_ELIGIBILITY", decision.Result.Explanation);
     }
 
     [Fact]
@@ -82,9 +82,9 @@ public sealed class Should_Classify_Microenterprise
 
         var engine = new ClassificationEngine(registry);
 
-        var result = await engine.ClassifyAsync(Subject(600_000m, 3));
+        var decision = await engine.ClassifyAsync(Subject(600_000m, 3));
 
-        Assert.Equal("Unclassified", result.Category);
+        Assert.Equal("Unclassified", decision.Result.Category);
     }
 
     [Fact]
@@ -99,8 +99,8 @@ public sealed class Should_Classify_Microenterprise
 
         var engine = new ClassificationEngine(registry);
 
-        var result = await engine.ClassifyAsync(Subject(320_000m, 3));
+        var decision = await engine.ClassifyAsync(Subject(320_000m, 3));
 
-        Assert.Equal("Microenterprise", result.Category);
+        Assert.Equal("Microenterprise", decision.Result.Category);
     }
 }
