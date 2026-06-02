@@ -64,13 +64,11 @@ public sealed class Should_Project_Explanation_Narrative
     [Fact]
     public async Task Empty_basis_narrative_states_no_legal_basis()
     {
-        var eligible = new FiscalSubject { Revenue = 320_000m, EmployeeCount = 3 };
-
         var narrative = await ProjectFor(
-            Engine(new MicroenterpriseClassificationRule()),
-            eligible);
+            Engine(new CitingStubRule()),
+            new FiscalSubject());
 
-        Assert.Contains("Decision: Microenterprise.", narrative.Text);
+        Assert.Contains("Decision: StubCategory.", narrative.Text);
         Assert.Contains("Legal basis: none established.", narrative.Text);
     }
 
@@ -96,8 +94,8 @@ public sealed class Should_Project_Explanation_Narrative
         Assert.Contains("Provenance: 1 rule(s) evaluated, conflict resolution applied.", withConflict.Text);
 
         var noConflict = await ProjectFor(
-            Engine(new MicroenterpriseClassificationRule()),
-            new FiscalSubject { Revenue = 320_000m, EmployeeCount = 3 });
+            Engine(new CitingStubRule()),
+            new FiscalSubject());
         Assert.Contains("Provenance: 1 rule(s) evaluated.", noConflict.Text);
     }
 

@@ -1,4 +1,5 @@
 using FiscalOS.Core;
+using FiscalOS.LegalKnowledge;
 using FiscalOS.Runtime.Classification;
 using FiscalOS.Runtime.Classification.Rules;
 using Xunit;
@@ -102,5 +103,43 @@ public sealed class Should_Classify_Microenterprise
         var decision = await engine.ClassifyAsync(Subject(320_000m, 3));
 
         Assert.Equal("Microenterprise", decision.Result.Category);
+    }
+
+    [Fact]
+    public void Eligible_subject_emits_the_curated_governing_citation()
+    {
+        var rule = new MicroenterpriseClassificationRule();
+
+        var result = rule.Evaluate(new ClassificationContext(Subject(320_000m, 3)));
+
+        var citation = Assert.Single(result.Citations);
+        Assert.Equal(LegalSourceType.FiscalCode, citation.SourceType);
+        Assert.Equal("Legea 227/2015", citation.SourceReference);
+        Assert.Equal("Art. 47", citation.Article);
+        Assert.Equal("RO", citation.Jurisdiction.Value);
+    }
+
+    [Fact]
+    public void Ineligible_subject_emits_no_citation()
+    {
+        var rule = new MicroenterpriseClassificationRule();
+
+        var result = rule.Evaluate(new ClassificationContext(Subject(600_000m, 3)));
+
+        Assert.Empty(result.Citations);
+    }
+
+    [Fact]
+    public async Task Engine_surfaces_the_curated_citation_as_governing_legal_basis()
+    {
+        var registry = new DefaultRuleRegistry(
+            new ClassificationRule[] { new MicroenterpriseClassificationRule() });
+        var engine = new ClassificationEngine(registry);
+
+        var decision = await engine.ClassifyAsync(Subject(320_000m, 3));
+
+        var citation = Assert.Single(decision.Explanation.LegalBasis.GoverningCitations);
+        Assert.Equal("Art. 47", citation.Article);
+        Assert.Equal("RO", citation.Jurisdiction.Value);
     }
 }

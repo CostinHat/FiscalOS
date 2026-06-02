@@ -94,12 +94,11 @@ public sealed class Should_Attach_Legal_Basis_To_Decision
     [Fact]
     public async Task Winning_rule_without_citations_yields_an_empty_legal_basis()
     {
-        var eligible = new FiscalSubject { Revenue = 320_000m, EmployeeCount = 3 };
-        var engine = Engine(new MicroenterpriseClassificationRule());
+        var engine = Engine(new CitingStubRule());
 
-        var decision = await engine.ClassifyAsync(eligible);
+        var decision = await engine.ClassifyAsync(new FiscalSubject());
 
-        Assert.Equal("MICROENTERPRISE_ELIGIBILITY", decision.WinningRuleId);
+        Assert.Equal("STUB_RULE", decision.WinningRuleId);
         Assert.True(decision.Explanation.LegalBasis.IsEmpty);
     }
 

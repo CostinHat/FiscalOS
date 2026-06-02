@@ -93,10 +93,7 @@ public sealed class Should_Project_Classification_To_Knowledge_Model
     [Fact]
     public async Task Empty_legal_basis_yields_only_a_decision_node()
     {
-        var eligible = new FiscalSubject { Revenue = 320_000m, EmployeeCount = 3 };
-        var engine = new ClassificationEngine(
-            new DefaultRuleRegistry(new ClassificationRule[] { new MicroenterpriseClassificationRule() }));
-        var decision = await engine.ClassifyAsync(eligible);
+        var decision = await DecisionWith();
 
         var projection = new DefaultKnowledgeProjector().Project(decision);
 

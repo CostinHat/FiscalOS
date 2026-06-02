@@ -73,10 +73,9 @@ public sealed class Should_Explain_A_Decision
     [Fact]
     public async Task Explanation_reports_no_legal_basis_when_winner_has_no_citations()
     {
-        var eligible = new FiscalSubject { Revenue = 320_000m, EmployeeCount = 3 };
-        var engine = Engine(new MicroenterpriseClassificationRule());
+        var engine = Engine(new CitingStubRule());
 
-        var decision = await engine.ClassifyAsync(eligible);
+        var decision = await engine.ClassifyAsync(new FiscalSubject());
 
         Assert.False(decision.Explanation.HasLegalBasis);
         Assert.False(decision.Explanation.HasUnresolvedLegalConflict);

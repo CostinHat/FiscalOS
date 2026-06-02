@@ -113,12 +113,11 @@ public sealed class Should_Attach_Audit_Graph_To_Decision
     [Fact]
     public async Task Winning_rule_without_citations_has_no_conflict_node()
     {
-        var eligible = new FiscalSubject { Revenue = 320_000m, EmployeeCount = 3 };
-        var engine = Engine(new MicroenterpriseClassificationRule());
+        var engine = Engine(new StubRule("R1", 100, passes: true));
 
-        var decision = await engine.ClassifyAsync(eligible);
+        var decision = await engine.ClassifyAsync(new FiscalSubject());
 
-        Assert.Equal("MICROENTERPRISE_ELIGIBILITY", decision.WinningRuleId);
+        Assert.Equal("R1", decision.WinningRuleId);
         Assert.Null(decision.Explanation.AuditGraph.NodeById("conflict"));
         Assert.Empty(decision.Explanation.AuditGraph.NodesOfType(AuditNodeType.ConflictResolution));
     }
