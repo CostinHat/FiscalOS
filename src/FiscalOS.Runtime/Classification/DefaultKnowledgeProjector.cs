@@ -25,7 +25,7 @@ public sealed class DefaultKnowledgeProjector : IKnowledgeProjector
 
             nodes.Add(new ExplanationNode(
                 citationNodeId,
-                $"{citation.SourceType} {citation.SourceReference} {citation.Article}",
+                $"{citation.SourceType} {citation.SourceReference} {citation.Article} ({citation.Jurisdiction.Value})",
                 "LegalBasis"));
             edges.Add(new ExplanationEdge(DecisionNodeId, citationNodeId, "based-on"));
         }

@@ -58,7 +58,7 @@ public sealed class Should_Project_Classification_To_Knowledge_Model
 
         var citationNode = Assert.Single(projection.Nodes, n => n.Id == "citation:0");
         Assert.Equal("LegalBasis", citationNode.Type);
-        Assert.Equal("Law Legea 227/2015 Art. 1", citationNode.Label);
+        Assert.Equal("Law Legea 227/2015 Art. 1 (RO)", citationNode.Label);
 
         var edge = Assert.Single(projection.Edges);
         Assert.Equal("decision", edge.FromNodeId);
