@@ -16,7 +16,7 @@ public sealed class Should_Attach_Audit_Graph_To_Decision
         SpecificityLevel specificity,
         DateOnly effectiveDate,
         string article) =>
-        new(sourceType, "Legea 227/2015", article, specificity, effectiveDate);
+        new(sourceType, "Legea 227/2015", article, specificity, effectiveDate, new JurisdictionId("RO"));
 
     private static ClassificationEngine Engine(params ClassificationRule[] rules) =>
         new(new DefaultRuleRegistry(rules));

@@ -8,7 +8,7 @@ namespace FiscalOS.VerticalSliceTests;
 public sealed class Should_Resolve_Lex_Specialis
 {
     private static LegalCitation Citation(SpecificityLevel specificity, string article) =>
-        new(LegalSourceType.Law, "Legea 227/2015", article, specificity, new DateOnly(2020, 1, 1));
+        new(LegalSourceType.Law, "Legea 227/2015", article, specificity, new DateOnly(2020, 1, 1), new JurisdictionId("RO"));
 
     [Fact]
     public void More_specific_eliminates_more_general()

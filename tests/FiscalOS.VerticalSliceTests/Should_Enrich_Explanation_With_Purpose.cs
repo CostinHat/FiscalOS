@@ -12,7 +12,7 @@ namespace FiscalOS.VerticalSliceTests;
 public sealed class Should_Enrich_Explanation_With_Purpose
 {
     private static LegalCitation Citation(string article) =>
-        new(LegalSourceType.Law, "Legea 227/2015", article, SpecificityLevel.Specific, new DateOnly(2024, 1, 1));
+        new(LegalSourceType.Law, "Legea 227/2015", article, SpecificityLevel.Specific, new DateOnly(2024, 1, 1), new JurisdictionId("RO"));
 
     private sealed class CitingStubRule : ClassificationRule
     {

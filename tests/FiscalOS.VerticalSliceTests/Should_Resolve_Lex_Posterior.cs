@@ -7,7 +7,7 @@ namespace FiscalOS.VerticalSliceTests;
 public sealed class Should_Resolve_Lex_Posterior
 {
     private static LegalCitation Citation(DateOnly effectiveDate, string article) =>
-        new(LegalSourceType.Law, "Legea 227/2015", article, SpecificityLevel.General, effectiveDate);
+        new(LegalSourceType.Law, "Legea 227/2015", article, SpecificityLevel.General, effectiveDate, new JurisdictionId("RO"));
 
     [Fact]
     public void Later_date_eliminates_earlier_date()

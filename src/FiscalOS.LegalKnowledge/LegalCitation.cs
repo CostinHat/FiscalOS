@@ -5,4 +5,5 @@ public sealed record LegalCitation(
     string SourceReference,
     string Article,
     SpecificityLevel Specificity,
-    DateOnly EffectiveDate);
+    DateOnly EffectiveDate,
+    JurisdictionId Jurisdiction);

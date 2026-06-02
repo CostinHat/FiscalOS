@@ -7,7 +7,7 @@ namespace FiscalOS.VerticalSliceTests;
 public sealed class Should_Describe_Purpose_Graph
 {
     private static LegalCitation Citation(string article) =>
-        new(LegalSourceType.Law, "Legea 227/2015", article, SpecificityLevel.Specific, new DateOnly(2024, 1, 1));
+        new(LegalSourceType.Law, "Legea 227/2015", article, SpecificityLevel.Specific, new DateOnly(2024, 1, 1), new JurisdictionId("RO"));
 
     private static PurposeNode Norm(string id, string article) =>
         new(id, PurposeNodeType.Norm, $"Norm {id}", Citation(article));

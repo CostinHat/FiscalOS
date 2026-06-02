@@ -11,7 +11,7 @@ public sealed class Should_Resolve_Conflicts
         SpecificityLevel specificity,
         DateOnly effectiveDate,
         string article) =>
-        new(sourceType, "Legea 227/2015", article, specificity, effectiveDate);
+        new(sourceType, "Legea 227/2015", article, specificity, effectiveDate, new JurisdictionId("RO"));
 
     [Fact]
     public void Authority_dominates_specificity_and_recency()

@@ -15,7 +15,7 @@ public sealed class Should_Attach_Legal_Basis_To_Decision
         SpecificityLevel specificity,
         DateOnly effectiveDate,
         string article) =>
-        new(sourceType, "Legea 227/2015", article, specificity, effectiveDate);
+        new(sourceType, "Legea 227/2015", article, specificity, effectiveDate, new JurisdictionId("RO"));
 
     private static ClassificationEngine Engine(params ClassificationRule[] rules) =>
         new(new DefaultRuleRegistry(rules));
@@ -111,5 +111,17 @@ public sealed class Should_Attach_Legal_Basis_To_Decision
 
         await Assert.ThrowsAsync<ArgumentOutOfRangeException>(
             () => engine.ClassifyAsync(new FiscalSubject()));
+    }
+
+    [Fact]
+    public async Task Governing_citations_preserve_jurisdiction()
+    {
+        var citation = Citation(LegalSourceType.Law, SpecificityLevel.Specific, new DateOnly(2024, 1, 1), "Art. 1");
+        var engine = Engine(new CitingStubRule(citation));
+
+        var decision = await engine.ClassifyAsync(new FiscalSubject());
+
+        var governing = Assert.Single(decision.Explanation.LegalBasis.GoverningCitations);
+        Assert.Equal("RO", governing.Jurisdiction.Value);
     }
 }
