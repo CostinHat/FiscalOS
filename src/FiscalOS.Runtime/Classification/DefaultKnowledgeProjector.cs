@@ -1,29 +1,37 @@
+using System.Collections.Generic;
 using FiscalOS.Core.Classification;
 
 namespace FiscalOS.Runtime.Classification;
 
 public sealed class DefaultKnowledgeProjector : IKnowledgeProjector
 {
-    private const string DecisionAtomId = "decision";
-    private const string PurposeAtomId = "purpose";
+    private const string DecisionNodeId = "decision";
 
-    public KnowledgeProjectionResult Project(ClassificationResult result)
+    public KnowledgeProjectionResult Project(ClassificationDecision decision)
     {
-        ArgumentNullException.ThrowIfNull(result);
+        ArgumentNullException.ThrowIfNull(decision);
 
-        var decisionAtom = new ExplanationNode(DecisionAtomId, result.Category, "Decision");
-        var purposeAtom = new ExplanationNode(PurposeAtomId, result.Explanation, "Purpose");
-        var link = new ExplanationEdge(DecisionAtomId, PurposeAtomId, "explained-by");
-
-        var narrative = new ExplanationNarrative(new[]
+        var nodes = new List<ExplanationNode>
         {
-            $"Decision: {result.Category}.",
-            $"Purpose: {result.Explanation}."
-        });
+            new(DecisionNodeId, decision.Result.Category, "Decision")
+        };
+        var edges = new List<ExplanationEdge>();
 
-        return new KnowledgeProjectionResult(
-            new[] { decisionAtom, purposeAtom },
-            new[] { link },
-            narrative);
+        var governingCitations = decision.Explanation.LegalBasis.GoverningCitations;
+        for (var i = 0; i < governingCitations.Count; i++)
+        {
+            var citation = governingCitations[i];
+            var citationNodeId = $"citation:{i}";
+
+            nodes.Add(new ExplanationNode(
+                citationNodeId,
+                $"{citation.SourceType} {citation.SourceReference} {citation.Article}",
+                "LegalBasis"));
+            edges.Add(new ExplanationEdge(DecisionNodeId, citationNodeId, "based-on"));
+        }
+
+        var narrative = ExplanationNarrativeProjector.Project(decision.Explanation);
+
+        return new KnowledgeProjectionResult(nodes, edges, narrative);
     }
 }
