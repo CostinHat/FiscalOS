@@ -12,9 +12,13 @@ public static class PurposeAwareNarrativeProjector
         var lines = new List<string>(
             ExplanationNarrativeProjector.Project(aware.Explanation).Lines);
 
-        foreach (var reference in aware.GoverningPurposes())
+        foreach (var chain in aware.GoverningPurposeChains())
         {
-            lines.Add($"Purpose: {reference.PurposeNode.Description}.");
+            var rendered = string.Join(
+                " serves ",
+                chain.Nodes.Select(node => $"{node.Kind} \"{node.Description}\""));
+
+            lines.Add($"Purpose chain: {rendered}.");
         }
 
         return new ExplanationNarrative(lines);

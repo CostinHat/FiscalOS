@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using FiscalOS.Core;
 using FiscalOS.LegalKnowledge;
 using FiscalOS.Runtime.Classification;
@@ -40,60 +41,112 @@ public sealed class Should_Project_Purpose_Aware_Narrative
     private static PurposeNode Norm(string id, string description, LegalCitation citation) =>
         new(id, PurposeNodeType.Norm, description, citation);
 
-    [Fact]
-    public async Task Appends_a_purpose_line_per_matching_reference()
-    {
-        var citation = Citation("Art. 1");
-        var explanation = await ExplanationFor(citation);
-        var graph = new PurposeGraph(
-            new[] { Norm("norm", "Encourage small business formation", citation) },
-            Array.Empty<PurposeEdge>());
-        var aware = new PurposeAwareExplanation(explanation, graph);
+    private static PurposeNode Abstract(string id, PurposeNodeType kind, string description) =>
+        new(id, kind, description, null);
 
-        var narrative = PurposeAwareNarrativeProjector.Project(aware);
-
-        Assert.Contains("Purpose: Encourage small business formation.", narrative.Lines);
-        // Base lines are preserved.
-        Assert.Contains("Decision: StubCategory.", narrative.Text);
-        Assert.Contains("resolved to 1 governing citation(s).", narrative.Text);
-    }
+    private static PurposeEdge Serves(string from, string to) =>
+        new(from, to, PurposeRelationType.Serves);
 
     [Fact]
-    public async Task Base_lines_come_first_then_purpose_lines()
-    {
-        var citation = Citation("Art. 1");
-        var explanation = await ExplanationFor(citation);
-        var graph = new PurposeGraph(
-            new[] { Norm("norm", "Some purpose", citation) },
-            Array.Empty<PurposeEdge>());
-        var aware = new PurposeAwareExplanation(explanation, graph);
-
-        var baseNarrative = ExplanationNarrativeProjector.Project(explanation);
-        var narrative = PurposeAwareNarrativeProjector.Project(aware);
-
-        // The purpose-aware narrative is the base narrative followed by purpose lines.
-        Assert.Equal(baseNarrative.Lines, narrative.Lines.Take(baseNarrative.Lines.Count));
-        Assert.Equal("Purpose: Some purpose.", narrative.Lines[^1]);
-    }
-
-    [Fact]
-    public async Task Multiple_references_become_multiple_purpose_lines()
+    public async Task Renders_a_full_teleological_chain()
     {
         var citation = Citation("Art. 1");
         var explanation = await ExplanationFor(citation);
         var graph = new PurposeGraph(
             new[]
             {
-                Norm("normA", "Purpose A", citation),
-                Norm("normB", "Purpose B", citation)
+                Norm("norm", "X", citation),
+                Abstract("obj", PurposeNodeType.Objective, "Y"),
+                Abstract("prin", PurposeNodeType.Principle, "Z"),
+                Abstract("val", PurposeNodeType.ProtectedValue, "W")
             },
+            new[] { Serves("norm", "obj"), Serves("obj", "prin"), Serves("prin", "val") });
+        var aware = new PurposeAwareExplanation(explanation, graph);
+
+        var narrative = PurposeAwareNarrativeProjector.Project(aware);
+
+        Assert.Contains(
+            "Purpose chain: Norm \"X\" serves Objective \"Y\" serves Principle \"Z\" serves ProtectedValue \"W\".",
+            narrative.Lines);
+        // Base lines preserved.
+        Assert.Contains("Decision: StubCategory.", narrative.Text);
+        Assert.Contains("resolved to 1 governing citation(s).", narrative.Text);
+    }
+
+    [Fact]
+    public async Task Renders_a_single_node_chain()
+    {
+        var citation = Citation("Art. 1");
+        var explanation = await ExplanationFor(citation);
+        var graph = new PurposeGraph(
+            new[] { Norm("norm", "X", citation) },
             Array.Empty<PurposeEdge>());
         var aware = new PurposeAwareExplanation(explanation, graph);
 
         var narrative = PurposeAwareNarrativeProjector.Project(aware);
 
-        Assert.Contains("Purpose: Purpose A.", narrative.Lines);
-        Assert.Contains("Purpose: Purpose B.", narrative.Lines);
+        Assert.Contains("Purpose chain: Norm \"X\".", narrative.Lines);
+        // The FOS-0048 flat purpose line is no longer produced.
+        Assert.DoesNotContain("Purpose: X.", narrative.Lines);
+    }
+
+    [Fact]
+    public async Task Renders_a_partial_chain()
+    {
+        var citation = Citation("Art. 1");
+        var explanation = await ExplanationFor(citation);
+        var graph = new PurposeGraph(
+            new[] { Norm("norm", "X", citation), Abstract("obj", PurposeNodeType.Objective, "Y") },
+            new[] { Serves("norm", "obj") });
+        var aware = new PurposeAwareExplanation(explanation, graph);
+
+        var narrative = PurposeAwareNarrativeProjector.Project(aware);
+
+        Assert.Contains("Purpose chain: Norm \"X\" serves Objective \"Y\".", narrative.Lines);
+    }
+
+    [Fact]
+    public async Task Renders_one_line_per_branching_chain_in_order()
+    {
+        var citation = Citation("Art. 1");
+        var explanation = await ExplanationFor(citation);
+        var graph = new PurposeGraph(
+            new[]
+            {
+                Norm("norm", "X", citation),
+                Abstract("objA", PurposeNodeType.Objective, "A"),
+                Abstract("objB", PurposeNodeType.Objective, "B")
+            },
+            new[] { Serves("norm", "objA"), Serves("norm", "objB") });
+        var aware = new PurposeAwareExplanation(explanation, graph);
+
+        var chainLines = PurposeAwareNarrativeProjector.Project(aware)
+            .Lines.Where(line => line.StartsWith("Purpose chain:")).ToList();
+
+        Assert.Equal(
+            new[]
+            {
+                "Purpose chain: Norm \"X\" serves Objective \"A\".",
+                "Purpose chain: Norm \"X\" serves Objective \"B\"."
+            },
+            chainLines);
+    }
+
+    [Fact]
+    public async Task Base_lines_come_first_then_chain_lines()
+    {
+        var citation = Citation("Art. 1");
+        var explanation = await ExplanationFor(citation);
+        var graph = new PurposeGraph(
+            new[] { Norm("norm", "X", citation) },
+            Array.Empty<PurposeEdge>());
+        var aware = new PurposeAwareExplanation(explanation, graph);
+
+        var baseNarrative = ExplanationNarrativeProjector.Project(explanation);
+        var narrative = PurposeAwareNarrativeProjector.Project(aware);
+
+        Assert.Equal(baseNarrative.Lines, narrative.Lines.Take(baseNarrative.Lines.Count));
+        Assert.Equal("Purpose chain: Norm \"X\".", narrative.Lines[^1]);
     }
 
     [Fact]
@@ -110,11 +163,11 @@ public sealed class Should_Project_Purpose_Aware_Narrative
     }
 
     [Fact]
-    public async Task Unmatched_purpose_nodes_add_no_lines()
+    public async Task Unmatched_purpose_nodes_add_no_chain_lines()
     {
         var explanation = await ExplanationFor(Citation("Art. 1"));
         var graph = new PurposeGraph(
-            new[] { Norm("norm", "Unrelated purpose", Citation("Art. 99")) },
+            new[] { Norm("norm", "X", Citation("Art. 99")) },
             Array.Empty<PurposeEdge>());
         var aware = new PurposeAwareExplanation(explanation, graph);
 
@@ -130,8 +183,12 @@ public sealed class Should_Project_Purpose_Aware_Narrative
         var citation = Citation("Art. 1");
         var explanation = await ExplanationFor(citation);
         var graph = new PurposeGraph(
-            new[] { Norm("norm", "Stable purpose", citation) },
-            Array.Empty<PurposeEdge>());
+            new[]
+            {
+                Norm("norm", "X", citation),
+                Abstract("obj", PurposeNodeType.Objective, "Y")
+            },
+            new[] { Serves("norm", "obj") });
         var aware = new PurposeAwareExplanation(explanation, graph);
 
         var first = PurposeAwareNarrativeProjector.Project(aware);
