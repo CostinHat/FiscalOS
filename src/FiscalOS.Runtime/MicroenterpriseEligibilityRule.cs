@@ -5,8 +5,6 @@ namespace FiscalOS.Runtime;
 
 public sealed class MicroenterpriseEligibilityRule
 {
-    private const decimal RevenueThreshold = 500_000m;
-
     public EvaluationResult Evaluate(decimal revenue, int employeeCount)
     {
         var evidence = new[]
@@ -15,7 +13,8 @@ public sealed class MicroenterpriseEligibilityRule
             ObservedFact.EmployeeCount(employeeCount)
         };
 
-        if (revenue <= RevenueThreshold && employeeCount >= 1)
+        if (revenue <= MicroenterpriseRegime.RevenueThreshold
+            && employeeCount >= MicroenterpriseRegime.MinimumEmployeeCount)
         {
             var assertion = new KnowledgeAssertion(
                 "MICROENTERPRISE_ELIGIBLE",
@@ -23,7 +22,7 @@ public sealed class MicroenterpriseEligibilityRule
                 evidence);
 
             var explanation = new Explanation(
-                $"MICROENTERPRISE_ELIGIBLE because Revenue={revenue} <= {RevenueThreshold} and EmployeeCount={employeeCount} >= 1.",
+                $"MICROENTERPRISE_ELIGIBLE because Revenue={revenue} <= {MicroenterpriseRegime.RevenueThreshold} and EmployeeCount={employeeCount} >= {MicroenterpriseRegime.MinimumEmployeeCount}.",
                 evidence);
 
             return new EvaluationResult([assertion], explanation);

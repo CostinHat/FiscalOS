@@ -1,5 +1,6 @@
 using FiscalOS.Core;
 using FiscalOS.LegalKnowledge;
+using FiscalOS.Runtime;
 using FiscalOS.Runtime.Classification;
 using FiscalOS.Runtime.Classification.Rules;
 using Xunit;
@@ -141,5 +142,23 @@ public sealed class Should_Classify_Microenterprise
         var citation = Assert.Single(decision.Explanation.LegalBasis.GoverningCitations);
         Assert.Equal("Art. 47", citation.Article);
         Assert.Equal("RO", citation.Jurisdiction.Value);
+    }
+
+    [Fact]
+    public void Threshold_and_citation_come_from_the_same_curated_definition()
+    {
+        var rule = new MicroenterpriseClassificationRule();
+
+        // The eligibility boundary is driven by the curated regime threshold.
+        var atThreshold = rule.Evaluate(new ClassificationContext(
+            Subject(MicroenterpriseRegime.RevenueThreshold, MicroenterpriseRegime.MinimumEmployeeCount)));
+        var aboveThreshold = rule.Evaluate(new ClassificationContext(
+            Subject(MicroenterpriseRegime.RevenueThreshold + 1m, MicroenterpriseRegime.MinimumEmployeeCount)));
+
+        Assert.True(atThreshold.Passed);
+        Assert.False(aboveThreshold.Passed);
+
+        // The emitted citation is the same curated definition's citation.
+        Assert.Equal(MicroenterpriseRegime.Citation, Assert.Single(atThreshold.Citations));
     }
 }
