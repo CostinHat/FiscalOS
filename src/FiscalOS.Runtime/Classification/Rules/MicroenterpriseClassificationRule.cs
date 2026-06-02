@@ -18,17 +18,17 @@ public sealed class MicroenterpriseClassificationRule : ClassificationRule
     public RuleEvaluationResult Evaluate(
         ClassificationContext context)
     {
-        var evaluation = _eligibility.Evaluate(context.Subject);
+        var evaluation = _eligibility.EvaluateWithCitation(context.Subject);
 
-        var eligible = evaluation.HasAssertion("MICROENTERPRISE_ELIGIBLE", true);
+        var eligible = evaluation.Result.HasAssertion("MICROENTERPRISE_ELIGIBLE", true);
 
         return new RuleEvaluationResult(
             RuleId,
             Passed: eligible,
-            Message: evaluation.Explanation?.Text,
+            Message: evaluation.Result.Explanation?.Text,
             Category: eligible ? MicroenterpriseCategory : null)
         {
-            Citations = eligible ? [MicroenterpriseRegime.Citation] : []
+            Citations = evaluation.GoverningCitation is { } citation ? [citation] : []
         };
     }
 }

@@ -29,4 +29,41 @@ var result = rule.Evaluate(subject);
         Assert.Contains("Revenue=320000", result.Explanation!.Text);
         Assert.Contains("EmployeeCount=3", result.Explanation.Text);
     }
+
+    [Fact]
+    public void Eligibility_evaluation_surfaces_the_governing_citation()
+    {
+        var subject = new FiscalSubject
+        {
+            FiscalCode = new FiscalCode("TEST"),
+            Name = "Test Company",
+            Revenue = 320_000m,
+            EmployeeCount = 3,
+            TaxIdentificationNumber = new TaxIdentificationNumber("12345678")
+        };
+        var rule = new MicroenterpriseEligibilityRule();
+
+        var evaluation = rule.EvaluateWithCitation(subject);
+
+        Assert.True(evaluation.Result.HasAssertion("MICROENTERPRISE_ELIGIBLE", true));
+        Assert.Equal(MicroenterpriseRegime.Citation, evaluation.GoverningCitation);
+    }
+
+    [Fact]
+    public void Eligibility_evaluation_surfaces_no_citation_when_ineligible()
+    {
+        var subject = new FiscalSubject
+        {
+            FiscalCode = new FiscalCode("TEST"),
+            Name = "Test Company",
+            Revenue = 600_000m,
+            EmployeeCount = 3,
+            TaxIdentificationNumber = new TaxIdentificationNumber("12345678")
+        };
+        var rule = new MicroenterpriseEligibilityRule();
+
+        var evaluation = rule.EvaluateWithCitation(subject);
+
+        Assert.Null(evaluation.GoverningCitation);
+    }
 }

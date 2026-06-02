@@ -39,4 +39,17 @@ public sealed class MicroenterpriseEligibilityRule
     {
         return Evaluate(subject.Revenue, subject.EmployeeCount);
     }
+
+    // Surfaces the governing citation when the regime threshold is satisfied,
+    // so the citation originates from the layer that applies the threshold.
+    public MicroenterpriseEvaluation EvaluateWithCitation(FiscalSubject subject)
+    {
+        var result = Evaluate(subject);
+
+        var citation = result.HasAssertion("MICROENTERPRISE_ELIGIBLE", true)
+            ? MicroenterpriseRegime.Citation
+            : null;
+
+        return new MicroenterpriseEvaluation(result, citation);
+    }
 }
