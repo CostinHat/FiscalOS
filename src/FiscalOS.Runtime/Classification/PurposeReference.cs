@@ -4,4 +4,5 @@ namespace FiscalOS.Runtime.Classification;
 
 public sealed record PurposeReference(
     LegalCitation GoverningCitation,
-    PurposeNode PurposeNode);
+    PurposeNode PurposeNode,
+    string? Note = null);
