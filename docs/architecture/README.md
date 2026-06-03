@@ -55,6 +55,11 @@ path summary and the single-citation vs competing-citation coverage.
 - **DEL-0001** (`3ab5daa`) — Console sample exercising the validated
   `ClassificationEngine` path end to end (no DI, no database).
 
+## Recent Slices
+
+- **FOS-0030** (`f5c09ca`) — PurposeReference supports optional Note metadata.
+- **FOS-0031** (`85e25e9`) — AuditEvent record introduced as a standalone audit event model.
+
 ## Current Status
 
 - **181 tests passing.**
