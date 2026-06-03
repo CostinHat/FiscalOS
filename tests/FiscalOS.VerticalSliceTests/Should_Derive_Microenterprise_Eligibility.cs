@@ -28,6 +28,27 @@ var result = rule.Evaluate(subject);
         Assert.NotNull(result.Explanation);
         Assert.Contains("Revenue=320000", result.Explanation!.Text);
         Assert.Contains("EmployeeCount=3", result.Explanation.Text);
+        Assert.Contains("per Legea 227/2015 Art. 47.", result.Explanation.Text);
+    }
+
+    [Fact]
+    public void Eligibility_explanation_cites_the_governing_norm()
+    {
+        var subject = new FiscalSubject
+        {
+            FiscalCode = new FiscalCode("TEST"),
+            Name = "Test Company",
+            Revenue = 100_000m,
+            EmployeeCount = 3,
+            TaxIdentificationNumber = new TaxIdentificationNumber("12345678")
+        };
+        var rule = new MicroenterpriseEligibilityRule();
+
+        var result = rule.Evaluate(subject);
+
+        Assert.Equal(
+            "MICROENTERPRISE_ELIGIBLE because Revenue=100000 <= 500000 and EmployeeCount=3 >= 1, per Legea 227/2015 Art. 47.",
+            result.Explanation!.Text);
     }
 
     [Fact]

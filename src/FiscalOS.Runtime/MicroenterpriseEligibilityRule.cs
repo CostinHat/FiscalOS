@@ -22,7 +22,7 @@ public sealed class MicroenterpriseEligibilityRule
                 evidence);
 
             var explanation = new Explanation(
-                $"MICROENTERPRISE_ELIGIBLE because Revenue={revenue} <= {MicroenterpriseRegime.RevenueThreshold} and EmployeeCount={employeeCount} >= {MicroenterpriseRegime.MinimumEmployeeCount}.",
+                $"MICROENTERPRISE_ELIGIBLE because Revenue={revenue} <= {MicroenterpriseRegime.RevenueThreshold} and EmployeeCount={employeeCount} >= {MicroenterpriseRegime.MinimumEmployeeCount}, per {MicroenterpriseRegime.Citation.SourceReference} {MicroenterpriseRegime.Citation.Article}.",
                 evidence);
 
             return new EvaluationResult([assertion], explanation);
