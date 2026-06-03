@@ -19,6 +19,8 @@ to its document (where one exists) or names the commit that introduced it.
 - [ARCH-0005-LEGISLATION-INGESTION-PLANNING.md](ARCH-0005-LEGISLATION-INGESTION-PLANNING.md)
   — Ingestion planning unblocked and scoped (planning only).
 - **ARCH-0006** (`d9eb866`) — Legislation ingestion architecture: source discovery, acquisition, versioning, normalization, citation detection, candidate extraction, human review, curated promotion, and rule binding. Planning only; no runtime ingestion implementation.
+- **ARCH-0007** (`af58c41`) — Terminology reconciliation between implemented concepts, planning concepts, and future ingestion concepts.
+- **ARCH-0008** (`a758961`) — LegalAtom remains a planning term and is not promoted to a first-class implemented model at this stage.
 
 ## Traceability
 
