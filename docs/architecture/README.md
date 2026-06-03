@@ -18,6 +18,7 @@ to its document (where one exists) or names the commit that introduced it.
   hand-curation.
 - [ARCH-0005-LEGISLATION-INGESTION-PLANNING.md](ARCH-0005-LEGISLATION-INGESTION-PLANNING.md)
   — Ingestion planning unblocked and scoped (planning only).
+- **ARCH-0006** (`d9eb866`) — Legislation ingestion architecture: source discovery, acquisition, versioning, normalization, citation detection, candidate extraction, human review, curated promotion, and rule binding. Planning only; no runtime ingestion implementation.
 
 ## Traceability
 
@@ -67,3 +68,4 @@ path summary and the single-citation vs competing-citation coverage.
 - **Legislation ingestion planning opened, not implemented** (ARCH-0005);
   out-of-scope items (parser, NLP, AI extraction, rule generator, database, API,
   runtime changes) remain deferred.
+- `LegalGraph` and `LegalAtom` in ARCH-0006 are planning terms, not implemented code models yet. Current implemented types remain `LegalCitation`, curated regime/rule models, `PurposeGraph`, `AuditGraph`, and `KnowledgeProjectionResult`.
