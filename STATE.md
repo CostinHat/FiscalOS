@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 7105a5d
-Tests: 229 passing
+HEAD: 51aa92b
+Tests: 234 passing
 
 ## Completed
 
@@ -26,6 +26,9 @@ Tests: 229 passing
 - FOS-0037 Legal Reference Model
   - Commit: b2fc155
   - Merge: 7105a5d
+- FOS-0038 Legal Reference Repository Contracts
+  - Commit: 5f6c94b
+  - Merge: 51aa92b
 
 ## Session Outcomes
 
@@ -39,7 +42,8 @@ Tests: 229 passing
 - No reconciliation engine exists yet.
 - No matching algorithms exist yet.
 - LegalReference domain model exists.
-- LegalReference repository contracts do not exist yet.
+- LegalReference repository contract exists.
+- LegalReference repository implementation does not exist yet.
 - ARCH-0011 is now published.
 - LegalReference is formally defined as a structural legal address.
 - LegalReference is separate from legal content, interpretation and fiscal conclusions.
@@ -48,7 +52,10 @@ Tests: 229 passing
 - Structural legal addressing is implemented.
 - Parent/ancestor/descendant/containment operations are implemented.
 - LegalReference remains separate from legal content and fiscal conclusions.
+- Legal Reference repository contract is published.
+- Legal references can now be addressed and queried hierarchically through repository abstractions.
+- No repository implementation exists yet.
 
 ### Next Target
 
-- FOS-0038 Legal Reference Repository Contracts
+- FOS-0039 Legal Reference Pipeline Contracts
