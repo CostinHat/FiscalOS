@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 51aa92b
-Tests: 234 passing
+HEAD: 7c00f6e
+Tests: 237 passing
 
 ## Completed
 
@@ -29,6 +29,9 @@ Tests: 234 passing
 - FOS-0038 Legal Reference Repository Contracts
   - Commit: 5f6c94b
   - Merge: 51aa92b
+- FOS-0039 Legal Reference Pipeline Contracts
+  - Commit: 9fb3513
+  - Merge: 7c00f6e
 
 ## Session Outcomes
 
@@ -55,7 +58,10 @@ Tests: 234 passing
 - Legal Reference repository contract is published.
 - Legal references can now be addressed and queried hierarchically through repository abstractions.
 - No repository implementation exists yet.
+- Legal Reference pipeline contracts are published.
+- Legal reference processing can now be modeled as staged pipelines.
+- No pipeline implementation exists yet.
 
 ### Next Target
 
-- FOS-0039 Legal Reference Pipeline Contracts
+- FOS-0040 Legal Reference Resolution Model
