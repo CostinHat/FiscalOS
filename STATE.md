@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: b4e03ff
-Tests: 289 passing
+HEAD: 0428b6b
+Tests: 293 passing
 
 ## Completed
 
@@ -59,6 +59,9 @@ Tests: 289 passing
 - FOS-0048 Legal Reference Resolution Provenance Model
   - Commit: d5b6abf
   - Merge: b4e03ff
+- FOS-0049 Legal Reference Resolution Provenance Repository Contracts
+  - Commit: 6aaf580
+  - Merge: 0428b6b
 
 ## Session Outcomes
 
@@ -117,7 +120,10 @@ Tests: 289 passing
 - Resolution provenance can now be modeled as ordered source-backed steps.
 - Resolution outcomes, audit trails and provenance are now separate concerns.
 - No provenance engine exists yet.
+- Legal Reference Resolution provenance repository contract is published.
+- Resolution provenance can now be stored and queried through repository abstractions.
+- No provenance repository implementation exists yet.
 
 ### Next Target
 
-- FOS-0049 Legal Reference Resolution Provenance Repository Contracts
+- FOS-0050 Legal Reference Resolution Provenance Pipeline Contracts
