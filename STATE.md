@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 0428b6b
-Tests: 293 passing
+HEAD: 4d2a935
+Tests: 296 passing
 
 ## Completed
 
@@ -62,6 +62,9 @@ Tests: 293 passing
 - FOS-0049 Legal Reference Resolution Provenance Repository Contracts
   - Commit: 6aaf580
   - Merge: 0428b6b
+- FOS-0050 Legal Reference Resolution Provenance Pipeline Contracts
+  - Commit: 0d6cce6
+  - Merge: 4d2a935
 
 ## Session Outcomes
 
@@ -123,7 +126,10 @@ Tests: 293 passing
 - Legal Reference Resolution provenance repository contract is published.
 - Resolution provenance can now be stored and queried through repository abstractions.
 - No provenance repository implementation exists yet.
+- Legal Reference Resolution provenance pipeline contracts are published.
+- Provenance processing can now be modeled as staged pipelines.
+- No provenance pipeline implementation exists yet.
 
 ### Next Target
 
-- FOS-0050 Legal Reference Resolution Provenance Pipeline Contracts
+- FOS-0051 Legal Reference Resolution Provenance Engine Contract
