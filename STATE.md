@@ -1,6 +1,6 @@
 # FiscalOS State
 
-HEAD: b3c832d
+HEAD: ce022a6
 Tests: 207 passing
 
 ## Completed
@@ -20,6 +20,9 @@ Tests: 207 passing
 - FOS-0036 Terminology Reconciliation Model
   - Commit: 7b44982
   - Merge: b3c832d
+- ARCH-0011 Legal Reference Addressing Model
+  - Commit: b7ed168
+  - Merge: ce022a6
 
 ## Session Outcomes
 
@@ -29,9 +32,15 @@ Tests: 207 passing
 - Foundation model, repository contract, pipeline contracts and source acquisition contract are published.
 - No implementations exist yet.
 - No ingestion runtime exists yet.
-- No terminology reconciliation exists yet.
+- Terminology reconciliation model exists.
+- No reconciliation engine exists yet.
+- No matching algorithms exist yet.
 - No LegalReference model exists yet.
+- ARCH-0011 is now published.
+- LegalReference is formally defined as a structural legal address.
+- LegalReference is separate from legal content, interpretation and fiscal conclusions.
+- ARCH-0011 is a prerequisite for FOS-0037.
 
 ### Next Target
 
-- ARCH-0011 Legal Reference Addressing Model
+- FOS-0037 Legal Reference Model
