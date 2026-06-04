@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 25f192d
-Tests: 198 passing
+HEAD: b3c832d
+Tests: 207 passing
 
 ## Completed
 
@@ -17,6 +17,9 @@ Tests: 198 passing
 - FOS-0035 Source Acquisition Contracts
   - Commit: b3ce311
   - Merge: 25f192d
+- FOS-0036 Terminology Reconciliation Model
+  - Commit: 7b44982
+  - Merge: b3c832d
 
 ## Session Outcomes
 
@@ -31,4 +34,4 @@ Tests: 198 passing
 
 ### Next Target
 
-- FOS-0036 Terminology Reconciliation Model
+- ARCH-0011 Legal Reference Addressing Model
