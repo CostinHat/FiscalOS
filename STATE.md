@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 7008d82
-Tests: 250 passing
+HEAD: 0a257cd
+Tests: 253 passing
 
 ## Completed
 
@@ -38,6 +38,9 @@ Tests: 250 passing
 - FOS-0041 Legal Reference Resolution Repository Contracts
   - Commit: 9cc7def
   - Merge: 7008d82
+- FOS-0042 Legal Reference Resolution Pipeline Contracts
+  - Commit: efbe869
+  - Merge: 0a257cd
 
 ## Session Outcomes
 
@@ -73,7 +76,10 @@ Tests: 250 passing
 - Legal Reference Resolution repository contract is published.
 - Resolution outcomes can now be stored and queried through repository abstractions.
 - No resolution repository implementation exists yet.
+- Legal Reference Resolution pipeline contracts are published.
+- Resolution processing can now be modeled as staged pipelines.
+- No resolution pipeline implementation exists yet.
 
 ### Next Target
 
-- FOS-0042 Legal Reference Resolution Pipeline Contracts
+- FOS-0043 Legal Reference Resolution Engine Contracts
