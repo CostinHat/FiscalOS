@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: ce022a6
-Tests: 207 passing
+HEAD: 7105a5d
+Tests: 229 passing
 
 ## Completed
 
@@ -23,6 +23,9 @@ Tests: 207 passing
 - ARCH-0011 Legal Reference Addressing Model
   - Commit: b7ed168
   - Merge: ce022a6
+- FOS-0037 Legal Reference Model
+  - Commit: b2fc155
+  - Merge: 7105a5d
 
 ## Session Outcomes
 
@@ -35,12 +38,17 @@ Tests: 207 passing
 - Terminology reconciliation model exists.
 - No reconciliation engine exists yet.
 - No matching algorithms exist yet.
-- No LegalReference model exists yet.
+- LegalReference domain model exists.
+- LegalReference repository contracts do not exist yet.
 - ARCH-0011 is now published.
 - LegalReference is formally defined as a structural legal address.
 - LegalReference is separate from legal content, interpretation and fiscal conclusions.
 - ARCH-0011 is a prerequisite for FOS-0037.
+- Legal Reference domain model is published.
+- Structural legal addressing is implemented.
+- Parent/ancestor/descendant/containment operations are implemented.
+- LegalReference remains separate from legal content and fiscal conclusions.
 
 ### Next Target
 
-- FOS-0037 Legal Reference Model
+- FOS-0038 Legal Reference Repository Contracts
