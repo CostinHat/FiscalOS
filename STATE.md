@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 2744c0d
-Tests: 256 passing
+HEAD: 5650ffe
+Tests: 267 passing
 
 ## Completed
 
@@ -44,6 +44,9 @@ Tests: 256 passing
 - FOS-0043 Legal Reference Resolution Engine Contract
   - Commit: 50251bd
   - Merge: 2744c0d
+- FOS-0044 Legal Reference Resolution Audit Model
+  - Commit: ff54e83
+  - Merge: 5650ffe
 
 ## Session Outcomes
 
@@ -85,7 +88,11 @@ Tests: 256 passing
 - Legal Reference Resolution engine contract is published.
 - Resolution processing is now modeled end-to-end through engine, pipeline and repository abstractions.
 - No resolution engine implementation exists yet.
+- Legal Reference Resolution audit model is published.
+- Resolution decisions and supporting evidence are now auditable.
+- Resolution audit trails are formally modeled.
+- No audit engine exists yet.
 
 ### Next Target
 
-- FOS-0044 Legal Reference Resolution Audit Model
+- FOS-0045 Legal Reference Resolution Audit Repository Contracts
