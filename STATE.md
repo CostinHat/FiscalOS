@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 7c00f6e
-Tests: 237 passing
+HEAD: 2239635
+Tests: 246 passing
 
 ## Completed
 
@@ -32,6 +32,9 @@ Tests: 237 passing
 - FOS-0039 Legal Reference Pipeline Contracts
   - Commit: 9fb3513
   - Merge: 7c00f6e
+- FOS-0040 Legal Reference Resolution Model
+  - Commit: e4212ee
+  - Merge: 2239635
 
 ## Session Outcomes
 
@@ -61,7 +64,10 @@ Tests: 237 passing
 - Legal Reference pipeline contracts are published.
 - Legal reference processing can now be modeled as staged pipelines.
 - No pipeline implementation exists yet.
+- Legal Reference resolution model is published.
+- Resolved, ambiguous and unresolved outcomes are formally modeled.
+- No resolution engine exists yet.
 
 ### Next Target
 
-- FOS-0040 Legal Reference Resolution Model
+- FOS-0041 Legal Reference Resolution Repository Contracts
