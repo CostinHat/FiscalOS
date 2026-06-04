@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 2239635
-Tests: 246 passing
+HEAD: 7008d82
+Tests: 250 passing
 
 ## Completed
 
@@ -35,6 +35,9 @@ Tests: 246 passing
 - FOS-0040 Legal Reference Resolution Model
   - Commit: e4212ee
   - Merge: 2239635
+- FOS-0041 Legal Reference Resolution Repository Contracts
+  - Commit: 9cc7def
+  - Merge: 7008d82
 
 ## Session Outcomes
 
@@ -67,7 +70,10 @@ Tests: 246 passing
 - Legal Reference resolution model is published.
 - Resolved, ambiguous and unresolved outcomes are formally modeled.
 - No resolution engine exists yet.
+- Legal Reference Resolution repository contract is published.
+- Resolution outcomes can now be stored and queried through repository abstractions.
+- No resolution repository implementation exists yet.
 
 ### Next Target
 
-- FOS-0041 Legal Reference Resolution Repository Contracts
+- FOS-0042 Legal Reference Resolution Pipeline Contracts
