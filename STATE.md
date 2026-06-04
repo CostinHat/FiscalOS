@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 0a257cd
-Tests: 253 passing
+HEAD: 2744c0d
+Tests: 256 passing
 
 ## Completed
 
@@ -41,6 +41,9 @@ Tests: 253 passing
 - FOS-0042 Legal Reference Resolution Pipeline Contracts
   - Commit: efbe869
   - Merge: 0a257cd
+- FOS-0043 Legal Reference Resolution Engine Contract
+  - Commit: 50251bd
+  - Merge: 2744c0d
 
 ## Session Outcomes
 
@@ -79,7 +82,10 @@ Tests: 253 passing
 - Legal Reference Resolution pipeline contracts are published.
 - Resolution processing can now be modeled as staged pipelines.
 - No resolution pipeline implementation exists yet.
+- Legal Reference Resolution engine contract is published.
+- Resolution processing is now modeled end-to-end through engine, pipeline and repository abstractions.
+- No resolution engine implementation exists yet.
 
 ### Next Target
 
-- FOS-0043 Legal Reference Resolution Engine Contracts
+- FOS-0044 Legal Reference Resolution Audit Model
