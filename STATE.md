@@ -113,6 +113,9 @@ Tests: 362 passing
 - FOS-0067 Legislation Ingestion Runtime Composition
   - Commit: 7d2c660
   - Merge: 7d2c660 (direct commit to main)
+- FOS-0068 Legislation Ingestion Runtime Composition Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -248,15 +251,19 @@ Tests: 362 passing
 - Ingestion runtime composition wires the existing source, raw document repository, acquisition/storage stages and pipeline.
 - Ingestion runtime composition remains Runtime-only, in-memory and deterministic.
 - No external network acquisition, durable persistence, filesystem/database storage, graph integration, AI/NLP, classification coupling or Legal Reference Resolution integration was introduced.
+- Legislation Ingestion runtime composition review is complete.
+- Legislation Ingestion Runtime Composition was accepted as-is.
+- Remaining debt: no ingestion builder or DI registration exists yet.
+- Remaining debt: no document validation stage exists yet.
+- Remaining debt: no stage implementations exist yet for discovery, versioning, normalization, citation detection, candidate extraction, human review or rule binding.
 
 ### Next Target
 
-- FOS-0068 Legislation Ingestion Runtime Composition Review
+- FOS-0069 Legislation Ingestion Runtime Validation Stage
 
-Rationale: FOS-0067 completed the first end-to-end ingestion runtime composition
-facade. Before adding additional ingestion stages or external acquisition, the
-composition should be reviewed for contract fit, lifecycle boundaries, stage
-semantics, trace behavior, repository ownership and remaining ingestion debt.
-Scope should remain review-only: no code changes, Domain contract changes,
-network acquisition, durable persistence, AI/NLP, graph integration,
-classification coupling or Legal Reference Resolution integration.
+Rationale: FOS-0068 accepted the Legislation Ingestion runtime composition
+as-is. The next step is to add the first validation stage inside the existing
+runtime ingestion flow so invalid raw documents can fail deterministically
+before storage. Scope should remain Runtime-only and contract-backed: no Domain
+contract changes, network acquisition, durable persistence, AI/NLP, graph
+integration, classification coupling or Legal Reference Resolution integration.
