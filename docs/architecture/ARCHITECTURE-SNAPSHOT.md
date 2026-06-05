@@ -19,6 +19,15 @@
 - PurposeGraph
 - AuditGraph
 
+## Legislation Ingestion
+- Foundation Model
+- Raw Document Repository Contract
+- Pipeline Contract
+- Source Acquisition Contract
+- Runtime Source Implementation
+- Runtime Raw Document Repository Implementation
+- Runtime Pipeline Implementation
+
 ## Resolution
 - Model
 - Repository Contract
@@ -106,5 +115,16 @@ Architecture review conclusions:
 - No durable persistence, ingestion, graph integration, AI/NLP, classification
   coupling or richer resolution/search/source algorithm has been introduced.
 
+FOS-0065 added the first runtime implementation behind the Legislation Ingestion
+contracts:
+- In-memory legislation source.
+- In-memory raw legislation document repository.
+- Acquisition, storage and deterministic failure stages.
+- Sequential ingestion pipeline with succeeded and failed result handling.
+- Runtime-only, in-memory and contract-backed behavior.
+- No external network acquisition, filesystem/database persistence, graph
+  integration, AI/NLP, classification coupling or Legal Reference Resolution
+  integration has been introduced.
+
 ## Next
-- FOS-0065 Legislation Ingestion Runtime Implementation
+- FOS-0066 Legislation Ingestion Runtime Review

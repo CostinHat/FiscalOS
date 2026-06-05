@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 87d440d
-Tests: 353 passing
+HEAD: c193c87
+Tests: 358 passing
 
 ## Completed
 
@@ -104,6 +104,9 @@ Tests: 353 passing
 - FOS-0064 Legal Reference Resolution Runtime Composition Review
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0065 Legislation Ingestion Runtime Implementation
+  - Commit: c193c87
+  - Merge: c193c87 (direct commit to main)
 
 ## Session Outcomes
 
@@ -221,15 +224,21 @@ Tests: 353 passing
 - Remaining debt: no formal Evidence Package composition contract exists yet.
 - Remaining debt: no durable persistence exists yet.
 - Remaining debt: no richer legal reference matching, search or source algorithm exists yet.
+- Legislation Ingestion runtime implementation is published.
+- Runtime now includes an in-memory legislation source.
+- Runtime now includes an in-memory raw legislation document repository.
+- Runtime now includes acquisition, storage and deterministic failure ingestion stages.
+- Runtime now includes a sequential ingestion pipeline with succeeded and failed result handling.
+- Ingestion runtime remains Runtime-only, in-memory and contract-backed.
+- No external network acquisition, filesystem/database persistence, graph integration, AI/NLP, classification coupling or Legal Reference Resolution integration was introduced.
 
 ### Next Target
 
-- FOS-0065 Legislation Ingestion Runtime Implementation
+- FOS-0066 Legislation Ingestion Runtime Review
 
-Rationale: Legal Reference Resolution is complete through runtime composition
-and the composition review accepted the implementation as-is. The next major
-FiscalOS vertical should return to the completed Legislation Ingestion contracts
-and add a first runtime implementation. Scope should remain runtime-only and
-contract-backed: no external network acquisition, durable persistence,
-filesystem/database storage, graph integration, AI/NLP, classification coupling
-or Legal Reference resolution integration yet.
+Rationale: FOS-0065 added the first runtime implementation behind the existing
+Legislation Ingestion contracts. Before adding external acquisition, durable
+persistence, graph integration, AI/NLP or Legal Reference Resolution
+integration, the ingestion runtime should be reviewed for contract fit, failure
+semantics, stage naming, trace behavior, repository lifecycle and composition
+boundaries.
