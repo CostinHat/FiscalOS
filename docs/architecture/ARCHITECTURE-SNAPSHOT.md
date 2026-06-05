@@ -97,8 +97,14 @@ Architecture review conclusions:
 - Runtime composition wires the existing engines, pipelines, stages,
   repositories and ResolutionEvidencePackageComposer.
 - Dependency direction remains Runtime -> Domain.
+- FOS-0064 reviewed runtime composition and accepted it as-is.
+- Remaining debt: no composition builder or DI registration exists yet.
+- Remaining debt: no formal Evidence Package composition contract exists yet.
+- Remaining debt: no durable persistence exists yet.
+- Remaining debt: no richer legal reference matching, search or source algorithm
+  exists yet.
 - No durable persistence, ingestion, graph integration, AI/NLP, classification
   coupling or richer resolution/search/source algorithm has been introduced.
 
 ## Next
-- FOS-0064 Legal Reference Resolution Runtime Composition Review
+- FOS-0065 Legislation Ingestion Runtime Implementation

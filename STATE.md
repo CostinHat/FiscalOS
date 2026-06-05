@@ -101,6 +101,9 @@ Tests: 353 passing
 - FOS-0063 Legal Reference Resolution Runtime Composition
   - Commit: 87d440d
   - Merge: 87d440d (direct commit to main)
+- FOS-0064 Legal Reference Resolution Runtime Composition Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -212,16 +215,21 @@ Tests: 353 passing
 - Runtime composition reuses existing repositories, pipelines, stages and engines.
 - Runtime composition preserves Runtime -> Domain dependency direction.
 - No ResolutionResult redesign, Query property, richer resolution/search/source algorithm, ingestion, graph integration, AI/NLP or classification coupling was introduced.
+- Legal Reference Resolution runtime composition review is complete.
+- Runtime composition was accepted as-is.
+- Remaining debt: no composition builder or DI registration exists yet.
+- Remaining debt: no formal Evidence Package composition contract exists yet.
+- Remaining debt: no durable persistence exists yet.
+- Remaining debt: no richer legal reference matching, search or source algorithm exists yet.
 
 ### Next Target
 
-- FOS-0064 Legal Reference Resolution Runtime Composition Review
+- FOS-0065 Legislation Ingestion Runtime Implementation
 
-Rationale: FOS-0062 and FOS-0063 complete the in-memory repository layer and
-the first end-to-end runtime composition facade for Legal Reference Resolution.
-Before adding richer resolution algorithms or integrations, the composed runtime
-should be reviewed as a whole for contract fit, lifecycle boundaries,
-composition responsibility, provenance generation policy and remaining
-first-candidate ambiguity conventions. Scope should remain review/design only:
-no domain model redesign, persistence, ingestion, graph integration, AI/NLP,
-classification coupling or search/source algorithms.
+Rationale: Legal Reference Resolution is complete through runtime composition
+and the composition review accepted the implementation as-is. The next major
+FiscalOS vertical should return to the completed Legislation Ingestion contracts
+and add a first runtime implementation. Scope should remain runtime-only and
+contract-backed: no external network acquisition, durable persistence,
+filesystem/database storage, graph integration, AI/NLP, classification coupling
+or Legal Reference resolution integration yet.
