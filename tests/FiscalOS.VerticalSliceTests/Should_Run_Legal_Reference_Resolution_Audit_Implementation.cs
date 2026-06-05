@@ -135,6 +135,50 @@ public sealed class Should_Run_Legal_Reference_Resolution_Audit_Implementation
     }
 
     [Fact]
+    public async Task Audit_mapping_stage_maps_results_to_audit_entries()
+    {
+        var selected = Fq("Legea 227/2015", Seg("Article", "47"), Seg("Paragraph", "3"));
+        var other = Fq("OUG 1/2020", Seg("Article", "48"));
+        var stage = new ResolutionResultAuditEntryStage(
+            new[]
+            {
+                Resolved(selected),
+                Ambiguous(Fq("Legea 227/2015", Seg("Article", "48")), other),
+                Unresolved(Address(Seg("Article", "99")), "No stored resolution found."),
+            },
+            () => At);
+        var context = new LegalReferenceResolutionAuditContext(Array.Empty<ResolutionAuditEntry>());
+
+        var result = await stage.ExecuteAsync(context);
+
+        Assert.Equal("resolution-result-audit-entry", stage.Name);
+        Assert.Equal(3, result.Entries.Count);
+        Assert.Equal(ResolutionStatus.Resolved, result.Entries[0].Decision.Status);
+        Assert.Equal(selected, result.Entries[0].Decision.SelectedReference);
+        Assert.Equal(QueryArticle48, result.Entries[1].Query);
+        Assert.Equal(ResolutionStatus.Ambiguous, result.Entries[1].Decision.Status);
+        Assert.Equal("No stored resolution found.", result.Entries[2].Evidence.Description);
+        Assert.All(result.Entries, entry => Assert.Equal(At, entry.Timestamp));
+        Assert.Empty(context.Entries);
+    }
+
+    [Fact]
+    public async Task Audit_mapping_stage_derives_ambiguous_query_from_the_first_candidate()
+    {
+        var first = Fq("Legea 227/2015", Seg("Article", "48"));
+        var second = Fq("OUG 1/2020", Seg("Article", "49"));
+        var stage = new ResolutionResultAuditEntryStage(
+            new[] { Ambiguous(first, second) },
+            () => At);
+
+        var result = await stage.ExecuteAsync(new LegalReferenceResolutionAuditContext(Array.Empty<ResolutionAuditEntry>()));
+
+        Assert.Single(result.Entries);
+        Assert.Equal(first.Reference, result.Entries[0].Query);
+        Assert.NotEqual(second.Reference, result.Entries[0].Query);
+    }
+
+    [Fact]
     public async Task Audit_engine_maps_results_to_audit_entries()
     {
         var selected = Fq("Legea 227/2015", Seg("Article", "47"), Seg("Paragraph", "3"));
