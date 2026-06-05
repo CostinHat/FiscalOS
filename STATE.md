@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: b2fbb10
-Tests: 334 passing
+HEAD: 824b926
+Tests: 342 passing
 
 ## Completed
 
@@ -92,6 +92,9 @@ Tests: 334 passing
 - FOS-0060 Legal Reference Resolution Evidence Package Engine Implementation
   - Commit: b2fbb10
   - Merge: b2fbb10 (direct commit to main)
+- FOS-0061 Legal Reference Resolution Runtime Architecture Hardening
+  - Commit: 824b926
+  - Merge: 824b926 (direct commit to main)
 
 ## Session Outcomes
 
@@ -185,17 +188,24 @@ Tests: 334 passing
 - Architecture review identified architectural debt: audit result-to-entry mapping currently lives in the audit engine rather than a dedicated audit stage.
 - Architecture review identified architectural debt: evidence package composition exists as a runtime helper rather than a formal composition contract.
 - Architecture review identified a fragile convention: ambiguous result query derivation uses the first candidate.
+- Legal Reference Resolution runtime architecture hardening is complete.
+- Audit result-to-entry mapping now lives in a dedicated runtime audit stage.
+- LegalReferenceResolutionAuditEngine now delegates mapping to the audit stage before running the configured audit pipeline.
+- Ambiguous-result query derivation is documented by executable tests and remains based on the first candidate.
+- ResolutionEvidencePackageComposer failure modes are covered by executable tests for missing audit entries, missing provenance, and invalid result shapes.
+- Domain contracts and immutable domain models were preserved.
+- ResolutionResult was not redesigned and no Query property was added.
+- No Evidence Package composition contract was introduced; composition remains a runtime helper pending a future contract decision.
+- No persistence implementation, ingestion, graph integration, AI/NLP, or richer resolution algorithm was introduced.
 
 ### Next Target
 
-- FOS-0061 Legal Reference Resolution Runtime Architecture Hardening
+- FOS-0062 Legal Reference Resolution Repository Runtime Implementations
 
-Rationale: FOS-0057 through FOS-0060 complete the first runtime implementations
-for Resolution, Audit, Provenance and Evidence Package. The architecture review
-accepted the implementation as-is, but identified focused debt that should be
-closed before adding broader behavior: move audit result-to-entry mapping into a
-dedicated audit stage, decide whether evidence package composition needs a
-formal contract, and document or strengthen the ambiguous-result query
-derivation convention. This keeps the runtime aligned with the staged vertical
-design before persistence, richer resolution algorithms or external integrations
-are introduced.
+Rationale: FOS-0057 through FOS-0061 complete and harden the first runtime
+engine/pipeline/stage implementations for Resolution, Audit, Provenance and
+Evidence Package. The next useful step is to provide runtime repository
+implementations behind the existing repository contracts so the completed
+engines can be wired without test-only in-memory doubles. Scope should remain
+repository-only and contract-backed: no richer resolution algorithms, external
+source lookup, ingestion, graph integration, AI/NLP, or domain model redesign.

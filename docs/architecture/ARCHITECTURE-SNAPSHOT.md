@@ -73,12 +73,17 @@ Architecture review conclusions:
   does not depend on Runtime.
 - Separation of concerns is mostly preserved; repository-backed persistence is
   isolated behind repository contracts and pipeline stages.
-- Architectural debt remains: audit result-to-entry mapping lives in the audit
-  engine rather than a dedicated audit stage.
 - Architectural debt remains: evidence package composition exists as a runtime
   helper rather than a formal composition contract.
-- Ambiguous-result query derivation currently uses the first candidate and should
-  be documented or strengthened before richer ambiguity handling is added.
+- FOS-0061 moved audit result-to-entry mapping into a dedicated runtime audit
+  stage while preserving Domain contracts and immutable models.
+- FOS-0061 documented ambiguous-result query derivation through executable
+  tests; the current convention remains first-candidate based.
+- FOS-0061 strengthened ResolutionEvidencePackageComposer failure-mode coverage.
+- Evidence package composition remains a runtime helper; no composition contract
+  has been introduced yet.
+- No persistence implementation, ingestion, graph integration, AI/NLP or richer
+  resolution algorithm has been introduced.
 
 ## Next
-- FOS-0061 Legal Reference Resolution Runtime Architecture Hardening
+- FOS-0062 Legal Reference Resolution Repository Runtime Implementations
