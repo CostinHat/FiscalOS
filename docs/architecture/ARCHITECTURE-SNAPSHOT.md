@@ -27,6 +27,7 @@
 - Runtime Source Implementation
 - Runtime Raw Document Repository Implementation
 - Runtime Pipeline Implementation
+- Runtime Composition
 
 ## Resolution
 - Model
@@ -134,6 +135,15 @@ contracts:
   binding.
 - Remaining debt: no batch lifecycle store, document validation stage,
   duplicate/version policy or ingestion summary output exists yet.
+- FOS-0067 added a Runtime-only ingestion composition facade that accepts an
+  IngestionBatchId and returns an IngestionResult.
+- Ingestion runtime composition wires the existing source, raw document
+  repository, acquisition/storage stages and pipeline.
+- Ingestion runtime composition remains in-memory, deterministic and
+  contract-backed.
+- No external network acquisition, durable persistence, filesystem/database
+  storage, graph integration, AI/NLP, classification coupling or Legal Reference
+  Resolution integration has been introduced.
 
 ## Next
-- FOS-0067 Legislation Ingestion Runtime Composition
+- FOS-0068 Legislation Ingestion Runtime Composition Review

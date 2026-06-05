@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: c193c87
-Tests: 358 passing
+HEAD: 7d2c660
+Tests: 362 passing
 
 ## Completed
 
@@ -110,6 +110,9 @@ Tests: 358 passing
 - FOS-0066 Legislation Ingestion Runtime Review
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0067 Legislation Ingestion Runtime Composition
+  - Commit: 7d2c660
+  - Merge: 7d2c660 (direct commit to main)
 
 ## Session Outcomes
 
@@ -240,16 +243,20 @@ Tests: 358 passing
 - Remaining debt: no ingestion builder or DI registration exists yet.
 - Remaining debt: no stage implementations exist yet for discovery, versioning, normalization, citation detection, candidate extraction, human review or rule binding.
 - Remaining debt: no batch lifecycle store, document validation stage, duplicate/version policy or ingestion summary output exists yet.
+- Legislation Ingestion runtime composition is published.
+- Runtime now includes a facade that accepts an IngestionBatchId and returns an IngestionResult.
+- Ingestion runtime composition wires the existing source, raw document repository, acquisition/storage stages and pipeline.
+- Ingestion runtime composition remains Runtime-only, in-memory and deterministic.
+- No external network acquisition, durable persistence, filesystem/database storage, graph integration, AI/NLP, classification coupling or Legal Reference Resolution integration was introduced.
 
 ### Next Target
 
-- FOS-0067 Legislation Ingestion Runtime Composition
+- FOS-0068 Legislation Ingestion Runtime Composition Review
 
-Rationale: FOS-0065 was accepted as-is and the ingestion runtime now has
-in-memory source, repository, stages and pipeline implementations. The next step
-is to add a Runtime-only ingestion composition facade that wires the existing
-source, raw document repository, acquisition/storage stages and pipeline into a
-single deterministic execution flow. Scope should remain contract-backed and
-in-memory: no external network acquisition, durable persistence,
-filesystem/database storage, graph integration, AI/NLP, classification coupling
-or Legal Reference Resolution integration.
+Rationale: FOS-0067 completed the first end-to-end ingestion runtime composition
+facade. Before adding additional ingestion stages or external acquisition, the
+composition should be reviewed for contract fit, lifecycle boundaries, stage
+semantics, trace behavior, repository ownership and remaining ingestion debt.
+Scope should remain review-only: no code changes, Domain contract changes,
+network acquisition, durable persistence, AI/NLP, graph integration,
+classification coupling or Legal Reference Resolution integration.
