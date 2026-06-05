@@ -125,6 +125,15 @@ contracts:
 - No external network acquisition, filesystem/database persistence, graph
   integration, AI/NLP, classification coupling or Legal Reference Resolution
   integration has been introduced.
+- FOS-0066 reviewed the Legislation Ingestion runtime and accepted FOS-0065
+  as-is.
+- Remaining debt: no ingestion runtime composition facade exists yet.
+- Remaining debt: no ingestion builder or DI registration exists yet.
+- Remaining debt: no stage implementations exist yet for discovery, versioning,
+  normalization, citation detection, candidate extraction, human review or rule
+  binding.
+- Remaining debt: no batch lifecycle store, document validation stage,
+  duplicate/version policy or ingestion summary output exists yet.
 
 ## Next
-- FOS-0066 Legislation Ingestion Runtime Review
+- FOS-0067 Legislation Ingestion Runtime Composition

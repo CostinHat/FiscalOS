@@ -107,6 +107,9 @@ Tests: 358 passing
 - FOS-0065 Legislation Ingestion Runtime Implementation
   - Commit: c193c87
   - Merge: c193c87 (direct commit to main)
+- FOS-0066 Legislation Ingestion Runtime Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -231,14 +234,22 @@ Tests: 358 passing
 - Runtime now includes a sequential ingestion pipeline with succeeded and failed result handling.
 - Ingestion runtime remains Runtime-only, in-memory and contract-backed.
 - No external network acquisition, filesystem/database persistence, graph integration, AI/NLP, classification coupling or Legal Reference Resolution integration was introduced.
+- Legislation Ingestion runtime review is complete.
+- FOS-0065 was accepted as-is.
+- Remaining debt: no ingestion runtime composition facade exists yet.
+- Remaining debt: no ingestion builder or DI registration exists yet.
+- Remaining debt: no stage implementations exist yet for discovery, versioning, normalization, citation detection, candidate extraction, human review or rule binding.
+- Remaining debt: no batch lifecycle store, document validation stage, duplicate/version policy or ingestion summary output exists yet.
 
 ### Next Target
 
-- FOS-0066 Legislation Ingestion Runtime Review
+- FOS-0067 Legislation Ingestion Runtime Composition
 
-Rationale: FOS-0065 added the first runtime implementation behind the existing
-Legislation Ingestion contracts. Before adding external acquisition, durable
-persistence, graph integration, AI/NLP or Legal Reference Resolution
-integration, the ingestion runtime should be reviewed for contract fit, failure
-semantics, stage naming, trace behavior, repository lifecycle and composition
-boundaries.
+Rationale: FOS-0065 was accepted as-is and the ingestion runtime now has
+in-memory source, repository, stages and pipeline implementations. The next step
+is to add a Runtime-only ingestion composition facade that wires the existing
+source, raw document repository, acquisition/storage stages and pipeline into a
+single deterministic execution flow. Scope should remain contract-backed and
+in-memory: no external network acquisition, durable persistence,
+filesystem/database storage, graph integration, AI/NLP, classification coupling
+or Legal Reference Resolution integration.
