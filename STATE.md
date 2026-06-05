@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 824b926
-Tests: 342 passing
+HEAD: 87d440d
+Tests: 353 passing
 
 ## Completed
 
@@ -95,6 +95,12 @@ Tests: 342 passing
 - FOS-0061 Legal Reference Resolution Runtime Architecture Hardening
   - Commit: 824b926
   - Merge: 824b926 (direct commit to main)
+- FOS-0062 Legal Reference Resolution Repository Runtime Implementations
+  - Commit: aca24fd
+  - Merge: aca24fd (direct commit to main)
+- FOS-0063 Legal Reference Resolution Runtime Composition
+  - Commit: 87d440d
+  - Merge: 87d440d (direct commit to main)
 
 ## Session Outcomes
 
@@ -197,15 +203,25 @@ Tests: 342 passing
 - ResolutionResult was not redesigned and no Query property was added.
 - No Evidence Package composition contract was introduced; composition remains a runtime helper pending a future contract decision.
 - No persistence implementation, ingestion, graph integration, AI/NLP, or richer resolution algorithm was introduced.
+- Legal Reference Resolution runtime repository implementations are published.
+- Runtime now includes deterministic in-memory repositories for resolution outcomes, audit entries, provenance records and evidence packages.
+- Repository implementations remain Runtime-only, in-memory and contract-backed; no durable persistence, database or filesystem behavior was introduced.
+- Legal Reference Resolution runtime composition is published.
+- Runtime now includes an end-to-end facade that accepts LegalReference queries and returns ResolutionEvidencePackage outputs.
+- Runtime composition wires the existing resolution, audit, provenance and evidence package engines with the ResolutionEvidencePackageComposer.
+- Runtime composition reuses existing repositories, pipelines, stages and engines.
+- Runtime composition preserves Runtime -> Domain dependency direction.
+- No ResolutionResult redesign, Query property, richer resolution/search/source algorithm, ingestion, graph integration, AI/NLP or classification coupling was introduced.
 
 ### Next Target
 
-- FOS-0062 Legal Reference Resolution Repository Runtime Implementations
+- FOS-0064 Legal Reference Resolution Runtime Composition Review
 
-Rationale: FOS-0057 through FOS-0061 complete and harden the first runtime
-engine/pipeline/stage implementations for Resolution, Audit, Provenance and
-Evidence Package. The next useful step is to provide runtime repository
-implementations behind the existing repository contracts so the completed
-engines can be wired without test-only in-memory doubles. Scope should remain
-repository-only and contract-backed: no richer resolution algorithms, external
-source lookup, ingestion, graph integration, AI/NLP, or domain model redesign.
+Rationale: FOS-0062 and FOS-0063 complete the in-memory repository layer and
+the first end-to-end runtime composition facade for Legal Reference Resolution.
+Before adding richer resolution algorithms or integrations, the composed runtime
+should be reviewed as a whole for contract fit, lifecycle boundaries,
+composition responsibility, provenance generation policy and remaining
+first-candidate ambiguity conventions. Scope should remain review/design only:
+no domain model redesign, persistence, ingestion, graph integration, AI/NLP,
+classification coupling or search/source algorithms.

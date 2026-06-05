@@ -25,6 +25,7 @@
 - Pipeline Contract
 - Engine Contract
 - Runtime Engine Implementation
+- Runtime Repository Implementation
 
 ## Audit
 - Model
@@ -32,6 +33,7 @@
 - Pipeline Contract
 - Engine Contract
 - Runtime Engine Implementation
+- Runtime Repository Implementation
 
 ## Provenance
 - Model
@@ -39,6 +41,7 @@
 - Pipeline Contract
 - Engine Contract
 - Runtime Engine Implementation
+- Runtime Repository Implementation
 
 ## Evidence Package
 - Model
@@ -46,6 +49,10 @@
 - Pipeline Contract
 - Engine Contract
 - Runtime Engine Implementation
+- Runtime Repository Implementation
+
+## Runtime Composition
+- End-to-end LegalReference -> ResolutionEvidencePackage facade
 
 ## Status
 Resolution, Audit, Provenance and Evidence Package are now complete as separate
@@ -82,8 +89,16 @@ Architecture review conclusions:
 - FOS-0061 strengthened ResolutionEvidencePackageComposer failure-mode coverage.
 - Evidence package composition remains a runtime helper; no composition contract
   has been introduced yet.
-- No persistence implementation, ingestion, graph integration, AI/NLP or richer
-  resolution algorithm has been introduced.
+- FOS-0062 added deterministic in-memory runtime repositories behind the
+  existing repository contracts for Resolution, Audit, Provenance and Evidence
+  Package.
+- FOS-0063 added an end-to-end runtime composition facade that accepts
+  LegalReference queries and returns ResolutionEvidencePackage outputs.
+- Runtime composition wires the existing engines, pipelines, stages,
+  repositories and ResolutionEvidencePackageComposer.
+- Dependency direction remains Runtime -> Domain.
+- No durable persistence, ingestion, graph integration, AI/NLP, classification
+  coupling or richer resolution/search/source algorithm has been introduced.
 
 ## Next
-- FOS-0062 Legal Reference Resolution Repository Runtime Implementations
+- FOS-0064 Legal Reference Resolution Runtime Composition Review
