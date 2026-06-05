@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: e826cea
-Tests: 313 passing
+HEAD: b2fbb10
+Tests: 334 passing
 
 ## Completed
 
@@ -80,6 +80,18 @@ Tests: 313 passing
 - FOS-0055 Legal Reference Resolution Evidence Package Engine Contract
   - Commit: e826cea
   - Merge: e826cea (direct commit to main)
+- FOS-0057 Legal Reference Resolution Engine Implementation
+  - Commit: 7728f28
+  - Merge: 7728f28 (direct commit to main)
+- FOS-0058 Legal Reference Resolution Audit Engine Implementation
+  - Commit: 1f8ef41
+  - Merge: 1f8ef41 (direct commit to main)
+- FOS-0059 Legal Reference Resolution Provenance Engine Implementation
+  - Commit: 09c8d33
+  - Merge: 09c8d33 (direct commit to main)
+- FOS-0060 Legal Reference Resolution Evidence Package Engine Implementation
+  - Commit: b2fbb10
+  - Merge: b2fbb10 (direct commit to main)
 
 ## Session Outcomes
 
@@ -157,20 +169,33 @@ Tests: 313 passing
 - No evidence package pipeline implementation exists yet.
 - Legal Reference Resolution evidence package engine contract is published.
 - Evidence package processing is now modeled end-to-end through engine, pipeline and repository abstractions.
-- No evidence package engine implementation exists yet.
 - The Resolution, Audit, Provenance and Evidence Package verticals are complete at the domain/contract layer.
+- Legal Reference Resolution engine implementation is published.
+- Resolution processing now has a runtime facade over the resolution pipeline, with a repository-backed stage for stored outcomes and unresolved misses.
+- Legal Reference Resolution audit engine implementation is published.
+- Audit processing now maps resolution outcomes to audit entries and can persist trails through repository-backed stages.
+- Legal Reference Resolution provenance engine implementation is published.
+- Provenance processing now builds ordered provenance chains from processed provenance records and can persist provenance through repository-backed stages.
+- Legal Reference Resolution evidence package engine implementation is published.
+- Evidence package processing now composes ResolutionResult, ResolutionAuditTrail and ResolutionProvenance into immutable ResolutionEvidencePackage records and can persist packages through repository-backed stages.
+- Resolution, Audit, Provenance and Evidence Package now have both domain/contract verticals and first runtime implementations.
+- Architecture review accepted FOS-0057 through FOS-0060 as-is for the milestone.
+- Architecture review found dependency direction remains correct: Runtime depends on Domain contracts; Domain does not depend on Runtime.
+- Architecture review found separation of concerns mostly preserved, with repository-backed persistence isolated behind repository contracts.
+- Architecture review identified architectural debt: audit result-to-entry mapping currently lives in the audit engine rather than a dedicated audit stage.
+- Architecture review identified architectural debt: evidence package composition exists as a runtime helper rather than a formal composition contract.
+- Architecture review identified a fragile convention: ambiguous result query derivation uses the first candidate.
 
 ### Next Target
 
-- FOS-0057 Legal Reference Resolution Engine Implementation
+- FOS-0061 Legal Reference Resolution Runtime Architecture Hardening
 
-Rationale: FOS-0052 through FOS-0055 complete the Evidence Package
-Model -> Repository Contract -> Pipeline Contract -> Engine Contract progression.
-The legal reference resolution area now has complete domain/contract verticals
-for Resolution, Audit, Provenance and Evidence Package. The next useful step is
-to begin the first narrowly scoped implementation behind an existing contract,
-starting with the Resolution engine because Audit, Provenance and Evidence
-Package processing depend on resolution outcomes. Implementation should remain
-domain-service oriented, avoid persistence/runtime concerns unless explicitly
-scoped, and preserve the LegalAtom / LegalGraph / PracticeGraph deferrals
-(ARCH-0008/0009/0010).
+Rationale: FOS-0057 through FOS-0060 complete the first runtime implementations
+for Resolution, Audit, Provenance and Evidence Package. The architecture review
+accepted the implementation as-is, but identified focused debt that should be
+closed before adding broader behavior: move audit result-to-entry mapping into a
+dedicated audit stage, decide whether evidence package composition needs a
+formal contract, and document or strengthen the ambiguous-result query
+derivation convention. This keeps the runtime aligned with the staged vertical
+design before persistence, richer resolution algorithms or external integrations
+are introduced.
