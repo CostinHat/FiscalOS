@@ -33,6 +33,7 @@ public sealed class LegislationIngestionRuntime
             new ILegislationIngestionStage[]
             {
                 new AcquireLegislationDocumentsStage(source, timestampProvider),
+                new ValidateRawLegislationDocumentsStage(timestampProvider),
                 new StoreRawLegislationDocumentsStage(repository, timestampProvider),
             },
             timestampProvider);

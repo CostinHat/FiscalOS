@@ -33,6 +33,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
             new ILegislationIngestionStage[]
             {
                 new AcquireLegislationDocumentsStage(source, () => At),
+                new ValidateRawLegislationDocumentsStage(() => At),
                 new StoreRawLegislationDocumentsStage(repository, () => At),
             },
             () => At);
@@ -44,9 +45,10 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Equal(IngestionStatus.Succeeded, result.Status);
         Assert.Equal("BATCH-1", result.BatchId.Value);
         Assert.Same(document, stored);
-        Assert.Equal(2, result.Trace.Count);
+        Assert.Equal(3, result.Trace.Count);
         Assert.Equal(IngestionStage.Acquisition, result.Trace[0].Stage);
-        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[1].Stage);
+        Assert.Equal(IngestionStage.Normalization, result.Trace[1].Stage);
+        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[2].Stage);
     }
 
     [Fact]
@@ -60,6 +62,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
             new ILegislationIngestionStage[]
             {
                 new AcquireLegislationDocumentsStage(source, () => At),
+                new ValidateRawLegislationDocumentsStage(() => At),
                 new StoreRawLegislationDocumentsStage(repository, () => At),
             },
             () => At);
@@ -72,6 +75,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Same(first, storedFirst);
         Assert.Same(second, storedSecond);
         Assert.Contains(result.Trace, entry => entry.Description == "Acquired 2 document(s).");
+        Assert.Contains(result.Trace, entry => entry.Description == "Validated 2 raw legislation document(s).");
         Assert.Contains(result.Trace, entry => entry.Description == "Stored 2 raw legislation document(s).");
     }
 
