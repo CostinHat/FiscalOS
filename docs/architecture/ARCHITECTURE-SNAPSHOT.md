@@ -35,12 +35,24 @@
 - Model
 - Repository Contract
 - Pipeline Contract
-- Engine Contract (FOS-0051 — completed)
+- Engine Contract
+
+## Evidence Package
+- Model
+- Repository Contract
+- Pipeline Contract
+- Engine Contract
 
 ## Status
-Resolution, Audit and Provenance are now complete as separate domain/contract
-verticals, each following Model → Repository Contract → Pipeline Contract →
-Engine Contract.
+Resolution, Audit, Provenance and Evidence Package are now complete as separate
+domain/contract verticals, each following Model -> Repository Contract ->
+Pipeline Contract -> Engine Contract.
+
+Evidence Package composes the ResolutionResult, ResolutionAuditTrail and
+ResolutionProvenance concerns without replacing or merging those verticals.
+All four verticals remain contract-only at this layer: no production
+implementation, runtime behavior or persistence behavior is prescribed by the
+domain contracts.
 
 ## Next
-- FOS-0052 Legal Reference Resolution Evidence Package Model
+- FOS-0057 Legal Reference Resolution Engine Implementation
