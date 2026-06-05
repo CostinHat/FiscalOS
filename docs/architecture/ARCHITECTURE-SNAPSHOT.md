@@ -35,4 +35,12 @@
 - Model
 - Repository Contract
 - Pipeline Contract
-- Next: Engine Contract (FOS-0051)
+- Engine Contract (FOS-0051 — completed)
+
+## Status
+Resolution, Audit and Provenance are now complete as separate domain/contract
+verticals, each following Model → Repository Contract → Pipeline Contract →
+Engine Contract.
+
+## Next
+- FOS-0052 Legal Reference Resolution Evidence Package Model

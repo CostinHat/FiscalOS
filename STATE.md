@@ -138,4 +138,13 @@ Tests: 300 passing
 
 ### Next Target
 
-- FOS-0052
+- FOS-0052 Legal Reference Resolution Evidence Package Model
+
+Rationale: The Resolution (FOS-0040..0043), Audit (FOS-0044..0047) and
+Provenance (FOS-0048..0051) verticals are now complete as separate
+contract/domain verticals. FOS-0052 follows by composing them into a single
+immutable evidence package (ResolutionResult + ResolutionAuditTrail +
+ResolutionProvenance) in FiscalOS.Domain.LegalReferences, while preserving
+separation of concerns. Domain-model-only: no engine, repository, runtime or
+persistence behavior, and no lifting of the LegalAtom / LegalGraph /
+PracticeGraph deferrals (ARCH-0008/0009/0010).
