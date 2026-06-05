@@ -32,6 +32,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         ILegislationIngestionPipeline pipeline = new LegislationIngestionPipeline(
             new ILegislationIngestionStage[]
             {
+                new DiscoverLegislationDocumentsStage(() => At),
                 new AcquireLegislationDocumentsStage(source, () => At),
                 new ValidateRawLegislationDocumentsStage(() => At),
                 new StoreRawLegislationDocumentsStage(repository, () => At),
@@ -45,10 +46,11 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Equal(IngestionStatus.Succeeded, result.Status);
         Assert.Equal("BATCH-1", result.BatchId.Value);
         Assert.Same(document, stored);
-        Assert.Equal(3, result.Trace.Count);
-        Assert.Equal(IngestionStage.Acquisition, result.Trace[0].Stage);
-        Assert.Equal(IngestionStage.Normalization, result.Trace[1].Stage);
-        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[2].Stage);
+        Assert.Equal(4, result.Trace.Count);
+        Assert.Equal(IngestionStage.Discovery, result.Trace[0].Stage);
+        Assert.Equal(IngestionStage.Acquisition, result.Trace[1].Stage);
+        Assert.Equal(IngestionStage.Normalization, result.Trace[2].Stage);
+        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[3].Stage);
     }
 
     [Fact]
@@ -61,6 +63,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         var pipeline = new LegislationIngestionPipeline(
             new ILegislationIngestionStage[]
             {
+                new DiscoverLegislationDocumentsStage(() => At),
                 new AcquireLegislationDocumentsStage(source, () => At),
                 new ValidateRawLegislationDocumentsStage(() => At),
                 new StoreRawLegislationDocumentsStage(repository, () => At),
@@ -74,6 +77,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.True(result.IsSuccessful);
         Assert.Same(first, storedFirst);
         Assert.Same(second, storedSecond);
+        Assert.Contains(result.Trace, entry => entry.Description == "Discovered legislation ingestion batch.");
         Assert.Contains(result.Trace, entry => entry.Description == "Acquired 2 document(s).");
         Assert.Contains(result.Trace, entry => entry.Description == "Validated 2 raw legislation document(s).");
         Assert.Contains(result.Trace, entry => entry.Description == "Stored 2 raw legislation document(s).");

@@ -78,14 +78,16 @@ public sealed class Should_Validate_Legislation_Ingestion_Runtime
         Assert.False(result.IsSuccessful);
         Assert.Equal(IngestionStatus.Failed, result.Status);
         Assert.Null(stored);
-        Assert.Equal(2, result.Trace.Count);
-        Assert.Equal(IngestionStage.Acquisition, result.Trace[0].Stage);
+        Assert.Equal(3, result.Trace.Count);
+        Assert.Equal(IngestionStage.Discovery, result.Trace[0].Stage);
         Assert.Equal(IngestionStatus.Succeeded, result.Trace[0].Status);
-        Assert.Equal(IngestionStage.Normalization, result.Trace[1].Stage);
-        Assert.Equal(IngestionStatus.Failed, result.Trace[1].Status);
+        Assert.Equal(IngestionStage.Acquisition, result.Trace[1].Stage);
+        Assert.Equal(IngestionStatus.Succeeded, result.Trace[1].Status);
+        Assert.Equal(IngestionStage.Normalization, result.Trace[2].Stage);
+        Assert.Equal(IngestionStatus.Failed, result.Trace[2].Status);
         Assert.Equal(
             "Raw legislation document 'DOC-INVALID' content cannot be whitespace.",
-            result.Trace[1].Description);
+            result.Trace[2].Description);
     }
 
     private static Task<IngestionResult> RunValidationPipeline(RawLegislationDocument document)

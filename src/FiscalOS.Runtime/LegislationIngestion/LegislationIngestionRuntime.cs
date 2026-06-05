@@ -32,6 +32,7 @@ public sealed class LegislationIngestionRuntime
         var pipeline = new LegislationIngestionPipeline(
             new ILegislationIngestionStage[]
             {
+                new DiscoverLegislationDocumentsStage(timestampProvider),
                 new AcquireLegislationDocumentsStage(source, timestampProvider),
                 new ValidateRawLegislationDocumentsStage(timestampProvider),
                 new StoreRawLegislationDocumentsStage(repository, timestampProvider),
