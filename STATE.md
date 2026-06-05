@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 7d2c660
-Tests: 362 passing
+HEAD: 02273e9
+Tests: 367 passing
 
 ## Completed
 
@@ -114,6 +114,9 @@ Tests: 362 passing
   - Commit: 7d2c660
   - Merge: 7d2c660 (direct commit to main)
 - FOS-0068 Legislation Ingestion Runtime Composition Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0069 Legislation Ingestion Runtime Validation Stage
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -256,14 +259,21 @@ Tests: 362 passing
 - Remaining debt: no ingestion builder or DI registration exists yet.
 - Remaining debt: no document validation stage exists yet.
 - Remaining debt: no stage implementations exist yet for discovery, versioning, normalization, citation detection, candidate extraction, human review or rule binding.
+- Legislation Ingestion runtime validation stage is complete.
+- Runtime validation now inspects documents present in IngestionContext.Documents before storage.
+- Valid documents record a success trace.
+- Invalid document content fails the pipeline through existing runtime failure behavior.
+- Runtime validation preserves Domain contracts and Runtime -> Domain dependency direction.
+- No durable persistence, network acquisition, AI/NLP, graph integration, Legal Reference integration or classification coupling was introduced.
 
 ### Next Target
 
-- FOS-0069 Legislation Ingestion Runtime Validation Stage
+- FOS-0070 Legislation Ingestion Runtime Discovery Stage
 
-Rationale: FOS-0068 accepted the Legislation Ingestion runtime composition
-as-is. The next step is to add the first validation stage inside the existing
-runtime ingestion flow so invalid raw documents can fail deterministically
-before storage. Scope should remain Runtime-only and contract-backed: no Domain
-contract changes, network acquisition, durable persistence, AI/NLP, graph
-integration, classification coupling or Legal Reference Resolution integration.
+Rationale: FOS-0069 completed the first validation stage inside the existing
+runtime ingestion flow. The next step is to add a discovery stage ahead of
+validation so the ingestion runtime can continue moving left-to-right through
+the remaining ingestion concerns. Scope should remain Runtime-only and
+contract-backed: no Domain contract changes, network acquisition, durable
+persistence, AI/NLP, graph integration, classification coupling or Legal
+Reference Resolution integration.

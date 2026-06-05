@@ -151,6 +151,14 @@ contracts:
 - Remaining debt: no stage implementations exist yet for discovery, versioning,
   normalization, citation detection, candidate extraction, human review or rule
   binding.
+- FOS-0069 added a Runtime-only validation stage that inspects
+  IngestionContext.Documents before storage.
+- Valid documents add a success trace.
+- Invalid content fails through the existing runtime pipeline failure behavior.
+- Runtime validation preserves Domain contracts and Runtime -> Domain
+  dependency direction.
+- No durable persistence, network acquisition, AI/NLP, graph integration,
+  Legal Reference integration or classification coupling has been introduced.
 
 ## Next
-- FOS-0069 Legislation Ingestion Runtime Validation Stage
+- FOS-0070 Legislation Ingestion Runtime Discovery Stage
