@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 02273e9
-Tests: 367 passing
+HEAD: 784885b
+Tests: 372 passing
 
 ## Completed
 
@@ -117,6 +117,9 @@ Tests: 367 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0069 Legislation Ingestion Runtime Validation Stage
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0070 Legislation Ingestion Runtime Discovery Stage
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -265,15 +268,23 @@ Tests: 367 passing
 - Invalid document content fails the pipeline through existing runtime failure behavior.
 - Runtime validation preserves Domain contracts and Runtime -> Domain dependency direction.
 - No durable persistence, network acquisition, AI/NLP, graph integration, Legal Reference integration or classification coupling was introduced.
+- Legislation Ingestion runtime discovery stage is complete.
+- Runtime discovery now adds a deterministic success trace before acquisition.
+- Runtime discovery does not mutate IngestionContext.Documents.
+- Runtime discovery preserves Domain contracts and Runtime -> Domain dependency direction.
+- No durable persistence, network acquisition, AI/NLP, graph integration, Legal Reference integration or classification coupling was introduced.
+- FOS-0071 Legislation Ingestion Runtime Source Acquisition Stage was skipped/reframed.
+- Existing AcquireLegislationDocumentsStage and runtime wiring already implement the proposed acquisition scope.
+- Remaining debt: no acquisition hardening review has been recorded yet.
 
 ### Next Target
 
-- FOS-0070 Legislation Ingestion Runtime Discovery Stage
+- FOS-0072 Legislation Ingestion Runtime Versioning Stage
 
-Rationale: FOS-0069 completed the first validation stage inside the existing
-runtime ingestion flow. The next step is to add a discovery stage ahead of
-validation so the ingestion runtime can continue moving left-to-right through
-the remaining ingestion concerns. Scope should remain Runtime-only and
-contract-backed: no Domain contract changes, network acquisition, durable
-persistence, AI/NLP, graph integration, classification coupling or Legal
-Reference Resolution integration.
+Rationale: FOS-0071 was skipped/reframed because the proposed acquisition
+scope is already implemented by AcquireLegislationDocumentsStage and the
+current runtime wiring. The next step is to add a versioning stage so the
+ingestion flow can continue through the remaining source-processing concerns.
+Scope should remain Runtime-only and contract-backed: no Domain contract
+changes, durable persistence, AI/NLP, graph integration, classification
+coupling or Legal Reference Resolution integration.

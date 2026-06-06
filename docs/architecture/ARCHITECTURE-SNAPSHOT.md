@@ -159,6 +159,17 @@ contracts:
   dependency direction.
 - No durable persistence, network acquisition, AI/NLP, graph integration,
   Legal Reference integration or classification coupling has been introduced.
+- FOS-0070 added a Runtime-only discovery stage that emits a deterministic
+  success trace before acquisition.
+- Runtime discovery does not mutate IngestionContext.Documents.
+- Runtime discovery preserves Domain contracts and Runtime -> Domain
+  dependency direction.
+- No durable persistence, network acquisition, AI/NLP, graph integration,
+  Legal Reference integration or classification coupling has been introduced.
+- FOS-0071 was skipped/reframed because the proposed acquisition scope is
+  already implemented by AcquireLegislationDocumentsStage and the current
+  runtime wiring.
+- No acquisition hardening review has been recorded yet.
 
 ## Next
-- FOS-0070 Legislation Ingestion Runtime Discovery Stage
+- FOS-0072 Legislation Ingestion Runtime Versioning Stage
