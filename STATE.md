@@ -1,6 +1,6 @@
 # FiscalOS State
 
-HEAD: 784885b
+HEAD: 420068d
 Tests: 372 passing
 
 ## Completed
@@ -120,6 +120,9 @@ Tests: 372 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0070 Legislation Ingestion Runtime Discovery Stage
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0072 Legislation Ingestion Runtime Versioning Stage
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -276,15 +279,21 @@ Tests: 372 passing
 - FOS-0071 Legislation Ingestion Runtime Source Acquisition Stage was skipped/reframed.
 - Existing AcquireLegislationDocumentsStage and runtime wiring already implement the proposed acquisition scope.
 - Remaining debt: no acquisition hardening review has been recorded yet.
+- Legislation Ingestion runtime versioning stage is complete.
+- Runtime order is Discovery -> Acquisition -> Validation -> Versioning -> Storage.
+- All ingestion runtime stages remain Runtime-only, in-memory, and contract-backed.
+- Runtime versioning adds a deterministic success trace before storage.
+- Runtime versioning does not mutate document content.
+- No durable persistence, network acquisition, AI/NLP, graph integration, Legal Reference integration or classification coupling was introduced.
 
 ### Next Target
 
-- FOS-0072 Legislation Ingestion Runtime Versioning Stage
+- FOS-0073 Legislation Ingestion Runtime Storage Stage
 
-Rationale: FOS-0071 was skipped/reframed because the proposed acquisition
-scope is already implemented by AcquireLegislationDocumentsStage and the
-current runtime wiring. The next step is to add a versioning stage so the
-ingestion flow can continue through the remaining source-processing concerns.
-Scope should remain Runtime-only and contract-backed: no Domain contract
-changes, durable persistence, AI/NLP, graph integration, classification
-coupling or Legal Reference Resolution integration.
+Rationale: FOS-0072 completed the versioning stage and established the current
+ingestion runtime order. The next step is to harden the storage boundary as a
+standalone runtime stage so the ingestion flow can continue through the final
+document-persistence concern. Scope should remain Runtime-only and
+contract-backed: no Domain contract changes, durable persistence, AI/NLP,
+graph integration, classification coupling or Legal Reference Resolution
+integration.

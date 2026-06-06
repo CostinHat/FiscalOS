@@ -170,6 +170,15 @@ contracts:
   already implemented by AcquireLegislationDocumentsStage and the current
   runtime wiring.
 - No acquisition hardening review has been recorded yet.
+- FOS-0072 added a Runtime-only versioning stage that runs after validation and
+  before storage.
+- Runtime order is Discovery -> Acquisition -> Validation -> Versioning ->
+  Storage.
+- All ingestion runtime stages remain Runtime-only, in-memory, and
+  contract-backed.
+- Runtime versioning does not mutate document content.
+- No durable persistence, network acquisition, AI/NLP, graph integration,
+  Legal Reference integration or classification coupling has been introduced.
 
 ## Next
-- FOS-0072 Legislation Ingestion Runtime Versioning Stage
+- FOS-0073 Legislation Ingestion Runtime Storage Stage
