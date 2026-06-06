@@ -35,6 +35,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
                 new DiscoverLegislationDocumentsStage(() => At),
                 new AcquireLegislationDocumentsStage(source, () => At),
                 new ValidateRawLegislationDocumentsStage(() => At),
+                new VersionLegislationDocumentsStage(() => At),
                 new StoreRawLegislationDocumentsStage(repository, () => At),
             },
             () => At);
@@ -46,11 +47,12 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Equal(IngestionStatus.Succeeded, result.Status);
         Assert.Equal("BATCH-1", result.BatchId.Value);
         Assert.Same(document, stored);
-        Assert.Equal(4, result.Trace.Count);
+        Assert.Equal(5, result.Trace.Count);
         Assert.Equal(IngestionStage.Discovery, result.Trace[0].Stage);
         Assert.Equal(IngestionStage.Acquisition, result.Trace[1].Stage);
         Assert.Equal(IngestionStage.Normalization, result.Trace[2].Stage);
-        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[3].Stage);
+        Assert.Equal(IngestionStage.Versioning, result.Trace[3].Stage);
+        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[4].Stage);
     }
 
     [Fact]
@@ -66,6 +68,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
                 new DiscoverLegislationDocumentsStage(() => At),
                 new AcquireLegislationDocumentsStage(source, () => At),
                 new ValidateRawLegislationDocumentsStage(() => At),
+                new VersionLegislationDocumentsStage(() => At),
                 new StoreRawLegislationDocumentsStage(repository, () => At),
             },
             () => At);
@@ -80,6 +83,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Contains(result.Trace, entry => entry.Description == "Discovered legislation ingestion batch.");
         Assert.Contains(result.Trace, entry => entry.Description == "Acquired 2 document(s).");
         Assert.Contains(result.Trace, entry => entry.Description == "Validated 2 raw legislation document(s).");
+        Assert.Contains(result.Trace, entry => entry.Description == "Versioned 2 raw legislation document(s).");
         Assert.Contains(result.Trace, entry => entry.Description == "Stored 2 raw legislation document(s).");
     }
 
@@ -91,8 +95,11 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         var pipeline = new LegislationIngestionPipeline(
             new ILegislationIngestionStage[]
             {
+                new DiscoverLegislationDocumentsStage(() => At),
                 new AcquireLegislationDocumentsStage(source, () => At),
-                new FailingLegislationIngestionStage(IngestionStage.Normalization, "normalization failed"),
+                new ValidateRawLegislationDocumentsStage(() => At),
+                new VersionLegislationDocumentsStage(() => At),
+                new FailingLegislationIngestionStage(IngestionStage.CuratedPromotion, "storage failed"),
                 new StoreRawLegislationDocumentsStage(repository, () => At),
             },
             () => At);
@@ -104,12 +111,16 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Equal(IngestionStatus.Failed, result.Status);
         Assert.Equal("BATCH-FAILED", result.BatchId.Value);
         Assert.Null(stored);
-        Assert.Equal(2, result.Trace.Count);
-        Assert.Equal(IngestionStage.Acquisition, result.Trace[0].Stage);
+        Assert.Equal(4, result.Trace.Count);
+        Assert.Equal(IngestionStage.Discovery, result.Trace[0].Stage);
         Assert.Equal(IngestionStatus.Succeeded, result.Trace[0].Status);
-        Assert.Equal(IngestionStage.Normalization, result.Trace[1].Stage);
-        Assert.Equal(IngestionStatus.Failed, result.Trace[1].Status);
-        Assert.Equal("normalization failed", result.Trace[1].Description);
+        Assert.Equal(IngestionStage.Acquisition, result.Trace[1].Stage);
+        Assert.Equal(IngestionStatus.Succeeded, result.Trace[1].Status);
+        Assert.Equal(IngestionStage.Normalization, result.Trace[2].Stage);
+        Assert.Equal(IngestionStatus.Succeeded, result.Trace[2].Status);
+        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[3].Stage);
+        Assert.Equal(IngestionStatus.Failed, result.Trace[3].Status);
+        Assert.Equal("storage failed", result.Trace[3].Description);
     }
 
     [Fact]

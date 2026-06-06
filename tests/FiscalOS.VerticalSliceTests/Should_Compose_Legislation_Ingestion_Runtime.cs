@@ -29,11 +29,12 @@ public sealed class Should_Compose_Legislation_Ingestion_Runtime
         Assert.True(result.IsSuccessful);
         Assert.Equal(IngestionStatus.Succeeded, result.Status);
         Assert.Equal("BATCH-1", result.BatchId.Value);
-        Assert.Equal(4, result.Trace.Count);
+        Assert.Equal(5, result.Trace.Count);
         Assert.Equal(IngestionStage.Discovery, result.Trace[0].Stage);
         Assert.Equal(IngestionStage.Acquisition, result.Trace[1].Stage);
         Assert.Equal(IngestionStage.Normalization, result.Trace[2].Stage);
-        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[3].Stage);
+        Assert.Equal(IngestionStage.Versioning, result.Trace[3].Stage);
+        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[4].Stage);
     }
 
     [Fact]
