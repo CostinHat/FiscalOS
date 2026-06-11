@@ -214,6 +214,10 @@ contracts:
   exist.
 - The current endpoint organization remains sufficient for the current public
   surface.
+- FOS-0082 separated platform capabilities from product capabilities.
+- Legal Reference Resolution remains the strongest future product exposure
+  candidate.
+- Legislation Ingestion remains an internal platform capability.
 
 ## Next
-- FOS-0081 FiscalOS.Api Public Surface Readiness Review
+- FOS-0083 Product Surface Validation Against iConta Workflows

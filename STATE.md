@@ -1,6 +1,6 @@
 # FiscalOS State
 
-HEAD: 72eee89
+HEAD: 8d441fc
 Tests: 381 passing
 
 ## Completed
@@ -147,6 +147,12 @@ Tests: 381 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0081 FiscalOS.Api Public Surface Readiness Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0082 FiscalOS Product Surface Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0083 Product Surface Validation Against iConta Workflows
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -341,13 +347,18 @@ Tests: 381 passing
   exist.
 - The current endpoint organization remains sufficient for the current public
   surface.
+- FOS-0082 separated platform capabilities from product capabilities.
+- Legal Reference Resolution remains the strongest future product exposure
+  candidate.
+- Legislation Ingestion remains an internal platform capability.
 
 ### Next Target
 
-- FOS-0081 FiscalOS.Api Public Surface Readiness Review
+- FOS-0083 Product Surface Validation Against iConta Workflows
 
-Rationale: FOS-0080 completed the endpoint module review and deferred modules
-until additional public API surfaces exist. The next step is to review public
-surface readiness. Scope should remain Runtime-only and contract-backed: no
-Domain contract changes, durable persistence, AI/NLP, graph integration,
-classification coupling or Legal Reference Resolution integration.
+Rationale: FOS-0082 completed the product surface review and separated platform
+capabilities from product capabilities. The next step is to validate the
+product surface against iConta workflows. Scope should remain Runtime-only and
+contract-backed: no Domain contract changes, durable persistence, AI/NLP,
+graph integration, classification coupling or Legal Reference Resolution
+integration.
