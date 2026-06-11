@@ -1,7 +1,7 @@
 # FiscalOS State
 
 HEAD: 9cf3527
-Tests: 387 passing
+Tests: 397 passing
 
 ## Completed
 
@@ -207,6 +207,24 @@ Tests: 387 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0216 Legal Reference Traceability Projection Implementation
+  - Commit: 4ea6b20
+  - Merge: 4ea6b20 (direct commit to main)
+- FOS-0217 Legal Reference Traceability Projection Implementation Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0218 Legal Reference Traceability Boundary Placement Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0219 Legal Reference Traceability Embedded Integration Plan
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0220 Legal Reference Traceability Embedded Contract Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0221 Legal Reference Traceability Embedded Implementation Plan
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0222 Legal Reference Traceability Embedded Boundary Implementation
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -477,13 +495,35 @@ Tests: 387 passing
   pipeline and graph internals out of the public traceability DTOs.
 - Ambiguous projection uses the original requested reference and does not expose
   first-candidate linkage as public traceability behavior.
+- FOS-0217 accepted the traceability projection implementation as-is.
+- FOS-0218 accepted current Runtime placement for the first projection slice,
+  while keeping Embedded Feature / iConta as the long-term public composition
+  owner.
+- FOS-0219 defined the embedded integration flow: request correlationId and
+  original LegalReference flow into optional TraceabilitySummary projection.
+- FOS-0220 accepted the embedded request/response contract shape for
+  traceability integration.
+- FOS-0221 planned the embedded boundary implementation as DTOs plus a narrow
+  facade over LegalReferenceResolutionRuntime and LegalReferenceTraceabilityProjector.
+- FOS-0222 implemented EmbeddedLegalReferenceRequest,
+  EmbeddedLegalReferenceResponse and EmbeddedLegalReferenceFeature.
+- EmbeddedLegalReferenceFeature validates and trims correlationId before
+  runtime resolution and traceability projection.
+- EmbeddedLegalReferenceFeature preserves original requested LegalReference
+  identity for traceability summaries.
+- Embedded responses map resolution packages to status, answer, citation,
+  explanation, correlationId and optional traceabilitySummary.
+- TraceabilitySummary is produced only when IncludeTraceability is true.
+- Resolved embedded responses include response and traceability citations.
+- Ambiguous and unresolved embedded responses expose no selected citation.
+- Embedded response DTOs keep provenance, audit, evidence package, repository,
+  DI, pipeline and graph internals hidden.
 
 ### Next Target
 
-- FOS-0217 Legal Reference Traceability Projection Implementation Review
+- FOS-0223 Legal Reference Traceability Embedded Boundary Acceptance Review
 
-Rationale: FOS-0216 added the first public-safe traceability projection slice.
-The next step is to review the implementation boundary and behavior before any
-further feature expansion. Scope should remain review-only: no API endpoint,
-persistence, ingestion, AI/NLP integration, graph integration or runtime
-redesign.
+Rationale: FOS-0222 added the first embedded feature boundary for optional
+traceability projection. The next step is to review the implementation before
+any API endpoint, persistence, ingestion, AI/NLP integration, graph integration
+or runtime redesign.

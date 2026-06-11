@@ -286,6 +286,28 @@ contracts:
   repository, DI, pipeline or graph internals.
 - Ambiguous projection uses the original requested reference rather than
   first-candidate linkage.
+- FOS-0217 accepted the traceability projection implementation as-is.
+- FOS-0218 accepted Runtime placement for the first projection slice while
+  preserving Embedded Feature / iConta as the long-term public composition
+  owner.
+- FOS-0219 defined embedded integration as request correlationId plus original
+  LegalReference flowing into optional TraceabilitySummary projection.
+- FOS-0220 accepted the embedded request/response contract shape for
+  traceability integration.
+- FOS-0221 planned the embedded boundary as DTOs plus a narrow facade over
+  LegalReferenceResolutionRuntime and LegalReferenceTraceabilityProjector.
+- FOS-0222 added EmbeddedLegalReferenceRequest,
+  EmbeddedLegalReferenceResponse and EmbeddedLegalReferenceFeature.
+- EmbeddedLegalReferenceFeature validates and trims correlationId, preserves the
+  original requested LegalReference, resolves through LegalReferenceResolutionRuntime
+  and optionally projects TraceabilitySummary.
+- Embedded responses expose status, answer, citation, explanation,
+  correlationId and optional traceabilitySummary.
+- TraceabilitySummary is included only when IncludeTraceability is true.
+- Resolved embedded responses include citation; ambiguous and unresolved
+  embedded responses expose no selected citation.
+- Embedded response DTOs keep provenance, audit, evidence package, repository,
+  DI, pipeline and graph internals hidden.
 
 ## Next
-- FOS-0217 Legal Reference Traceability Projection Implementation Review
+- FOS-0223 Legal Reference Traceability Embedded Boundary Acceptance Review
