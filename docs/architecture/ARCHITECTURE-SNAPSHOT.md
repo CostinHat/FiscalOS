@@ -266,6 +266,26 @@ contracts:
   traceability summaries.
 - Known debt: ambiguous-result first-candidate linkage remains an internal
   convention and must not become public traceability behavior.
+- FOS-0211 accepted the traceability architecture track as internally
+  consistent and compatible with Embedded Feature v1.
+- FOS-0212 accepted the TraceabilitySummary v1 shape:
+  correlationId, requested-reference identity, status, optional resolved
+  citation, optional source summary, linkage text and limitations.
+- FOS-0213 accepted public traceability wording with constraints: factual,
+  accountant-friendly, citation-backed and non-advisory.
+- FOS-0214 found the traceability track ready for implementation planning.
+- FOS-0215 limited the first delivery to public-safe traceability projection.
+- FOS-0216 added public-safe traceability DTOs and
+  LegalReferenceTraceabilityProjector.
+- Runtime traceability projection accepts ResolutionEvidencePackage,
+  correlationId and requested-reference input, and returns TraceabilitySummary.
+- Projection preserves resolved, ambiguous and unresolved statuses.
+- Projection emits a citation only for resolved outcomes.
+- Ambiguous and unresolved projection outputs include no selected citation.
+- Public traceability DTOs do not expose provenance, audit, evidence package,
+  repository, DI, pipeline or graph internals.
+- Ambiguous projection uses the original requested reference rather than
+  first-candidate linkage.
 
 ## Next
-- FOS-0211 Legal Reference Traceability Acceptance Review
+- FOS-0217 Legal Reference Traceability Projection Implementation Review

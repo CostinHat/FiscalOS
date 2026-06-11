@@ -1,7 +1,7 @@
 # FiscalOS State
 
 HEAD: 9cf3527
-Tests: 381 passing
+Tests: 387 passing
 
 ## Completed
 
@@ -186,6 +186,27 @@ Tests: 381 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0209 Legal Reference Traceability Documentation Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0210 Legal Reference Traceability Documentation Update
+  - Commit: 73e9cba
+  - Merge: 73e9cba (direct commit to main)
+- FOS-0211 Legal Reference Traceability Acceptance Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0212 Legal Reference Traceability Contract Shape Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0213 Legal Reference Traceability Public Wording Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0214 Legal Reference Traceability Implementation Readiness Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0215 Legal Reference Traceability Implementation Plan
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0216 Legal Reference Traceability Projection Implementation
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -433,13 +454,36 @@ Tests: 381 passing
   debt and must not become public traceability behavior.
 - FOS-0209 reviewed documentation impact and recommended recording the
   traceability architecture conclusions in STATE and the architecture snapshot.
+- FOS-0211 accepted the traceability architecture track as coherent and ready
+  to proceed toward implementation planning.
+- FOS-0212 accepted the public TraceabilitySummary v1 shape for planning.
+- TraceabilitySummary v1 includes correlationId, requested-reference identity,
+  status, optional resolved citation, optional source summary, linkage text and
+  limitations.
+- FOS-0213 accepted public traceability wording with constraints: factual,
+  accountant-friendly, citation-backed and non-advisory.
+- FOS-0214 concluded implementation planning could begin without further
+  architecture review.
+- FOS-0215 defined the first implementation slice as traceability projection
+  only.
+- FOS-0216 implemented public-safe traceability DTOs and
+  LegalReferenceTraceabilityProjector.
+- Traceability projection now supports resolved, ambiguous and unresolved
+  outcomes.
+- Resolved traceability includes a public citation; ambiguous and unresolved
+  traceability include no selected citation.
+- Projection includes correlationId and requested-reference identity.
+- Projection keeps provenance, audit, evidence package, repository, DI,
+  pipeline and graph internals out of the public traceability DTOs.
+- Ambiguous projection uses the original requested reference and does not expose
+  first-candidate linkage as public traceability behavior.
 
 ### Next Target
 
-- FOS-0211 Legal Reference Traceability Acceptance Review
+- FOS-0217 Legal Reference Traceability Projection Implementation Review
 
-Rationale: FOS-0210 records the FOS-0203 through FOS-0209 traceability
-architecture review conclusions. The next step is to perform an acceptance
-review before any implementation. Scope remains documentation/architecture-only:
-no code changes, contract implementation, durable persistence, API changes,
-ingestion changes, AI/NLP integration or graph integration.
+Rationale: FOS-0216 added the first public-safe traceability projection slice.
+The next step is to review the implementation boundary and behavior before any
+further feature expansion. Scope should remain review-only: no API endpoint,
+persistence, ingestion, AI/NLP integration, graph integration or runtime
+redesign.
