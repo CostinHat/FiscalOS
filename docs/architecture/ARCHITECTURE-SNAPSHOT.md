@@ -190,6 +190,11 @@ contracts:
   Legal Reference resolution runtime graph.
 - FOS-0074 was accepted as-is.
 - Runtime composition remains Runtime-only and Domain-backed.
+- FOS-0075 wired LegalReferenceResolutionRuntime into FiscalOS.Api through API
+  composition.
+- FOS-0075 was accepted as-is.
+- The API host now resolves the Legal Reference runtime graph through the
+  shared composition path.
 
 ## Next
-- FOS-0075 Legal Reference Resolution Host Wiring
+- FOS-0076 Legal Reference Resolution Host Exposure Review

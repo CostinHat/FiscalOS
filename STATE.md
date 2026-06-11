@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: de02f0b
-Tests: 380 passing
+HEAD: 934ae31
+Tests: 381 passing
 
 ## Completed
 
@@ -126,6 +126,9 @@ Tests: 380 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0074 Legal Reference Resolution Runtime Composition Builder and DI Registration
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0075 Legal Reference Resolution Host Wiring
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -296,14 +299,18 @@ Tests: 380 passing
 - FOS-0074 was accepted as-is.
 - The Legal Reference resolution runtime graph is now registered through DI.
 - Runtime composition remains Runtime-only and Domain-backed.
+- FOS-0075 wired LegalReferenceResolutionRuntime into FiscalOS.Api through API
+  composition.
+- FOS-0075 review accepted host wiring as-is.
+- The API host now resolves the Legal Reference runtime graph through the shared
+  composition path.
 
 ### Next Target
 
-- FOS-0075 Legal Reference Resolution Host Wiring
+- FOS-0076 Legal Reference Resolution Host Exposure Review
 
-Rationale: FOS-0074 completed the DI registration milestone for Legal Reference
-resolution runtime composition and was accepted as-is. The next step is to wire
-the registered runtime graph into the host. Scope should remain Runtime-only
-and contract-backed: no Domain contract changes, durable persistence, AI/NLP,
-graph integration, classification coupling or Legal Reference Resolution
-integration.
+Rationale: FOS-0075 completed the host wiring milestone for Legal Reference
+resolution runtime composition and was accepted as-is. The next step is to
+review host exposure. Scope should remain Runtime-only and contract-backed: no
+Domain contract changes, durable persistence, AI/NLP, graph integration,
+classification coupling or Legal Reference Resolution integration.
