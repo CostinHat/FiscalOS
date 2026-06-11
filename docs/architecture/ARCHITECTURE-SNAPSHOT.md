@@ -203,6 +203,10 @@ contracts:
   as-is.
 - The API host is coherent as a thin composition boundary with a shared
   registration helper and dedicated endpoint mapping.
+- FOS-0078 kept the current endpoint surface.
+- The API surface remains a single root route plus the existing microenterprise
+  endpoint.
+- No Legal Reference endpoint was introduced.
 
 ## Next
-- FOS-0078 FiscalOS.Api Endpoint Surface Review
+- FOS-0079 FiscalOS.Api Endpoint Strategy Review

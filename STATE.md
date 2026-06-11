@@ -1,6 +1,6 @@
 # FiscalOS State
 
-HEAD: 0ac40eb
+HEAD: d03fe7e
 Tests: 381 passing
 
 ## Completed
@@ -135,6 +135,12 @@ Tests: 381 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0077 FiscalOS.Api Composition Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0078 FiscalOS.Api Endpoint Surface Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0079 FiscalOS.Api Endpoint Strategy Review
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -318,13 +324,17 @@ Tests: 381 passing
   as-is.
 - The API host is coherent as a thin composition boundary with a shared
   registration helper and dedicated endpoint mapping.
+- FOS-0078 kept the current endpoint surface.
+- The API surface remains a single root route plus the existing
+  microenterprise endpoint.
+- No Legal Reference endpoint was introduced.
 
 ### Next Target
 
-- FOS-0078 FiscalOS.Api Endpoint Surface Review
+- FOS-0079 FiscalOS.Api Endpoint Strategy Review
 
-Rationale: FOS-0077 completed the API composition review and accepted the
-current host structure as-is. The next step is to review the endpoint surface.
-Scope should remain Runtime-only and contract-backed: no Domain contract
-changes, durable persistence, AI/NLP, graph integration, classification
-coupling or Legal Reference Resolution integration.
+Rationale: FOS-0078 completed the endpoint surface review and kept the current
+surface unchanged. The next step is to review the endpoint strategy. Scope
+should remain Runtime-only and contract-backed: no Domain contract changes,
+durable persistence, AI/NLP, graph integration, classification coupling or
+Legal Reference Resolution integration.
