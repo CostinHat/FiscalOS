@@ -207,6 +207,9 @@ contracts:
 - The API surface remains a single root route plus the existing microenterprise
   endpoint.
 - No Legal Reference endpoint was introduced.
+- FOS-0079 kept FiscalOS.Api as a thin host for now.
+- The future strategy is modular endpoint groups only when a public endpoint
+  is justified.
 
 ## Next
-- FOS-0079 FiscalOS.Api Endpoint Strategy Review
+- FOS-0080 FiscalOS.Api Endpoint Module Review
