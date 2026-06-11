@@ -230,6 +230,11 @@ contracts:
   repositories, DI and ingestion internals hidden.
 - FOS-0084 flags the risk of presenting legal basis lookup as full legal
   advice or guaranteed compliance.
+- FOS-0085 recommends implementing Legal Reference Resolution as an embedded
+  iConta workflow action.
+- FOS-0085 defines the workflow shape as ask -> resolve -> cite -> explain.
+- FOS-0085 reiterates that the feature is decision support, not legal advice
+  or guaranteed compliance.
 
 ## Next
-- FOS-0085 iConta Legal Reference Workflow Definition
+- FOS-0086 Legal Reference Embedded Feature Contract

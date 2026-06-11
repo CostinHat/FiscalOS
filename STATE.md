@@ -1,6 +1,6 @@
 # FiscalOS State
 
-HEAD: fdde9e3
+HEAD: 4b22079
 Tests: 381 passing
 
 ## Completed
@@ -159,6 +159,9 @@ Tests: 381 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0085 iConta Legal Reference Workflow Definition
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0086 Legal Reference Embedded Feature Contract
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -369,14 +372,19 @@ Tests: 381 passing
   repositories, DI and ingestion internals hidden.
 - FOS-0084 flags the risk of presenting legal basis lookup as full legal
   advice or guaranteed compliance.
+- FOS-0085 recommends implementing Legal Reference Resolution as an embedded
+  iConta workflow action.
+- FOS-0085 defines the workflow shape as ask -> resolve -> cite -> explain.
+- FOS-0085 reiterates that the feature is decision support, not legal advice
+  or guaranteed compliance.
 
 ### Next Target
 
-- FOS-0085 iConta Legal Reference Workflow Definition
+- FOS-0086 Legal Reference Embedded Feature Contract
 
-Rationale: FOS-0084 completed the legal reference product contract review and
-recommended embedding Legal Reference Resolution into iConta rather than
-marketing it as a standalone FiscalOS feature. The next step is to define the
-iConta workflow. Scope should remain Runtime-only and contract-backed: no
-Domain contract changes, durable persistence, AI/NLP, graph integration,
-classification coupling or Legal Reference Resolution integration.
+Rationale: FOS-0085 completed the iConta legal reference workflow definition
+and recommended implementing Legal Reference Resolution as an embedded iConta
+workflow action. The next step is to define the embedded feature contract.
+Scope should remain Runtime-only and contract-backed: no Domain contract
+changes, durable persistence, AI/NLP, graph integration, classification
+coupling or Legal Reference Resolution integration.
