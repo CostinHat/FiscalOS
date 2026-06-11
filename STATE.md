@@ -167,6 +167,27 @@ Tests: 381 passing
 - FOS-0087 Embedded Feature UX Copy Review
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0203 Legal Reference Traceability Composition Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0204 Legal Reference Traceability Contract Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0205 Legal Reference Traceability Boundary Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0206 Legal Reference Traceability Projection Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0207 Legal Reference Traceability Correlation Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0208 Legal Reference Traceability Ambiguity Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0209 Legal Reference Traceability Documentation Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -387,13 +408,38 @@ Tests: 381 passing
   optional traceability summary.
 - FOS-0086 keeps internal audit, provenance, evidence, repository and DI
   details hidden.
+- FOS-0203 accepted traceability as a public-safe downstream projection from
+  internal resolution/evidence output.
+- FOS-0204 defined the public-safe traceability summary boundary.
+- Public traceability summaries may include correlationId, requested-reference
+  identity, status, resolved citation when available, source summary, linkage
+  text and limitations.
+- Provenance, audit, evidence, repository, DI, pipeline and graph internals
+  remain hidden from public traceability summaries.
+- FOS-0205 assigned traceability summary composition to the Embedded Feature /
+  iConta boundary.
+- Runtime remains responsible for internal outcome and evidence package
+  composition.
+- FOS-0206 defined traceability projection as a read-only downstream projection
+  that cannot alter, reinterpret or override legal outcomes.
+- FOS-0207 concluded correlationId is required for request/response linkage but
+  is not sufficient by itself for legal traceability.
+- Public traceability summaries must include requested-reference identity.
+- FOS-0208 concluded ambiguous and unresolved outcomes have no selected
+  citation in public traceability summaries.
+- Ambiguous and unresolved traceability must remain anchored to the original
+  requested reference.
+- First-candidate linkage for ambiguous results remains known architectural
+  debt and must not become public traceability behavior.
+- FOS-0209 reviewed documentation impact and recommended recording the
+  traceability architecture conclusions in STATE and the architecture snapshot.
 
 ### Next Target
 
-- FOS-0087 Embedded Feature UX Copy Review
+- FOS-0211 Legal Reference Traceability Acceptance Review
 
-Rationale: FOS-0086 completed the embedded feature contract review and defined
-the version-1 embedded feature shape. The next step is to review embedded
-feature UX copy. Scope should remain Runtime-only and contract-backed: no Domain
-contract changes, durable persistence, AI/NLP, graph integration,
-classification coupling or Legal Reference Resolution integration.
+Rationale: FOS-0210 records the FOS-0203 through FOS-0209 traceability
+architecture review conclusions. The next step is to perform an acceptance
+review before any implementation. Scope remains documentation/architecture-only:
+no code changes, contract implementation, durable persistence, API changes,
+ingestion changes, AI/NLP integration or graph integration.

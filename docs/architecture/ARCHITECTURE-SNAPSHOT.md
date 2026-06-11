@@ -242,6 +242,30 @@ contracts:
   optional traceability summary.
 - FOS-0086 keeps internal audit, provenance, evidence, repository and DI
   details hidden.
+- Traceability composition is a public-safe downstream projection from internal
+  resolution/evidence output.
+- Traceability summaries are composed at the Embedded Feature / iConta boundary,
+  not inside the Runtime resolution core.
+- Runtime remains responsible for internal outcome determination and evidence
+  package composition.
+- Public-safe traceability projection model:
+  ResolutionEvidencePackage + correlationId + requested-reference ->
+  TraceabilitySummary.
+- Public-safe TraceabilitySummary may include correlationId,
+  requested-reference identity, status, resolved citation when available, source
+  summary, linkage text and limitations.
+- correlationId links the request and response but is not sufficient by itself
+  for legal traceability.
+- requested-reference identity is required in public traceability summaries.
+- Ambiguous traceability has no selected citation and must remain anchored to
+  the original requested reference.
+- Unresolved traceability has no citation and must not imply that the law does
+  not exist.
+- Provenance chains, audit trails, evidence package internals, repositories, DI,
+  pipeline/stage names and graph internals remain hidden from public
+  traceability summaries.
+- Known debt: ambiguous-result first-candidate linkage remains an internal
+  convention and must not become public traceability behavior.
 
 ## Next
-- FOS-0087 Embedded Feature UX Copy Review
+- FOS-0211 Legal Reference Traceability Acceptance Review
