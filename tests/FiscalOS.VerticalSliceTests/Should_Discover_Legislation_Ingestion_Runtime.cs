@@ -58,11 +58,12 @@ public sealed class Should_Discover_Legislation_Ingestion_Runtime
         var result = await runtime.RunAsync(new IngestionBatchId("BATCH-1"));
 
         Assert.True(result.IsSuccessful);
-        Assert.Equal(4, result.Trace.Count);
+        Assert.Equal(5, result.Trace.Count);
         Assert.Equal(IngestionStage.Discovery, result.Trace[0].Stage);
         Assert.Equal(IngestionStage.Acquisition, result.Trace[1].Stage);
         Assert.Equal(IngestionStage.Normalization, result.Trace[2].Stage);
-        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[3].Stage);
+        Assert.Equal(IngestionStage.Versioning, result.Trace[3].Stage);
+        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[4].Stage);
     }
 
     [Fact]

@@ -179,6 +179,13 @@ contracts:
 - Runtime versioning does not mutate document content.
 - No durable persistence, network acquisition, AI/NLP, graph integration,
   Legal Reference integration or classification coupling has been introduced.
+- Post-FOS-0073 roadmap review is complete.
+- The ingestion runtime vertical is considered complete for the current
+  architecture milestone line.
+- Additional ingestion hardening milestones are lower priority than starting
+  the next major vertical.
+- FOS-0071 and FOS-0073 were skipped because the proposed functionality already
+  existed in the runtime implementation.
 
 ## Next
-- FOS-0073 Legislation Ingestion Runtime Storage Stage
+- FOS-0074 Legal Reference Resolution Runtime Composition Builder and DI Registration

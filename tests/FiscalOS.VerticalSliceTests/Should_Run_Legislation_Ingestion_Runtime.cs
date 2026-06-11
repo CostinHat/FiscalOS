@@ -111,16 +111,18 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Equal(IngestionStatus.Failed, result.Status);
         Assert.Equal("BATCH-FAILED", result.BatchId.Value);
         Assert.Null(stored);
-        Assert.Equal(4, result.Trace.Count);
+        Assert.Equal(5, result.Trace.Count);
         Assert.Equal(IngestionStage.Discovery, result.Trace[0].Stage);
         Assert.Equal(IngestionStatus.Succeeded, result.Trace[0].Status);
         Assert.Equal(IngestionStage.Acquisition, result.Trace[1].Stage);
         Assert.Equal(IngestionStatus.Succeeded, result.Trace[1].Status);
         Assert.Equal(IngestionStage.Normalization, result.Trace[2].Stage);
         Assert.Equal(IngestionStatus.Succeeded, result.Trace[2].Status);
-        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[3].Stage);
-        Assert.Equal(IngestionStatus.Failed, result.Trace[3].Status);
-        Assert.Equal("storage failed", result.Trace[3].Description);
+        Assert.Equal(IngestionStage.Versioning, result.Trace[3].Stage);
+        Assert.Equal(IngestionStatus.Succeeded, result.Trace[3].Status);
+        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[4].Stage);
+        Assert.Equal(IngestionStatus.Failed, result.Trace[4].Status);
+        Assert.Equal("storage failed", result.Trace[4].Description);
     }
 
     [Fact]
