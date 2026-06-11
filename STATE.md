@@ -1,6 +1,6 @@
 # FiscalOS State
 
-HEAD: 934ae31
+HEAD: 562284b
 Tests: 381 passing
 
 ## Completed
@@ -129,6 +129,9 @@ Tests: 381 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0075 Legal Reference Resolution Host Wiring
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0076 Legal Reference Resolution Host Exposure Review
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -304,13 +307,18 @@ Tests: 381 passing
 - FOS-0075 review accepted host wiring as-is.
 - The API host now resolves the Legal Reference runtime graph through the shared
   composition path.
+- FOS-0076 closed the host-exposure line.
+- The team decided not to expose a Legal Reference endpoint now.
+- The API host remains a composition boundary rather than a Legal Reference
+  feature surface.
 
 ### Next Target
 
-- FOS-0076 Legal Reference Resolution Host Exposure Review
+- FOS-0077 FiscalOS.Api Composition Review
 
-Rationale: FOS-0075 completed the host wiring milestone for Legal Reference
-resolution runtime composition and was accepted as-is. The next step is to
-review host exposure. Scope should remain Runtime-only and contract-backed: no
-Domain contract changes, durable persistence, AI/NLP, graph integration,
-classification coupling or Legal Reference Resolution integration.
+Rationale: FOS-0076 completed the host-exposure review and closed the line
+without exposing a Legal Reference endpoint. The next step is to review the
+overall FiscalOS.Api composition boundary. Scope should remain Runtime-only and
+contract-backed: no Domain contract changes, durable persistence, AI/NLP,
+graph integration, classification coupling or Legal Reference Resolution
+integration.

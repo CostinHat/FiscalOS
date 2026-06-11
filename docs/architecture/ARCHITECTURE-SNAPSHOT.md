@@ -195,6 +195,10 @@ contracts:
 - FOS-0075 was accepted as-is.
 - The API host now resolves the Legal Reference runtime graph through the
   shared composition path.
+- FOS-0076 closed the host-exposure line.
+- The team decided not to expose a Legal Reference endpoint now.
+- The API host remains a composition boundary rather than a Legal Reference
+  feature surface.
 
 ## Next
-- FOS-0076 Legal Reference Resolution Host Exposure Review
+- FOS-0077 FiscalOS.Api Composition Review
