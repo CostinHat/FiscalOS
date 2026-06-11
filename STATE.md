@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 420068d
-Tests: 372 passing
+HEAD: de02f0b
+Tests: 380 passing
 
 ## Completed
 
@@ -123,6 +123,9 @@ Tests: 372 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0072 Legislation Ingestion Runtime Versioning Stage
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0074 Legal Reference Resolution Runtime Composition Builder and DI Registration
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -289,16 +292,18 @@ Tests: 372 passing
 - The ingestion runtime vertical is considered complete for the current architecture milestone line.
 - Additional ingestion hardening milestones are lower priority than starting the next major vertical.
 - FOS-0071 and FOS-0073 were skipped because the proposed functionality already existed in the runtime implementation.
+- FOS-0074 is complete.
+- FOS-0074 was accepted as-is.
+- The Legal Reference resolution runtime graph is now registered through DI.
+- Runtime composition remains Runtime-only and Domain-backed.
 
 ### Next Target
 
-- FOS-0074 Legal Reference Resolution Runtime Composition Builder and DI Registration
+- FOS-0075 Legal Reference Resolution Host Wiring
 
-Rationale: the ingestion runtime vertical is complete for the current
-architecture milestone line: Discovery -> Acquisition -> Validation ->
-Versioning -> Storage. Additional ingestion hardening is lower priority than
-starting the next major vertical. The next step is to add a composition builder
-and DI registration path for Legal Reference resolution runtime composition.
-Scope should remain Runtime-only and contract-backed: no Domain contract
-changes, durable persistence, AI/NLP, graph integration, classification
-coupling or Legal Reference Resolution integration.
+Rationale: FOS-0074 completed the DI registration milestone for Legal Reference
+resolution runtime composition and was accepted as-is. The next step is to wire
+the registered runtime graph into the host. Scope should remain Runtime-only
+and contract-backed: no Domain contract changes, durable persistence, AI/NLP,
+graph integration, classification coupling or Legal Reference Resolution
+integration.

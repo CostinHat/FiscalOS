@@ -186,6 +186,10 @@ contracts:
   the next major vertical.
 - FOS-0071 and FOS-0073 were skipped because the proposed functionality already
   existed in the runtime implementation.
+- FOS-0074 added a ServiceCollection-based DI registration module for the
+  Legal Reference resolution runtime graph.
+- FOS-0074 was accepted as-is.
+- Runtime composition remains Runtime-only and Domain-backed.
 
 ## Next
-- FOS-0074 Legal Reference Resolution Runtime Composition Builder and DI Registration
+- FOS-0075 Legal Reference Resolution Host Wiring
