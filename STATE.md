@@ -1,6 +1,6 @@
 # FiscalOS State
 
-HEAD: 4b22079
+HEAD: 9cf3527
 Tests: 381 passing
 
 ## Completed
@@ -162,6 +162,9 @@ Tests: 381 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0086 Legal Reference Embedded Feature Contract
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0087 Embedded Feature UX Copy Review
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -377,14 +380,20 @@ Tests: 381 passing
 - FOS-0085 defines the workflow shape as ask -> resolve -> cite -> explain.
 - FOS-0085 reiterates that the feature is decision support, not legal advice
   or guaranteed compliance.
+- FOS-0086 defines the embedded feature version-1 shape:
+  request = LegalReference query + correlationId.
+- FOS-0086 defines the embedded feature version-1 shape:
+  response = status + answer + citation + explanation + correlationId +
+  optional traceability summary.
+- FOS-0086 keeps internal audit, provenance, evidence, repository and DI
+  details hidden.
 
 ### Next Target
 
-- FOS-0086 Legal Reference Embedded Feature Contract
+- FOS-0087 Embedded Feature UX Copy Review
 
-Rationale: FOS-0085 completed the iConta legal reference workflow definition
-and recommended implementing Legal Reference Resolution as an embedded iConta
-workflow action. The next step is to define the embedded feature contract.
-Scope should remain Runtime-only and contract-backed: no Domain contract
-changes, durable persistence, AI/NLP, graph integration, classification
-coupling or Legal Reference Resolution integration.
+Rationale: FOS-0086 completed the embedded feature contract review and defined
+the version-1 embedded feature shape. The next step is to review embedded
+feature UX copy. Scope should remain Runtime-only and contract-backed: no Domain
+contract changes, durable persistence, AI/NLP, graph integration,
+classification coupling or Legal Reference Resolution integration.
