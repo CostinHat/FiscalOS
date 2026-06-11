@@ -1,6 +1,6 @@
 # FiscalOS State
 
-HEAD: 562284b
+HEAD: 0ac40eb
 Tests: 381 passing
 
 ## Completed
@@ -132,6 +132,9 @@ Tests: 381 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0076 Legal Reference Resolution Host Exposure Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0077 FiscalOS.Api Composition Review
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -311,14 +314,17 @@ Tests: 381 passing
 - The team decided not to expose a Legal Reference endpoint now.
 - The API host remains a composition boundary rather than a Legal Reference
   feature surface.
+- FOS-0077 reviewed the FiscalOS.Api composition boundary and accepted it
+  as-is.
+- The API host is coherent as a thin composition boundary with a shared
+  registration helper and dedicated endpoint mapping.
 
 ### Next Target
 
-- FOS-0077 FiscalOS.Api Composition Review
+- FOS-0078 FiscalOS.Api Endpoint Surface Review
 
-Rationale: FOS-0076 completed the host-exposure review and closed the line
-without exposing a Legal Reference endpoint. The next step is to review the
-overall FiscalOS.Api composition boundary. Scope should remain Runtime-only and
-contract-backed: no Domain contract changes, durable persistence, AI/NLP,
-graph integration, classification coupling or Legal Reference Resolution
-integration.
+Rationale: FOS-0077 completed the API composition review and accepted the
+current host structure as-is. The next step is to review the endpoint surface.
+Scope should remain Runtime-only and contract-backed: no Domain contract
+changes, durable persistence, AI/NLP, graph integration, classification
+coupling or Legal Reference Resolution integration.

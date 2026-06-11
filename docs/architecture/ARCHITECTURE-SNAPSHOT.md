@@ -199,6 +199,10 @@ contracts:
 - The team decided not to expose a Legal Reference endpoint now.
 - The API host remains a composition boundary rather than a Legal Reference
   feature surface.
+- FOS-0077 reviewed the FiscalOS.Api composition boundary and accepted it
+  as-is.
+- The API host is coherent as a thin composition boundary with a shared
+  registration helper and dedicated endpoint mapping.
 
 ## Next
-- FOS-0077 FiscalOS.Api Composition Review
+- FOS-0078 FiscalOS.Api Endpoint Surface Review
