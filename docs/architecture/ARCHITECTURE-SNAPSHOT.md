@@ -224,6 +224,12 @@ contracts:
   fit.
 - FOS-0083 confirmed Legislation Ingestion remains backend/internal
   infrastructure.
+- FOS-0084 recommends Legal Reference Resolution as an embedded iConta
+  feature, not a standalone FiscalOS feature at this stage.
+- FOS-0084 keeps the internal pipeline, audit, provenance, evidence,
+  repositories, DI and ingestion internals hidden.
+- FOS-0084 flags the risk of presenting legal basis lookup as full legal
+  advice or guaranteed compliance.
 
 ## Next
-- FOS-0084 Legal Reference Product Contract Definition
+- FOS-0085 iConta Legal Reference Workflow Definition

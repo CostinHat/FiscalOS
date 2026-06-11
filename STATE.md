@@ -1,6 +1,6 @@
 # FiscalOS State
 
-HEAD: 7daaab2
+HEAD: fdde9e3
 Tests: 381 passing
 
 ## Completed
@@ -153,6 +153,12 @@ Tests: 381 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0083 Product Surface Validation Against iConta Workflows
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0084 Legal Reference Product Contract Definition
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0085 iConta Legal Reference Workflow Definition
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -357,14 +363,20 @@ Tests: 381 passing
   fit.
 - FOS-0083 confirmed Legislation Ingestion remains backend/internal
   infrastructure.
+- FOS-0084 recommends Legal Reference Resolution as an embedded iConta
+  feature, not a standalone FiscalOS feature at this stage.
+- FOS-0084 keeps the internal pipeline, audit, provenance, evidence,
+  repositories, DI and ingestion internals hidden.
+- FOS-0084 flags the risk of presenting legal basis lookup as full legal
+  advice or guaranteed compliance.
 
 ### Next Target
 
-- FOS-0084 Legal Reference Product Contract Definition
+- FOS-0085 iConta Legal Reference Workflow Definition
 
-Rationale: FOS-0083 completed the product surface validation and confirmed the
-platform should primarily power iConta workflows rather than be marketed
-independently at this stage. The next step is to define the legal reference
-product contract. Scope should remain Runtime-only and contract-backed: no
+Rationale: FOS-0084 completed the legal reference product contract review and
+recommended embedding Legal Reference Resolution into iConta rather than
+marketing it as a standalone FiscalOS feature. The next step is to define the
+iConta workflow. Scope should remain Runtime-only and contract-backed: no
 Domain contract changes, durable persistence, AI/NLP, graph integration,
 classification coupling or Legal Reference Resolution integration.
