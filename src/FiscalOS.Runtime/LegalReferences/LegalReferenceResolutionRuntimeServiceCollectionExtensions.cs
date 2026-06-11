@@ -1,4 +1,6 @@
 using FiscalOS.Domain.LegalReferences;
+using FiscalOS.Runtime.LegalReferences.Embedded;
+using FiscalOS.Runtime.LegalReferences.Traceability;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -84,6 +86,8 @@ public static class LegalReferenceResolutionRuntimeServiceCollectionExtensions
                 sp.GetRequiredService<ILegalReferenceResolutionProvenanceEngine>(),
                 sp.GetRequiredService<ILegalReferenceResolutionEvidencePackageEngine>(),
                 sp.GetRequiredService<ResolutionEvidencePackageComposer>()));
+        services.TryAddSingleton<LegalReferenceTraceabilityProjector>();
+        services.TryAddSingleton<EmbeddedLegalReferenceFeature>();
 
         return services;
     }

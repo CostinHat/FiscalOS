@@ -308,6 +308,18 @@ contracts:
   embedded responses expose no selected citation.
 - Embedded response DTOs keep provenance, audit, evidence package, repository,
   DI, pipeline and graph internals hidden.
+- FOS-0223 accepted the embedded traceability boundary implementation as-is.
+- FOS-0224 accepted singleton DI registration for
+  LegalReferenceTraceabilityProjector and EmbeddedLegalReferenceFeature.
+- FOS-0225 registered LegalReferenceTraceabilityProjector and
+  EmbeddedLegalReferenceFeature in the existing runtime composition path.
+- DI registration does not add a Legal Reference API endpoint or expand product
+  integration.
+- EmbeddedLegalReferenceFeature depends only on LegalReferenceResolutionRuntime
+  and LegalReferenceTraceabilityProjector.
+- Direct repository, pipeline, audit, provenance, evidence package, graph,
+  persistence, ingestion or AI/NLP dependencies were not introduced into the
+  embedded facade.
 
 ## Next
-- FOS-0223 Legal Reference Traceability Embedded Boundary Acceptance Review
+- FOS-0226 Legal Reference Traceability Embedded DI Acceptance Review

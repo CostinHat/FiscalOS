@@ -6,6 +6,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using FiscalOS.Domain.LegalReferences;
 using FiscalOS.Runtime.LegalReferences;
+using FiscalOS.Runtime.LegalReferences.Embedded;
+using FiscalOS.Runtime.LegalReferences.Traceability;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 
@@ -48,6 +50,8 @@ public sealed class Should_Register_Legal_Reference_Resolution_Runtime
         Assert.IsType<LegalReferenceResolutionEvidencePackagePipeline>(provider.GetRequiredService<ILegalReferenceResolutionEvidencePackagePipeline>());
         Assert.IsType<LegalReferenceResolutionEvidencePackageEngine>(provider.GetRequiredService<ILegalReferenceResolutionEvidencePackageEngine>());
         Assert.IsType<ResolutionEvidencePackageComposer>(provider.GetRequiredService<ResolutionEvidencePackageComposer>());
+        Assert.IsType<LegalReferenceTraceabilityProjector>(provider.GetRequiredService<LegalReferenceTraceabilityProjector>());
+        Assert.IsType<EmbeddedLegalReferenceFeature>(provider.GetRequiredService<EmbeddedLegalReferenceFeature>());
     }
 
     [Fact]
@@ -104,6 +108,31 @@ public sealed class Should_Register_Legal_Reference_Resolution_Runtime
         Assert.Same(
             provider.GetRequiredService<ResolutionEvidencePackageComposer>(),
             provider.GetRequiredService<ResolutionEvidencePackageComposer>());
+        Assert.Same(
+            provider.GetRequiredService<LegalReferenceTraceabilityProjector>(),
+            provider.GetRequiredService<LegalReferenceTraceabilityProjector>());
+        Assert.Same(
+            provider.GetRequiredService<EmbeddedLegalReferenceFeature>(),
+            provider.GetRequiredService<EmbeddedLegalReferenceFeature>());
+    }
+
+    [Fact]
+    public void Embedded_feature_depends_only_on_runtime_facade_and_traceability_projector()
+    {
+        var constructor = typeof(EmbeddedLegalReferenceFeature).GetConstructors().Single();
+        var dependencyTypes = constructor.GetParameters()
+            .Select(parameter => parameter.ParameterType)
+            .ToArray();
+
+        Assert.Equal(
+            new[] { typeof(LegalReferenceResolutionRuntime), typeof(LegalReferenceTraceabilityProjector) },
+            dependencyTypes);
+        Assert.DoesNotContain(dependencyTypes, type => type.Name.Contains("Repository", StringComparison.Ordinal));
+        Assert.DoesNotContain(dependencyTypes, type => type.Name.Contains("Pipeline", StringComparison.Ordinal));
+        Assert.DoesNotContain(dependencyTypes, type => type.Name.Contains("Audit", StringComparison.Ordinal));
+        Assert.DoesNotContain(dependencyTypes, type => type.Name.Contains("Provenance", StringComparison.Ordinal));
+        Assert.DoesNotContain(dependencyTypes, type => type.Name.Contains("EvidencePackage", StringComparison.Ordinal));
+        Assert.DoesNotContain(dependencyTypes, type => type.Name.Contains("Graph", StringComparison.Ordinal));
     }
 
     [Fact]

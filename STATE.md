@@ -1,7 +1,7 @@
 # FiscalOS State
 
 HEAD: 9cf3527
-Tests: 397 passing
+Tests: 399 passing
 
 ## Completed
 
@@ -225,6 +225,15 @@ Tests: 397 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0222 Legal Reference Traceability Embedded Boundary Implementation
+  - Commit: 2510930
+  - Merge: 2510930 (direct commit to main)
+- FOS-0223 Embedded Legal Reference Traceability Boundary Acceptance Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0224 Legal Reference Traceability Embedded DI Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0225 Legal Reference Traceability Embedded DI Registration
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -518,12 +527,23 @@ Tests: 397 passing
 - Ambiguous and unresolved embedded responses expose no selected citation.
 - Embedded response DTOs keep provenance, audit, evidence package, repository,
   DI, pipeline and graph internals hidden.
+- FOS-0223 accepted the embedded traceability boundary implementation as-is.
+- FOS-0224 accepted singleton DI registration for
+  LegalReferenceTraceabilityProjector and EmbeddedLegalReferenceFeature.
+- FOS-0225 registered LegalReferenceTraceabilityProjector and
+  EmbeddedLegalReferenceFeature in the existing runtime composition path.
+- Embedded traceability DI registration does not add an API endpoint.
+- EmbeddedLegalReferenceFeature remains dependent only on
+  LegalReferenceResolutionRuntime and LegalReferenceTraceabilityProjector.
+- Direct repository, pipeline, audit, provenance, evidence package, graph,
+  persistence, ingestion or AI/NLP dependencies were not introduced into the
+  embedded facade.
 
 ### Next Target
 
-- FOS-0223 Legal Reference Traceability Embedded Boundary Acceptance Review
+- FOS-0226 Legal Reference Traceability Embedded DI Acceptance Review
 
-Rationale: FOS-0222 added the first embedded feature boundary for optional
-traceability projection. The next step is to review the implementation before
-any API endpoint, persistence, ingestion, AI/NLP integration, graph integration
-or runtime redesign.
+Rationale: FOS-0225 registered the embedded traceability services in DI without
+adding an API endpoint or expanding product integration. The next step is to
+review the DI registration before any API endpoint, persistence, ingestion,
+AI/NLP integration, graph integration or runtime redesign.
