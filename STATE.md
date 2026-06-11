@@ -1,6 +1,6 @@
 # FiscalOS State
 
-HEAD: 8d441fc
+HEAD: 7daaab2
 Tests: 381 passing
 
 ## Completed
@@ -351,14 +351,20 @@ Tests: 381 passing
 - Legal Reference Resolution remains the strongest future product exposure
   candidate.
 - Legislation Ingestion remains an internal platform capability.
+- FOS-0083 confirmed FiscalOS should primarily power iConta workflows rather
+  than be marketed independently at this stage.
+- FOS-0083 confirmed Legal Reference Resolution has strong accountant workflow
+  fit.
+- FOS-0083 confirmed Legislation Ingestion remains backend/internal
+  infrastructure.
 
 ### Next Target
 
-- FOS-0083 Product Surface Validation Against iConta Workflows
+- FOS-0084 Legal Reference Product Contract Definition
 
-Rationale: FOS-0082 completed the product surface review and separated platform
-capabilities from product capabilities. The next step is to validate the
-product surface against iConta workflows. Scope should remain Runtime-only and
-contract-backed: no Domain contract changes, durable persistence, AI/NLP,
-graph integration, classification coupling or Legal Reference Resolution
-integration.
+Rationale: FOS-0083 completed the product surface validation and confirmed the
+platform should primarily power iConta workflows rather than be marketed
+independently at this stage. The next step is to define the legal reference
+product contract. Scope should remain Runtime-only and contract-backed: no
+Domain contract changes, durable persistence, AI/NLP, graph integration,
+classification coupling or Legal Reference Resolution integration.
