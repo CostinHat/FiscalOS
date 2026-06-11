@@ -1,6 +1,6 @@
 # FiscalOS State
 
-HEAD: 02fe31c
+HEAD: 72eee89
 Tests: 381 passing
 
 ## Completed
@@ -144,6 +144,9 @@ Tests: 381 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0080 FiscalOS.Api Endpoint Module Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0081 FiscalOS.Api Public Surface Readiness Review
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -334,13 +337,17 @@ Tests: 381 passing
 - FOS-0079 kept FiscalOS.Api as a thin host for now.
 - The future strategy is modular endpoint groups only when a public endpoint
   is justified.
+- FOS-0080 deferred endpoint modules until additional public API surfaces
+  exist.
+- The current endpoint organization remains sufficient for the current public
+  surface.
 
 ### Next Target
 
-- FOS-0080 FiscalOS.Api Endpoint Module Review
+- FOS-0081 FiscalOS.Api Public Surface Readiness Review
 
-Rationale: FOS-0079 completed the endpoint strategy review and kept
-FiscalOS.Api as a thin host for now. The next step is to review endpoint
-modules. Scope should remain Runtime-only and contract-backed: no Domain
-contract changes, durable persistence, AI/NLP, graph integration,
+Rationale: FOS-0080 completed the endpoint module review and deferred modules
+until additional public API surfaces exist. The next step is to review public
+surface readiness. Scope should remain Runtime-only and contract-backed: no
+Domain contract changes, durable persistence, AI/NLP, graph integration,
 classification coupling or Legal Reference Resolution integration.

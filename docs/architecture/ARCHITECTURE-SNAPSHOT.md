@@ -210,6 +210,10 @@ contracts:
 - FOS-0079 kept FiscalOS.Api as a thin host for now.
 - The future strategy is modular endpoint groups only when a public endpoint
   is justified.
+- FOS-0080 deferred endpoint modules until additional public API surfaces
+  exist.
+- The current endpoint organization remains sufficient for the current public
+  surface.
 
 ## Next
-- FOS-0080 FiscalOS.Api Endpoint Module Review
+- FOS-0081 FiscalOS.Api Public Surface Readiness Review
