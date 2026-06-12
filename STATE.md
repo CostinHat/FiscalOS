@@ -308,6 +308,9 @@ Tests: 409 passing
 - FOS-0258 Legal Reference Traceability iConta Adapter Operational Sink Planning Review
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0261 Legal Reference Traceability iConta Operational Policy Planning Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -743,6 +746,21 @@ Tests: 409 passing
 - Sink registration remains deferred.
 - Registration requires accepted logging, monitoring, privacy, support and
   incident policies.
+- FOS-0261 accepted operational policy planning.
+- Operational policies remain outside Runtime and Domain ownership.
+- Logging policy requirements are defined.
+- Monitoring policy requirements are defined.
+- Privacy and retention policy requirements are defined.
+- Support ownership requirements are defined.
+- Incident-management requirements are defined.
+- Escalation requirements are defined.
+- Cross-tenant visibility restrictions are defined.
+- Unresolved and ambiguous outcome monitoring expectations are defined.
+- Runtime-failure monitoring expectations are defined.
+- Internal exception details remain hidden from public-safe operational
+  surfaces.
+- Sink implementation and registration remain deferred until policies are
+  accepted.
 - No endpoint exposure was introduced.
 - No persistence was introduced.
 - No ingestion was introduced.
@@ -754,10 +772,10 @@ Tests: 409 passing
 
 ### Next Target
 
-- FOS-0260 Legal Reference Traceability Operational Sink Documentation Acceptance Review
+- FOS-0263 Legal Reference Traceability Operational Policy Documentation Acceptance Review
 
-Rationale: FOS-0259 records the accepted operational sink strategy. The next
-step is to review the operational sink documentation before any sink
+Rationale: FOS-0262 records the accepted operational policy planning decisions.
+The next step is to review the operational policy documentation before any sink
 implementation, registration, application composition, rollout execution,
 endpoint, persistence, ingestion, AI/NLP integration, graph integration or
 runtime redesign.

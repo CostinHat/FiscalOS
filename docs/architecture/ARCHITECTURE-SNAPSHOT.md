@@ -519,6 +519,51 @@ contracts:
   support and incident policies.
 - Hidden-internal boundary remains preserved: provenance, audit, evidence,
   repository, DI, pipeline and graph internals remain hidden.
+- FOS-0261 accepted operational policy planning for internal iConta usage.
+- Required operational policy categories are logging, monitoring,
+  privacy/retention, support ownership, incident management, escalation,
+  cross-tenant visibility controls, unresolved/ambiguous outcome monitoring and
+  runtime-failure monitoring.
+- Logging policy expectations: record only public-safe adapter-boundary metadata
+  such as correlationId, allowed tenant/account/workflow identifiers, status,
+  IncludeTraceability, validation/authorization/completion/failure event type,
+  coarse outcome and latency.
+- Logging must not include request payloads, internal exceptions, evidence,
+  provenance, audit trails, repository names, pipeline state, graph details or
+  legal advice wording.
+- Monitoring policy expectations: track request volume, success/failure
+  classification, validation failures, authorization denials, status
+  distribution, traceability-requested count, latency, unresolved/ambiguous
+  rates and unexpected runtime failures.
+- Monitoring metrics must remain operational signals and must not become audit
+  or evidence semantics.
+- Privacy and retention requirements must define handling for correlationId,
+  tenant/account/workflow identifiers, retention duration, access controls and
+  deletion or masking policy before rollout.
+- Support ownership remains split: iConta owns user/workflow-facing support,
+  iConta operations owns rollout health, FiscalOS maintainers own Runtime
+  defects and product/legal review owns wording, disclaimer and public-safety
+  concerns.
+- Incident-management requirements cover authorization/scoping failures,
+  cross-tenant visibility concerns, misleading citation display, elevated
+  unresolved or ambiguous outcomes, runtime failure spikes, logging/privacy
+  failures and public-safety wording issues.
+- Escalation requirements must define owners and severity thresholds for
+  security/privacy, runtime defect, product wording and operational availability
+  cases.
+- Cross-tenant visibility restrictions require operational logs, metrics and
+  events to prevent one tenant/account/workflow from inferring another tenant's
+  legal-reference activity.
+- Unresolved and ambiguous outcome monitoring should track rates and changes
+  over time; these are domain outcomes rather than operational failures by
+  default.
+- Runtime-failure monitoring should treat mapped runtime failures as
+  operational failures while keeping internal exception details hidden from
+  public-safe operational surfaces.
+- Public-safe operational boundary remains outside Runtime and Domain
+  ownership.
+- Sink implementation and registration remain deferred until logging,
+  monitoring, privacy, support, incident and escalation policies are accepted.
 
 ## Next
-- FOS-0260 Legal Reference Traceability Operational Sink Documentation Acceptance Review
+- FOS-0263 Legal Reference Traceability Operational Policy Documentation Acceptance Review
