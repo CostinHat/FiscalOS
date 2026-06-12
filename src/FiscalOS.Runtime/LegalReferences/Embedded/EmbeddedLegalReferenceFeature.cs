@@ -3,7 +3,7 @@ using FiscalOS.Runtime.LegalReferences.Traceability;
 
 namespace FiscalOS.Runtime.LegalReferences.Embedded;
 
-public sealed class EmbeddedLegalReferenceFeature
+public sealed class EmbeddedLegalReferenceFeature : IEmbeddedLegalReferenceFeature
 {
     private readonly LegalReferenceResolutionRuntime _runtime;
     private readonly LegalReferenceTraceabilityProjector _traceabilityProjector;

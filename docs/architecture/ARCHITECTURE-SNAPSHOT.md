@@ -442,6 +442,26 @@ contracts:
   logging, monitoring and support concerns.
 - Hidden-internal boundary is preserved: provenance, audit, evidence,
   repository, DI, pipeline and graph internals remain hidden.
+- FOS-0248 accepted the adapter contract documentation update.
+- FOS-0249 planned the iConta adapter implementation slice.
+- FOS-0250 added IContaLegalReferenceAdapter and iConta-owned adapter DTOs.
+- iConta adapter DTOs model request segments, authorization context,
+  operational metadata, presentation response data, public-safe application
+  errors and operational events.
+- IContaLegalReferenceAdapter validates input and authorization before invoking
+  EmbeddedLegalReferenceFeature.
+- Unauthorized and invalid requests do not invoke EmbeddedLegalReferenceFeature.
+- IContaLegalReferenceAdapter maps iConta workflow input to
+  EmbeddedLegalReferenceRequest and maps EmbeddedLegalReferenceResponse to
+  iConta-owned presentation models.
+- IContaLegalReferenceAdapter preserves requested-reference identity and treats
+  correlationId as linkage metadata only.
+- IncludeTraceability controls optional traceability projection through the
+  embedded feature.
+- Operational events contain public-safe metadata only.
+- Runtime failures are mapped to public-safe application errors.
+- No endpoint, persistence, ingestion, AI/NLP integration, graph integration or
+  runtime redesign was introduced.
 
 ## Next
-- FOS-0248 Legal Reference Traceability Adapter Documentation Acceptance Review
+- FOS-0251 Legal Reference Traceability iConta Adapter Implementation Acceptance Review

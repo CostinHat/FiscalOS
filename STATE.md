@@ -1,7 +1,7 @@
 # FiscalOS State
 
 HEAD: 9cf3527
-Tests: 399 passing
+Tests: 409 passing
 
 ## Completed
 
@@ -285,6 +285,15 @@ Tests: 399 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0246 Legal Reference Traceability iConta Adapter Contract Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0248 Legal Reference Traceability Adapter Documentation Acceptance Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0249 Legal Reference Traceability iConta Adapter Implementation Plan
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0250 Legal Reference Traceability iConta Adapter Implementation
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -671,12 +680,32 @@ Tests: 399 passing
   logging, monitoring and support concerns.
 - Provenance, audit, evidence, repository, DI, pipeline and graph internals
   remain hidden.
+- FOS-0248 accepted the adapter contract documentation update.
+- FOS-0249 planned the iConta adapter implementation slice.
+- FOS-0250 implemented the iConta legal reference traceability adapter boundary.
+- iConta adapter DTOs now model request segments, authorization context,
+  operational metadata, iConta-owned response data, public-safe application
+  errors and operational events.
+- IContaLegalReferenceAdapter validates input and authorization before invoking
+  the embedded feature.
+- Unauthorized and invalid requests do not invoke EmbeddedLegalReferenceFeature.
+- IContaLegalReferenceAdapter maps iConta workflow input to
+  EmbeddedLegalReferenceRequest and maps EmbeddedLegalReferenceResponse to
+  iConta-owned presentation models.
+- IContaLegalReferenceAdapter preserves requested-reference identity and treats
+  correlationId as linkage metadata only.
+- IncludeTraceability controls optional traceability projection through the
+  embedded feature.
+- Operational events contain public-safe metadata only.
+- Runtime failures are mapped to public-safe application errors.
+- No endpoint, persistence, ingestion, AI/NLP integration, graph integration or
+  runtime redesign was introduced.
 
 ### Next Target
 
-- FOS-0248 Legal Reference Traceability Adapter Documentation Acceptance Review
+- FOS-0251 Legal Reference Traceability iConta Adapter Implementation Acceptance Review
 
-Rationale: FOS-0247 records the iConta adapter contract decisions. The next
-step is to accept the documentation update before any adapter implementation,
-endpoint, persistence, ingestion, AI/NLP integration, graph integration or
-runtime redesign.
+Rationale: FOS-0250 implemented the iConta adapter boundary for internal
+traceability usage. The next step is to review the implementation before any
+rollout execution, endpoint, persistence, ingestion, AI/NLP integration, graph
+integration or runtime redesign.
