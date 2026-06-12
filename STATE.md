@@ -257,6 +257,21 @@ Tests: 399 passing
 - FOS-0233 Legal Reference Traceability API Route and Versioning Review
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0235 Legal Reference Traceability API Contract Documentation Acceptance Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0236 Legal Reference Traceability API Exposure Readiness Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0237 Legal Reference Traceability Product Surface Exposure Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0238 Legal Reference Traceability Authorization and Access-Control Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0239 Legal Reference Traceability Operational Ownership Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -593,13 +608,32 @@ Tests: 399 passing
 - Breaking public contract changes require a new API version.
 - Internal architecture terms must not appear in routes, schemas, errors or
   public documentation.
+- FOS-0235 accepted the API contract documentation update.
+- FOS-0236 concluded endpoint exposure remains deferred.
+- Technical API contract readiness is not sufficient for endpoint
+  implementation without product, authorization and operational decisions.
+- FOS-0237 recommended staged product-surface exposure:
+  internal iConta capability first, partner-facing API later and public FiscalOS
+  API last.
+- Current target surface is internal iConta capability.
+- Partner-facing and public API exposure remain deferred.
+- FOS-0238 concluded authorization remains outside Runtime and Domain.
+- Internal usage requires authenticated and authorized workflow context.
+- Tenant, account and workflow scoping is required before invoking the embedded
+  feature.
+- correlationId is linkage metadata, not authorization.
+- FOS-0239 concluded operational ownership remains outside Runtime and Domain.
+- Internal iConta usage requires defined ownership, logging, monitoring,
+  support and incident policies.
+- Operational surfaces may use public-safe metadata only.
+- Provenance, audit, evidence, repository, DI, pipeline and graph internals
+  remain hidden from operational surfaces.
 
 ### Next Target
 
-- FOS-0235 Legal Reference Traceability API Contract Documentation Acceptance Review
+- FOS-0241 Legal Reference Traceability Operations Documentation Acceptance Review
 
-Rationale: FOS-0234 records the public API contract, validation, error, route
-and versioning decisions for future Legal Reference traceability exposure. The
-next step is to accept the documentation update before any endpoint,
-persistence, ingestion, AI/NLP integration, graph integration or runtime
-redesign.
+Rationale: FOS-0240 records exposure readiness, product-surface, authorization
+and operational ownership decisions. The next step is to accept the
+documentation update before any endpoint, persistence, ingestion, AI/NLP
+integration, graph integration or runtime redesign.

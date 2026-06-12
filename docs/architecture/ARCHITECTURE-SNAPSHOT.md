@@ -357,6 +357,28 @@ contracts:
   public documentation.
 - Hidden-internal boundary for API exposure remains: no provenance, audit,
   evidence, repository, DI, pipeline or graph internals in public contracts.
+- FOS-0235 accepted the API contract documentation update.
+- FOS-0236 concluded endpoint exposure remains deferred.
+- Technical API contract readiness is not sufficient for endpoint
+  implementation without product, authorization and operational decisions.
+- FOS-0237 recommended staged product-surface exposure:
+  internal iConta capability first, partner-facing API later and public FiscalOS
+  API last.
+- Current target surface is internal iConta capability.
+- Partner-facing and public API exposure remain deferred.
+- FOS-0238 concluded authorization remains outside Runtime and Domain.
+- Internal iConta usage requires authenticated and authorized workflow context.
+- Tenant, account and workflow scoping is required before invoking the embedded
+  feature.
+- correlationId is linkage metadata, not authorization.
+- FOS-0239 concluded operational ownership remains outside Runtime and Domain.
+- Internal iConta usage requires defined ownership, logging, monitoring,
+  support and incident policies.
+- Operational surfaces may use public-safe metadata only.
+- Public-safety constraints for operational surfaces remain: provenance, audit,
+  evidence, repository, DI, pipeline and graph internals stay hidden.
+- Hidden-internal boundary requirements apply regardless of authorization level
+  or operational role.
 
 ## Next
-- FOS-0235 Legal Reference Traceability API Contract Documentation Acceptance Review
+- FOS-0241 Legal Reference Traceability Operations Documentation Acceptance Review
