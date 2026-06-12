@@ -881,3 +881,33 @@ Constraints preserved:
 
 Next target:
 - FOS-0327 Documentation Review and Contract Hardening.
+
+## FOS-0330 Legislation Source Identity and Metadata Contract
+
+Status: implemented.
+
+Completed implementation:
+- Added stable `LegislationSourceId`.
+- Added `LegislationSourceMetadata`.
+- Extended `ILegislationSource` with stable source identity and metadata.
+- Updated `InMemoryLegislationSource` to expose source identity and metadata.
+- Preserved `LegislationSourceReference` as document/source-reference text,
+  distinct from stable source identity.
+- Added focused tests for source identity stability, metadata availability and
+  identity/reference distinction.
+
+Constraints preserved:
+- No persistence implementation.
+- No API implementation.
+- No graph implementation.
+- No source hierarchy graph implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+- No batch execution redesign.
+- No raw document identity overhaul.
+
+Tests:
+- `dotnet test`: 418 passing.
+
+Next target:
+- FOS-0331 Raw Document Identity Contract.

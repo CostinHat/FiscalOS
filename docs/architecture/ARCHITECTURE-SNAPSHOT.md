@@ -684,3 +684,30 @@ Out of scope remains unchanged:
 
 Recommended next milestone:
 - FOS-0327 Documentation Review and Contract Hardening.
+
+## FOS-0330 Source Identity Contract Snapshot
+
+FOS-0330 implements the first narrow source-boundary slice from the
+consolidated ingestion architecture.
+
+Implemented:
+- Stable `LegislationSourceId`.
+- `LegislationSourceMetadata`.
+- `ILegislationSource` identity and metadata exposure.
+- In-memory source identity/metadata support.
+
+Still deferred:
+- Source metadata snapshots.
+- Configuration snapshots.
+- Raw document identity overhaul.
+- Persistence and repository handoff.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 418 passing.
+
+Recommended next milestone:
+- FOS-0331 Raw Document Identity Contract.

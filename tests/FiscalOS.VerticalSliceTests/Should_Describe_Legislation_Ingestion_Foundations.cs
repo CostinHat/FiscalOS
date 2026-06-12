@@ -39,6 +39,56 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Throws<ArgumentException>(() => new LegislationSourceReference(value));
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Legislation_source_id_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new LegislationSourceId(value));
+    }
+
+    [Fact]
+    public void Legislation_source_id_trims_and_exposes_value()
+    {
+        var id = new LegislationSourceId("  monitorul-oficial ");
+
+        Assert.Equal("monitorul-oficial", id.Value);
+        Assert.Equal("monitorul-oficial", id.ToString());
+    }
+
+    [Fact]
+    public void Legislation_source_metadata_stores_values()
+    {
+        var id = new LegislationSourceId("monitorul-oficial");
+
+        var metadata = new LegislationSourceMetadata(
+            id,
+            " Monitorul Oficial ",
+            " official-publication ");
+
+        Assert.Same(id, metadata.Id);
+        Assert.Equal("Monitorul Oficial", metadata.DisplayName);
+        Assert.Equal("official-publication", metadata.SourceType);
+    }
+
+    [Fact]
+    public void Legislation_source_metadata_rejects_empty_display_name()
+    {
+        Assert.Throws<ArgumentException>(() => new LegislationSourceMetadata(
+            new LegislationSourceId("monitorul-oficial"),
+            " ",
+            "official-publication"));
+    }
+
+    [Fact]
+    public void Legislation_source_metadata_rejects_empty_source_type()
+    {
+        Assert.Throws<ArgumentException>(() => new LegislationSourceMetadata(
+            new LegislationSourceId("monitorul-oficial"),
+            "Monitorul Oficial",
+            " "));
+    }
+
     [Fact]
     public void Raw_legislation_document_stores_its_values()
     {

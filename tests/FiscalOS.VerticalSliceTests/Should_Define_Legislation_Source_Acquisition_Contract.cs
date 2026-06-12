@@ -15,7 +15,16 @@ public sealed class Should_Define_Legislation_Source_Acquisition_Contract
     {
         private readonly IReadOnlyList<RawLegislationDocument> _documents;
 
-        public StubLegislationSource(params RawLegislationDocument[] documents) => _documents = documents;
+        public StubLegislationSource(params RawLegislationDocument[] documents)
+        {
+            Id = new LegislationSourceId("stub-legislation-source");
+            Metadata = new LegislationSourceMetadata(Id, "Stub legislation source", "stub");
+            _documents = documents;
+        }
+
+        public LegislationSourceId Id { get; }
+
+        public LegislationSourceMetadata Metadata { get; }
 
         public Task<IReadOnlyList<RawLegislationDocument>> FetchAsync(CancellationToken cancellationToken = default)
         {
@@ -48,5 +57,35 @@ public sealed class Should_Define_Legislation_Source_Acquisition_Contract
         var documents = await source.FetchAsync();
 
         Assert.Empty(documents);
+    }
+
+    [Fact]
+    public void Source_exposes_stable_identity()
+    {
+        ILegislationSource source = new StubLegislationSource(Document("DOC-1"));
+
+        Assert.Equal("stub-legislation-source", source.Id.Value);
+        Assert.Same(source.Id, source.Metadata.Id);
+    }
+
+    [Fact]
+    public void Source_exposes_metadata()
+    {
+        ILegislationSource source = new StubLegislationSource(Document("DOC-1"));
+
+        Assert.Equal("Stub legislation source", source.Metadata.DisplayName);
+        Assert.Equal("stub", source.Metadata.SourceType);
+    }
+
+    [Fact]
+    public async Task Source_identity_is_distinct_from_document_source_reference()
+    {
+        ILegislationSource source = new StubLegislationSource(Document("DOC-1"));
+
+        var documents = await source.FetchAsync();
+
+        Assert.Equal("stub-legislation-source", source.Id.Value);
+        Assert.Equal("Monitorul Oficial 1/2026", documents[0].Source.Value);
+        Assert.NotEqual(source.Id.Value, documents[0].Source.Value);
     }
 }
