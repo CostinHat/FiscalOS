@@ -600,6 +600,22 @@ contracts:
 - Public-safe operational boundary requirements remain mandatory and outside
   Runtime and Domain ownership.
 - Sink implementation and registration remain deferred until policy acceptance.
+- FOS-0267 accepted operational policy approval planning.
+- Operational policy approval model: rollout execution remains blocked until
+  policy approval is complete, while planning may continue before approval.
+- Approval ownership must be explicitly assigned outside Runtime and Domain.
+- Approval evidence must be recorded so rollout decisions can be audited
+  separately from Runtime behavior.
+- Approval traceability must be recorded; approval records should identify the
+  approved policy set, approver and approval time or version reference.
+- Policy change-management expectations must define how policy updates are
+  proposed, reviewed, reapproved and versioned before rollout execution.
+- Rollout authorization depends on approved operational policies and may not
+  proceed until approval is complete.
+- Public-safety constraints remain mandatory.
+- Future operational execution should define named approvers and approval record
+  formats before sink implementation or registration begins.
+- The approval model remains outside Runtime and Domain ownership.
 
 ## Next
-- FOS-0266 Legal Reference Traceability Operational Policy Acceptance Documentation Review
+- FOS-0269 Legal Reference Traceability Operational Policy Approval Documentation Review

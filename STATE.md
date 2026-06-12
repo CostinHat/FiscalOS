@@ -314,6 +314,9 @@ Tests: 409 passing
 - FOS-0264 Legal Reference Traceability Operational Policy Acceptance Planning Review
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0267 Legal Reference Traceability Operational Policy Approval Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -778,6 +781,17 @@ Tests: 409 passing
 - Cross-tenant visibility protections are mandatory across logs, metrics,
   events, dashboards and support workflows.
 - Sink implementation and registration remain deferred until policy acceptance.
+- FOS-0267 accepted operational policy approval planning.
+- Rollout execution remains blocked until policy approval is complete.
+- Approval ownership must be explicitly assigned.
+- Approval evidence must be recorded.
+- Approval traceability must be recorded.
+- Policy change-management expectations are defined.
+- Rollout authorization depends on approved operational policies.
+- Public-safety constraints remain mandatory.
+- Operational approval remains outside Runtime and Domain ownership.
+- Future operational execution should define named approvers and approval record
+  formats.
 - No endpoint exposure was introduced.
 - No persistence was introduced.
 - No ingestion was introduced.
@@ -789,10 +803,10 @@ Tests: 409 passing
 
 ### Next Target
 
-- FOS-0266 Legal Reference Traceability Operational Policy Acceptance Documentation Review
+- FOS-0269 Legal Reference Traceability Operational Policy Approval Documentation Review
 
-Rationale: FOS-0265 records the accepted operational policy acceptance
-requirements. The next step is to review the acceptance documentation before any
+Rationale: FOS-0268 records the accepted operational policy approval
+requirements. The next step is to review the approval documentation before any
 sink implementation, registration, application composition, rollout execution,
 endpoint, persistence, ingestion, AI/NLP integration, graph integration or
 runtime redesign.
