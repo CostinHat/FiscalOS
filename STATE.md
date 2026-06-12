@@ -317,6 +317,9 @@ Tests: 409 passing
 - FOS-0267 Legal Reference Traceability Operational Policy Approval Review
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0269 Legal Reference Traceability Operational Policy Approval Documentation Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -792,6 +795,18 @@ Tests: 409 passing
 - Operational approval remains outside Runtime and Domain ownership.
 - Future operational execution should define named approvers and approval record
   formats.
+- FOS-0269 accepted the operational policy approval documentation update.
+- Rollout execution remains blocked until operational policy approval is
+  complete.
+- Approval ownership requirements are accepted.
+- Approval evidence requirements are accepted.
+- Approval traceability requirements are accepted.
+- Change-management expectations are accepted.
+- Rollout authorization depends on approved operational policies.
+- Public-safety constraints remain mandatory.
+- Operational approval remains outside Runtime and Domain ownership.
+- Remaining debt is procedural: no approval record format finalized, no named
+  final approvers assigned, no sink implementation and no sink registration.
 - No endpoint exposure was introduced.
 - No persistence was introduced.
 - No ingestion was introduced.
@@ -803,10 +818,10 @@ Tests: 409 passing
 
 ### Next Target
 
-- FOS-0269 Legal Reference Traceability Operational Policy Approval Documentation Review
+- FOS-0271 Legal Reference Traceability Governance Track Consolidation Review
 
-Rationale: FOS-0268 records the accepted operational policy approval
-requirements. The next step is to review the approval documentation before any
+Rationale: FOS-0270 records the accepted operational policy approval
+documentation. The next step is to consolidate the governance track before any
 sink implementation, registration, application composition, rollout execution,
 endpoint, persistence, ingestion, AI/NLP integration, graph integration or
 runtime redesign.

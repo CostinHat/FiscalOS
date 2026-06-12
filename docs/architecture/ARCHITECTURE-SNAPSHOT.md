@@ -616,6 +616,16 @@ contracts:
 - Future operational execution should define named approvers and approval record
   formats before sink implementation or registration begins.
 - The approval model remains outside Runtime and Domain ownership.
+- FOS-0269 accepted the operational policy approval documentation update.
+- Approval ownership, evidence, traceability and change-management requirements
+  are accepted.
+- Rollout execution remains blocked until operational policy approval is
+  complete.
+- Rollout authorization depends on approved operational policies.
+- Public-safety constraints remain mandatory.
+- Operational approval remains outside Runtime and Domain ownership.
+- Procedural debt remains: no approval record format finalized, no named final
+  approvers assigned, no sink implementation and no sink registration.
 
 ## Next
-- FOS-0269 Legal Reference Traceability Operational Policy Approval Documentation Review
+- FOS-0271 Legal Reference Traceability Governance Track Consolidation Review
