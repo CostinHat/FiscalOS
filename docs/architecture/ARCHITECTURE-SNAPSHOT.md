@@ -494,6 +494,31 @@ contracts:
   registration owner before endpoint exposure is explicitly approved.
 - Placement debt remains: the adapter is temporarily compiled under Runtime and
   should migrate to the application/iConta boundary when that boundary exists.
+- FOS-0258 accepted the operational sink planning review.
+- Operational sink purpose is operational visibility for logging, monitoring,
+  support triage and incident response only.
+- Operational sink ownership belongs to the future application/iConta
+  composition boundary and remains outside Runtime and Domain ownership.
+- Public-safe metadata rules: operational events may include event name,
+  correlationId, allowed tenant/account/workflow identifiers, status,
+  IncludeTraceability and coarse outcome only.
+- Operational events must not include request payloads, internal exceptions,
+  evidence packages, provenance chains, audit trails, repository names, pipeline
+  state or graph details.
+- Logging and monitoring responsibilities belong to the application/iConta
+  operational boundary, not Runtime or Domain.
+- Incident-support boundaries remain outside Runtime and must handle
+  authorization/scoping issues, cross-tenant visibility concerns, elevated
+  unresolved or ambiguous rates, runtime failure spikes, logging/privacy issues
+  and public-safety wording concerns.
+- Adapter-to-sink interaction is one-way event emission only; the sink must not
+  call back into Runtime, alter outcomes, trigger traceability projection,
+  retry resolution, enrich legal results or participate in resolution behavior.
+- Concrete sink implementation and sink registration remain deferred.
+- Registration prerequisites include accepted logging, monitoring, privacy,
+  support and incident policies.
+- Hidden-internal boundary remains preserved: provenance, audit, evidence,
+  repository, DI, pipeline and graph internals remain hidden.
 
 ## Next
-- FOS-0257 Legal Reference Traceability iConta Adapter DI Documentation Acceptance Review
+- FOS-0260 Legal Reference Traceability Operational Sink Documentation Acceptance Review

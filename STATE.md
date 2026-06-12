@@ -305,6 +305,9 @@ Tests: 409 passing
 - FOS-0255 Legal Reference Traceability iConta Adapter DI Registration Planning Review
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0258 Legal Reference Traceability iConta Adapter Operational Sink Planning Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -726,6 +729,20 @@ Tests: 409 passing
 - Operational sink registration must be defined before adapter DI registration.
 - DI registration must not introduce endpoints, persistence, ingestion, AI/NLP
   integration, graph integration or runtime redesign.
+- FOS-0258 accepted the operational sink planning review.
+- Operational sink ownership belongs to the future application/iConta
+  composition boundary.
+- Operational sink remains outside Runtime and Domain ownership.
+- Sink purpose is operational visibility only.
+- Sink must not participate in outcome determination, traceability projection,
+  retries, enrichment or resolution behavior.
+- Only public-safe operational metadata may be emitted.
+- Logging, monitoring, support and incident responsibilities remain outside
+  Runtime.
+- Concrete sink implementation remains deferred.
+- Sink registration remains deferred.
+- Registration requires accepted logging, monitoring, privacy, support and
+  incident policies.
 - No endpoint exposure was introduced.
 - No persistence was introduced.
 - No ingestion was introduced.
@@ -737,9 +754,10 @@ Tests: 409 passing
 
 ### Next Target
 
-- FOS-0257 Legal Reference Traceability iConta Adapter DI Documentation Acceptance Review
+- FOS-0260 Legal Reference Traceability Operational Sink Documentation Acceptance Review
 
-Rationale: FOS-0256 records the accepted iConta adapter DI strategy. The next
-step is to review the DI documentation before any application composition,
-rollout execution, endpoint, persistence, ingestion, AI/NLP integration, graph
-integration or runtime redesign.
+Rationale: FOS-0259 records the accepted operational sink strategy. The next
+step is to review the operational sink documentation before any sink
+implementation, registration, application composition, rollout execution,
+endpoint, persistence, ingestion, AI/NLP integration, graph integration or
+runtime redesign.
