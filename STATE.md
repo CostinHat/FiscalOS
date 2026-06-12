@@ -311,6 +311,9 @@ Tests: 409 passing
 - FOS-0261 Legal Reference Traceability iConta Operational Policy Planning Review
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0264 Legal Reference Traceability Operational Policy Acceptance Planning Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -761,6 +764,20 @@ Tests: 409 passing
   surfaces.
 - Sink implementation and registration remain deferred until policies are
   accepted.
+- FOS-0264 accepted operational policy acceptance planning.
+- Operational policy acceptance is a hard blocker for internal rollout
+  execution.
+- Planning may continue before policy acceptance.
+- Rollout execution may not begin before policy acceptance.
+- Minimum required policy set includes logging policy, monitoring policy,
+  privacy and retention policy, support policy, incident-management policy,
+  escalation policy and cross-tenant visibility policy.
+- Policy ownership remains outside Runtime and Domain.
+- Policy approval ownership must be explicitly assigned.
+- Public-safety constraints remain mandatory.
+- Cross-tenant visibility protections are mandatory across logs, metrics,
+  events, dashboards and support workflows.
+- Sink implementation and registration remain deferred until policy acceptance.
 - No endpoint exposure was introduced.
 - No persistence was introduced.
 - No ingestion was introduced.
@@ -772,10 +789,10 @@ Tests: 409 passing
 
 ### Next Target
 
-- FOS-0263 Legal Reference Traceability Operational Policy Documentation Acceptance Review
+- FOS-0266 Legal Reference Traceability Operational Policy Acceptance Documentation Review
 
-Rationale: FOS-0262 records the accepted operational policy planning decisions.
-The next step is to review the operational policy documentation before any sink
-implementation, registration, application composition, rollout execution,
+Rationale: FOS-0265 records the accepted operational policy acceptance
+requirements. The next step is to review the acceptance documentation before any
+sink implementation, registration, application composition, rollout execution,
 endpoint, persistence, ingestion, AI/NLP integration, graph integration or
 runtime redesign.

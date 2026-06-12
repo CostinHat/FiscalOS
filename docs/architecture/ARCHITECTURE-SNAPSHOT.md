@@ -564,6 +564,42 @@ contracts:
   ownership.
 - Sink implementation and registration remain deferred until logging,
   monitoring, privacy, support, incident and escalation policies are accepted.
+- FOS-0264 accepted operational policy acceptance planning.
+- Operational policy acceptance model: policy acceptance is a hard blocker for
+  internal rollout execution, while planning may continue before acceptance.
+- Minimum required policy set is logging policy, monitoring policy, privacy and
+  retention policy, support policy, incident-management policy, escalation policy
+  and cross-tenant visibility policy.
+- Policy approval ownership must be explicitly assigned outside Runtime and
+  Domain before rollout execution.
+- Expected approval owners include iConta product/workflow ownership, iConta
+  operations, security/privacy ownership, FiscalOS maintainers for Runtime
+  defect escalation and product/legal review for wording, disclaimers and
+  public-safety concerns.
+- Logging-policy acceptance must approve allowed fields, forbidden fields,
+  retention/access rules, payload exclusion, internal exception exclusion and
+  public-safe wording constraints.
+- Monitoring-policy acceptance must approve metrics, thresholds or review
+  triggers, dashboard/alert ownership and unresolved/ambiguous classification as
+  domain outcomes rather than operational failures by default.
+- Privacy and retention-policy acceptance must approve retention duration,
+  access controls, deletion or masking policy, correlationId handling,
+  tenant/account/workflow identifier handling and cross-tenant isolation rules.
+- Support and incident-policy acceptance must approve support owners, triage
+  workflow, issue categories, user-facing response boundaries and incident
+  handling for authorization/scoping, runtime failure spikes, misleading
+  citation display, logging/privacy failures and public-safety wording issues.
+- Escalation-policy acceptance must approve severity thresholds, routing rules,
+  responsible owners and response expectations for security/privacy, Runtime
+  defect, product wording and operational availability cases.
+- Cross-tenant visibility acceptance must verify that logs, metrics, events,
+  dashboards and support workflows cannot expose or imply another
+  tenant/account/workflow's legal-reference activity.
+- Rollout blocker status: internal rollout execution may not begin before the
+  minimum policy set is accepted.
+- Public-safe operational boundary requirements remain mandatory and outside
+  Runtime and Domain ownership.
+- Sink implementation and registration remain deferred until policy acceptance.
 
 ## Next
-- FOS-0263 Legal Reference Traceability Operational Policy Documentation Acceptance Review
+- FOS-0266 Legal Reference Traceability Operational Policy Acceptance Documentation Review
