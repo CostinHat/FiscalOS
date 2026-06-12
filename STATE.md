@@ -302,6 +302,9 @@ Tests: 409 passing
 - FOS-0252 Legal Reference Traceability iConta Adapter Placement and DI Planning Review
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0255 Legal Reference Traceability iConta Adapter DI Registration Planning Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -714,6 +717,15 @@ Tests: 409 passing
 - Application-level composition should eventually own IContaLegalReferenceAdapter,
   the operational sink implementation and EmbeddedLegalReferenceFeature
   consumption.
+- FOS-0255 accepted current non-registration of IContaLegalReferenceAdapter.
+- Adapter DI registration remains deferred.
+- IContaLegalReferenceAdapter must not be registered in Runtime DI.
+- IContaLegalReferenceAdapter must not be registered in public API composition
+  yet.
+- Future DI ownership belongs to an application/iConta composition boundary.
+- Operational sink registration must be defined before adapter DI registration.
+- DI registration must not introduce endpoints, persistence, ingestion, AI/NLP
+  integration, graph integration or runtime redesign.
 - No endpoint exposure was introduced.
 - No persistence was introduced.
 - No ingestion was introduced.
@@ -725,10 +737,9 @@ Tests: 409 passing
 
 ### Next Target
 
-- FOS-0254 Legal Reference Traceability Adapter Placement Documentation Acceptance Review
+- FOS-0257 Legal Reference Traceability iConta Adapter DI Documentation Acceptance Review
 
-Rationale: FOS-0253 records the accepted implementation, temporary adapter
-placement and deferred DI strategy. The next step is to review the placement
-documentation before any application composition, rollout execution, endpoint,
-persistence, ingestion, AI/NLP integration, graph integration or runtime
-redesign.
+Rationale: FOS-0256 records the accepted iConta adapter DI strategy. The next
+step is to review the DI documentation before any application composition,
+rollout execution, endpoint, persistence, ingestion, AI/NLP integration, graph
+integration or runtime redesign.

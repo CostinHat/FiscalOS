@@ -482,6 +482,18 @@ contracts:
 - Hidden-internal boundary remains preserved: provenance, audit, evidence,
   repository, DI, pipeline and graph internals remain hidden.
 - Endpoint exposure remains deferred.
+- FOS-0255 accepted current non-registration of IContaLegalReferenceAdapter.
+- Deferred adapter DI strategy: IContaLegalReferenceAdapter must not be
+  registered in Runtime DI and must not be registered in public API composition
+  yet.
+- Application/iConta composition owns future adapter DI registration.
+- Operational sink registration is a prerequisite for adapter DI registration.
+- Runtime DI boundary remains limited to Runtime-owned services and the embedded
+  feature currently needed for internal service-level composition.
+- Public API composition remains deferred and must not become the adapter
+  registration owner before endpoint exposure is explicitly approved.
+- Placement debt remains: the adapter is temporarily compiled under Runtime and
+  should migrate to the application/iConta boundary when that boundary exists.
 
 ## Next
-- FOS-0254 Legal Reference Traceability Adapter Placement Documentation Acceptance Review
+- FOS-0257 Legal Reference Traceability iConta Adapter DI Documentation Acceptance Review
