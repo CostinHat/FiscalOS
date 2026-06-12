@@ -379,6 +379,41 @@ contracts:
   evidence, repository, DI, pipeline and graph internals stay hidden.
 - Hidden-internal boundary requirements apply regardless of authorization level
   or operational role.
+- FOS-0241 accepted the exposure and operations documentation update.
+- FOS-0242 approved internal iConta rollout planning but not rollout execution.
+- Embedded capability is technically ready for internal planning.
+- Internal rollout execution remains blocked pending authorization and
+  operational policy acceptance.
+- FOS-0243 defined the internal rollout plan.
+- Adapter boundary belongs outside Runtime.
+- Adapter responsibilities include translating iConta workflow requests into
+  LegalReference input, supplying correlationId, setting IncludeTraceability,
+  invoking EmbeddedLegalReferenceFeature and mapping the response to iConta UI
+  or application models.
+- Authorization handoff must occur before invoking EmbeddedLegalReferenceFeature.
+- Required authorization context includes authenticated user/session,
+  tenant/account/company/workspace and workflow/action context.
+- Logging expectations include correlationId, tenant/account/workflow metadata
+  when allowed, status, IncludeTraceability, success/failure classification and
+  adapter-boundary latency.
+- Monitoring expectations include request count, status distribution,
+  authorization denial count, validation failure count, latency,
+  traceability-requested count and unexpected exception count.
+- Support ownership remains split: iConta owns workflow/user-facing issues,
+  iConta operations owns rollout health, FiscalOS maintainers own Runtime
+  defects and product/legal review owns wording or disclaimer concerns.
+- Incident-management expectations include handling authorization/scoping
+  failures, cross-tenant visibility concerns, misleading citation display,
+  elevated unresolved/ambiguous rates, runtime failures, logging/privacy issues
+  and public-safety wording issues.
+- Rollout acceptance requires adapter design, authorization handoff,
+  tenant/account/workflow scoping, logging policy, monitoring metrics, support
+  owner, incident escalation path, accepted user-facing wording and continued
+  endpoint deferment.
+- Execution blockers remain: no adapter implementation plan, no authorization
+  handoff design, no logging/monitoring policy, no support/incident owner and
+  no accepted iConta user-facing wording.
+- Endpoint exposure remains deferred.
 
 ## Next
-- FOS-0241 Legal Reference Traceability Operations Documentation Acceptance Review
+- FOS-0245 Legal Reference Traceability Internal Rollout Documentation Acceptance Review

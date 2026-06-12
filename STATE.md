@@ -272,6 +272,15 @@ Tests: 399 passing
 - FOS-0239 Legal Reference Traceability Operational Ownership Review
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0241 Legal Reference Traceability Operations Documentation Acceptance Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0242 Legal Reference Traceability Internal iConta Rollout Readiness Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0243 Legal Reference Traceability Internal Rollout Plan
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -628,12 +637,24 @@ Tests: 399 passing
 - Operational surfaces may use public-safe metadata only.
 - Provenance, audit, evidence, repository, DI, pipeline and graph internals
   remain hidden from operational surfaces.
+- FOS-0241 accepted the exposure and operations documentation update.
+- FOS-0242 approved internal iConta rollout planning.
+- Internal rollout execution remains blocked pending authorization and
+  operational policy acceptance.
+- Embedded capability is technically ready for internal planning.
+- FOS-0243 defined the internal rollout plan.
+- Adapter boundary belongs outside Runtime.
+- Authorization must occur before EmbeddedLegalReferenceFeature invocation.
+- Logging, monitoring, support ownership and incident expectations are required
+  rollout prerequisites.
+- Endpoint exposure remains deferred.
+- Public-safety constraints remain unchanged.
 
 ### Next Target
 
-- FOS-0241 Legal Reference Traceability Operations Documentation Acceptance Review
+- FOS-0245 Legal Reference Traceability Internal Rollout Documentation Acceptance Review
 
-Rationale: FOS-0240 records exposure readiness, product-surface, authorization
-and operational ownership decisions. The next step is to accept the
-documentation update before any endpoint, persistence, ingestion, AI/NLP
+Rationale: FOS-0244 records internal rollout readiness and rollout planning
+decisions. The next step is to accept the documentation update before any
+integration implementation, endpoint, persistence, ingestion, AI/NLP
 integration, graph integration or runtime redesign.
