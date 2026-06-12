@@ -807,6 +807,12 @@ Tests: 409 passing
 - Operational approval remains outside Runtime and Domain ownership.
 - Remaining debt is procedural: no approval record format finalized, no named
   final approvers assigned, no sink implementation and no sink registration.
+- FOS-0300 Legislation Ingestion Foundations Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0301 Legislation Ingestion Durable Foundation Documentation Update
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 - No endpoint exposure was introduced.
 - No persistence was introduced.
 - No ingestion was introduced.
@@ -815,13 +821,29 @@ Tests: 409 passing
 - No runtime redesign was introduced.
 - No endpoint, persistence, ingestion, AI/NLP integration, graph integration or
   runtime redesign was introduced.
+- FOS-0300 accepted the current ingestion runtime as a narrow, deterministic,
+  in-memory foundation suitable for tests and local composition.
+- Current ingestion runtime is not yet sufficient for durable legislation
+  content onboarding.
+- Stage names may overstate capability: validation is trace-emitting
+  validation, not full semantic validation, and versioning is trace-emitting
+  versioning, not full durable version management.
+- Durable ingestion requires a source boundary, batch-scoped immutable context,
+  explicit raw document identity, durable raw and curated repositories, version
+  policy, provenance records, audit records and a curated promotion step before
+  content can influence rules or resolution.
+- Rule binding must remain explicit.
+- AI/NLP remains out of scope.
+- Automatic rule generation remains out of scope.
+- Legal knowledge source hierarchy should be treated as curated metadata, not
+  an ingestion side effect.
 
 ### Next Target
 
-- FOS-0271 Legal Reference Traceability Governance Track Consolidation Review
+- FOS-0302 Legislation Ingestion Durable Foundation Documentation Acceptance Review
 
-Rationale: FOS-0270 records the accepted operational policy approval
-documentation. The next step is to consolidate the governance track before any
-sink implementation, registration, application composition, rollout execution,
-endpoint, persistence, ingestion, AI/NLP integration, graph integration or
-runtime redesign.
+Rationale: FOS-0301 records the durable ingestion foundation documentation
+update. The next step is to accept that documentation before any ingestion
+implementation, source acquisition hardening, durable persistence, rule
+binding, endpoint, API, AI/NLP integration, graph integration or runtime
+redesign.

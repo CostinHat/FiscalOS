@@ -626,6 +626,22 @@ contracts:
 - Operational approval remains outside Runtime and Domain ownership.
 - Procedural debt remains: no approval record format finalized, no named final
   approvers assigned, no sink implementation and no sink registration.
+- FOS-0300 accepted the current ingestion runtime as a narrow, deterministic,
+  in-memory foundation suitable for tests and local composition.
+- Current ingestion runtime is not yet sufficient for durable legislation
+  content onboarding.
+- Stage names may overstate capability: validation is trace-emitting
+  validation, not full semantic validation, and versioning is trace-emitting
+  versioning, not full durable version management.
+- Durable ingestion requires a source boundary, batch-scoped immutable context,
+  explicit raw document identity, durable raw and curated repositories, version
+  policy, provenance records, audit records and a curated promotion step before
+  content can influence rules or resolution.
+- Rule binding must remain explicit.
+- AI/NLP remains out of scope.
+- Automatic rule generation remains out of scope.
+- Legal knowledge source hierarchy should be treated as curated metadata, not
+  an ingestion side effect.
 
 ## Next
-- FOS-0271 Legal Reference Traceability Governance Track Consolidation Review
+- FOS-0302 Legislation Ingestion Durable Foundation Documentation Acceptance Review
