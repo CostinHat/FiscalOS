@@ -334,6 +334,29 @@ contracts:
 - Required preconditions before endpoint implementation:
   API contract review, validation review, error behavior review, route review
   and versioning review.
+- FOS-0230 accepted the endpoint exposure documentation update.
+- FOS-0231 defined future public API contract requirements for Legal Reference
+  traceability.
+- Future public API exposure must use API-owned request and response DTOs.
+- Internal Runtime and Domain DTOs must not be reused directly as public API
+  contracts.
+- FOS-0232 defined validation and public error behavior for a future endpoint.
+- Validation must occur before Runtime or Domain object construction.
+- correlationId, reference.segments and explicit includeTraceability are
+  required for a future public request.
+- Unresolved and ambiguous results are successful domain outcomes, not HTTP
+  errors.
+- Public error responses must use public-safe error codes and messages.
+- FOS-0233 defined route and versioning policy for future endpoint exposure.
+- Recommended future route: POST /v1/legal-references/resolve.
+- API owns route, versioning, DTOs, validation and error behavior.
+- API versioning is independent from Runtime and Domain versioning.
+- Additive changes are allowed within v1 only when backward-compatible.
+- Breaking public contract changes require a new API version.
+- Internal architecture terms must not appear in routes, schemas, errors or
+  public documentation.
+- Hidden-internal boundary for API exposure remains: no provenance, audit,
+  evidence, repository, DI, pipeline or graph internals in public contracts.
 
 ## Next
-- FOS-0230 Legal Reference Traceability Documentation Acceptance Review
+- FOS-0235 Legal Reference Traceability API Contract Documentation Acceptance Review

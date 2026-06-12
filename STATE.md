@@ -245,6 +245,18 @@ Tests: 399 passing
 - FOS-0228 Legal Reference Traceability API Contract Readiness Review
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0230 Legal Reference Traceability Documentation Acceptance Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0231 Legal Reference Traceability Public API Contract Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0232 Legal Reference Traceability API Validation Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0233 Legal Reference Traceability API Route and Versioning Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -560,12 +572,34 @@ Tests: 399 passing
   before endpoint implementation.
 - Provenance, audit, evidence, repository, DI, pipeline and graph internals
   remain hidden from any future public API exposure.
+- FOS-0230 accepted the endpoint exposure documentation update.
+- FOS-0231 defined future public API contract requirements for Legal Reference
+  traceability.
+- Future public API exposure must use API-owned request and response DTOs.
+- Internal Runtime and Domain DTOs must not be reused directly as public API
+  contracts.
+- FOS-0232 defined validation and public error behavior for a future endpoint.
+- Validation occurs before Runtime or Domain object construction.
+- correlationId, reference.segments and explicit includeTraceability are
+  required for a future public request.
+- Unresolved and ambiguous results are successful domain outcomes, not HTTP
+  errors.
+- Public error responses must use public-safe error codes and messages.
+- FOS-0233 defined future route and versioning policy.
+- Recommended future route: POST /v1/legal-references/resolve.
+- API owns route, versioning, DTOs, validation and error behavior.
+- API versioning is independent from Runtime and Domain versioning.
+- Additive changes are allowed within v1 only when backward-compatible.
+- Breaking public contract changes require a new API version.
+- Internal architecture terms must not appear in routes, schemas, errors or
+  public documentation.
 
 ### Next Target
 
-- FOS-0230 Legal Reference Traceability Documentation Acceptance Review
+- FOS-0235 Legal Reference Traceability API Contract Documentation Acceptance Review
 
-Rationale: FOS-0229 records the endpoint exposure and future API contract
-readiness decisions. The next step is to accept the documentation update before
-any endpoint, persistence, ingestion, AI/NLP integration, graph integration or
-runtime redesign.
+Rationale: FOS-0234 records the public API contract, validation, error, route
+and versioning decisions for future Legal Reference traceability exposure. The
+next step is to accept the documentation update before any endpoint,
+persistence, ingestion, AI/NLP integration, graph integration or runtime
+redesign.
