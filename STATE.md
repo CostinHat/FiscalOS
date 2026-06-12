@@ -296,6 +296,12 @@ Tests: 409 passing
 - FOS-0250 Legal Reference Traceability iConta Adapter Implementation
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0251 Legal Reference Traceability iConta Adapter Acceptance Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0252 Legal Reference Traceability iConta Adapter Placement and DI Planning Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -698,14 +704,31 @@ Tests: 409 passing
   embedded feature.
 - Operational events contain public-safe metadata only.
 - Runtime failures are mapped to public-safe application errors.
+- FOS-0251 accepted the FOS-0250 iConta adapter implementation.
+- FOS-0252 accepted current adapter placement as temporary.
+- Long-term adapter ownership belongs to an application/iConta composition
+  boundary.
+- Runtime placement remains technical debt and is not the target architecture.
+- Runtime DI registration for IContaLegalReferenceAdapter is intentionally
+  deferred.
+- Application-level composition should eventually own IContaLegalReferenceAdapter,
+  the operational sink implementation and EmbeddedLegalReferenceFeature
+  consumption.
+- No endpoint exposure was introduced.
+- No persistence was introduced.
+- No ingestion was introduced.
+- No AI/NLP integration was introduced.
+- No graph integration was introduced.
+- No runtime redesign was introduced.
 - No endpoint, persistence, ingestion, AI/NLP integration, graph integration or
   runtime redesign was introduced.
 
 ### Next Target
 
-- FOS-0251 Legal Reference Traceability iConta Adapter Implementation Acceptance Review
+- FOS-0254 Legal Reference Traceability Adapter Placement Documentation Acceptance Review
 
-Rationale: FOS-0250 implemented the iConta adapter boundary for internal
-traceability usage. The next step is to review the implementation before any
-rollout execution, endpoint, persistence, ingestion, AI/NLP integration, graph
-integration or runtime redesign.
+Rationale: FOS-0253 records the accepted implementation, temporary adapter
+placement and deferred DI strategy. The next step is to review the placement
+documentation before any application composition, rollout execution, endpoint,
+persistence, ingestion, AI/NLP integration, graph integration or runtime
+redesign.

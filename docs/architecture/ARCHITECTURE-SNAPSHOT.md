@@ -462,6 +462,26 @@ contracts:
 - Runtime failures are mapped to public-safe application errors.
 - No endpoint, persistence, ingestion, AI/NLP integration, graph integration or
   runtime redesign was introduced.
+- FOS-0251 accepted the FOS-0250 iConta adapter implementation.
+- FOS-0252 accepted current adapter placement under Runtime as a temporary
+  implementation location only.
+- Adapter placement rationale: the adapter needed an initial compiled location
+  while the application/iConta composition boundary is still not represented as a
+  separate project or module.
+- Runtime placement is technical debt and is not the target architecture.
+- Long-term ownership belongs to an application/iConta composition boundary
+  that owns workflow mapping, authorization handoff, operational sink wiring and
+  EmbeddedLegalReferenceFeature consumption.
+- Runtime DI registration for IContaLegalReferenceAdapter is intentionally
+  deferred.
+- Future DI registration should occur in application-level composition and own
+  IContaLegalReferenceAdapter, an operational sink implementation and the
+  embedded feature dependency.
+- Future migration should move iConta adapter DTOs, adapter behavior and
+  operational hooks out of Runtime once the application/iConta boundary exists.
+- Hidden-internal boundary remains preserved: provenance, audit, evidence,
+  repository, DI, pipeline and graph internals remain hidden.
+- Endpoint exposure remains deferred.
 
 ## Next
-- FOS-0251 Legal Reference Traceability iConta Adapter Implementation Acceptance Review
+- FOS-0254 Legal Reference Traceability Adapter Placement Documentation Acceptance Review
