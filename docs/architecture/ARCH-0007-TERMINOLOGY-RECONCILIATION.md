@@ -35,6 +35,25 @@ and records decisions required to keep architecture, documentation, and implemen
 - Candidate extraction
 - Curated promotion
 
+## FOS-0328 Hardening
+
+`LegalGraph` and `LegalAtom` remain conceptual or future architecture terms.
+They are not implemented ingestion artifacts, graph structures, graph traversal
+features, AI/NLP outputs or rule-generation artifacts.
+
+New ingestion and resolution documentation uses more precise identity terms:
+
+- source identity,
+- raw document identity,
+- legal reference identity,
+- repository reference,
+- future rule identity.
+
+These identities must remain separate. `LegalReference` in
+ARCH-0011 describes a structural address concept; `legal reference identity` in
+the FOS-0316+ documentation describes the durable identity of a reference
+observation or entity.
+
 ## Terminology Gaps
 
 - LegalGraph is referenced in planning documents but does not exist as an implemented model.

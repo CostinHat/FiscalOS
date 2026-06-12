@@ -847,3 +847,37 @@ update. The next step is to accept that documentation before any ingestion
 implementation, source acquisition hardening, durable persistence, rule
 binding, endpoint, API, AI/NLP integration, graph integration or runtime
 redesign.
+
+## FOS-0326 Architecture Documentation Implementation
+
+Status: documentation implemented; not committed.
+
+Completed documentation:
+- Architecture overview documentation.
+- Global architecture invariants documentation.
+- ADR set covering FOS-0306 through FOS-0324.
+- Consolidated glossary.
+- Ingestion-to-resolution boundary documentation.
+- Repository and consumer boundary documentation.
+- Identity model matrix.
+- Snapshot model matrix.
+- Provenance and audit event taxonomy.
+- Replay and idempotency rules documentation.
+- Architecture diagrams.
+- Implementation debt register.
+- Acceptance checklist.
+- Review checklist.
+
+Constraints preserved:
+- Documentation only.
+- No code changes.
+- No persistence implementation.
+- No API implementation.
+- No source hierarchy graph implementation.
+- No graph traversal implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+- No graph implementation.
+
+Next target:
+- FOS-0327 Documentation Review and Contract Hardening.

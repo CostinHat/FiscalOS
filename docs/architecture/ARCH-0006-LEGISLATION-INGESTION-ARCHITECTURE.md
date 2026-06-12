@@ -6,6 +6,12 @@ Define the architecture for turning external legislation sources into reviewed, 
 
 This is a planning document only.
 
+Terminology note: this legacy planning document uses `LegalGraph` and
+`LegalAtom` as conceptual or future architecture terms. They are not
+implemented ingestion artifacts, and this document does not authorize graph
+implementation, graph traversal, AI/NLP integration, or automatic rule
+generation.
+
 ## Non-Goals
 
 - No parser implementation.
@@ -33,7 +39,10 @@ This is a planning document only.
 
 Candidate extracted content is not trusted legal knowledge.
 
-Human review is required before any extracted content becomes part of the curated LegalGraph.
+Human review is required before any extracted content becomes part of curated
+FiscalOS legal knowledge. In this legacy document, `LegalGraph` means a future
+or conceptual curated legal-knowledge architecture term, not an implemented
+runtime graph or ingestion artifact.
 
 ## Promotion Boundary
 
@@ -42,7 +51,7 @@ Only reviewed and accepted content may be promoted into curated FiscalOS knowled
 Promotion may create or update:
 
 - Legal citations
-- Legal atoms
+- Legal atoms (conceptual/future term only)
 - Regime definitions
 - Classification rules
 - Explanation references

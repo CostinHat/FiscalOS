@@ -645,3 +645,42 @@ contracts:
 
 ## Next
 - FOS-0302 Legislation Ingestion Durable Foundation Documentation Acceptance Review
+
+## FOS-0326 Architecture Documentation Implementation Snapshot
+
+The accepted FOS-0306 through FOS-0325 planning series has been implemented as documentation only.
+
+Created documentation:
+- Architecture overview.
+- Global architecture invariants.
+- ADR set for FOS-0306 through FOS-0324.
+- Consolidated glossary.
+- Ingestion-to-resolution boundaries.
+- Repository and consumer boundaries.
+- Identity and snapshot model matrices.
+- Provenance and audit taxonomy.
+- Replay and idempotency rules.
+- Architecture diagrams.
+- Implementation debt register.
+- Acceptance and review checklists.
+
+Architecture invariants preserved:
+- Ingestion does not resolve legal meaning.
+- Legal Reference Resolution does not generate rules.
+- Source identity, raw document identity, legal reference identity, repository references and future rule identity remain separate.
+- Source Hierarchy remains context only; graph storage and traversal remain out of scope.
+- Repository IDs and storage paths are access references, not canonical identity.
+- Corrections, supersession, retries and replay results remain additive and auditable.
+
+Out of scope remains unchanged:
+- No code changes.
+- No persistence implementation.
+- No API implementation.
+- No source hierarchy graph implementation.
+- No graph traversal implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+- No graph implementation.
+
+Recommended next milestone:
+- FOS-0327 Documentation Review and Contract Hardening.
