@@ -414,6 +414,34 @@ contracts:
   handoff design, no logging/monitoring policy, no support/incident owner and
   no accepted iConta user-facing wording.
 - Endpoint exposure remains deferred.
+- FOS-0245 accepted the internal rollout documentation update.
+- FOS-0246 defined the iConta adapter contract.
+- Adapter ownership remains outside Runtime and Domain.
+- Input mapping responsibilities: translate iConta workflow context into
+  EmbeddedLegalReferenceRequest, convert workflow legal-reference input into
+  LegalReference, preserve requested-reference identity, supply correlationId
+  and set IncludeTraceability.
+- Output mapping responsibilities: map EmbeddedLegalReferenceResponse into
+  iConta-owned presentation models, preserve status, show citation only when
+  resolved, preserve ambiguous/unresolved no-citation behavior and avoid
+  exposing Runtime DTOs directly to UI or API surfaces.
+- Authorization handoff must occur before EmbeddedLegalReferenceFeature
+  invocation and must include authenticated user/session,
+  tenant/account/company/workspace, workflow/action context and permission
+  decision.
+- correlationId handling remains the adapter responsibility; it is linkage
+  metadata only and not authorization.
+- Traceability inclusion remains the adapter responsibility through
+  IncludeTraceability.
+- Logging and monitoring metadata are owned by the adapter/application boundary.
+- Failure and validation handling belongs at the adapter boundary: missing or
+  invalid workflow references, missing or blank correlationId, authorization
+  denial, embedded feature exceptions and Runtime failures must be mapped to
+  public-safe application errors.
+- Runtime remains unaware of workflow, tenant, account, user, authorization,
+  logging, monitoring and support concerns.
+- Hidden-internal boundary is preserved: provenance, audit, evidence,
+  repository, DI, pipeline and graph internals remain hidden.
 
 ## Next
-- FOS-0245 Legal Reference Traceability Internal Rollout Documentation Acceptance Review
+- FOS-0248 Legal Reference Traceability Adapter Documentation Acceptance Review

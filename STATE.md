@@ -281,6 +281,12 @@ Tests: 399 passing
 - FOS-0243 Legal Reference Traceability Internal Rollout Plan
   - Commit: pending documentation update
   - Merge: pending documentation update
+- FOS-0245 Legal Reference Traceability Internal Rollout Documentation Acceptance Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0246 Legal Reference Traceability iConta Adapter Contract Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
 
 ## Session Outcomes
 
@@ -649,12 +655,28 @@ Tests: 399 passing
   rollout prerequisites.
 - Endpoint exposure remains deferred.
 - Public-safety constraints remain unchanged.
+- FOS-0245 accepted the internal rollout documentation update.
+- FOS-0246 defined the iConta adapter contract.
+- Adapter ownership remains outside Runtime and Domain.
+- Adapter performs authorization and validation before
+  EmbeddedLegalReferenceFeature invocation.
+- Adapter maps iConta workflow context into EmbeddedLegalReferenceRequest.
+- Adapter maps EmbeddedLegalReferenceResponse into iConta-owned presentation
+  models.
+- Adapter preserves requested-reference identity.
+- correlationId is linkage metadata only and not authorization.
+- Adapter owns logging and monitoring metadata.
+- Adapter maps Runtime failures into public-safe application errors.
+- Runtime remains unaware of workflow, tenant, account, user, authorization,
+  logging, monitoring and support concerns.
+- Provenance, audit, evidence, repository, DI, pipeline and graph internals
+  remain hidden.
 
 ### Next Target
 
-- FOS-0245 Legal Reference Traceability Internal Rollout Documentation Acceptance Review
+- FOS-0248 Legal Reference Traceability Adapter Documentation Acceptance Review
 
-Rationale: FOS-0244 records internal rollout readiness and rollout planning
-decisions. The next step is to accept the documentation update before any
-integration implementation, endpoint, persistence, ingestion, AI/NLP
-integration, graph integration or runtime redesign.
+Rationale: FOS-0247 records the iConta adapter contract decisions. The next
+step is to accept the documentation update before any adapter implementation,
+endpoint, persistence, ingestion, AI/NLP integration, graph integration or
+runtime redesign.
