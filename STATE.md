@@ -234,6 +234,15 @@ Tests: 399 passing
   - Commit: pending documentation update
   - Merge: pending documentation update
 - FOS-0225 Legal Reference Traceability Embedded DI Registration
+  - Commit: b8ebc5a
+  - Merge: b8ebc5a (direct commit to main)
+- FOS-0226 Legal Reference Traceability Embedded DI Acceptance Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0227 Legal Reference Traceability Public Endpoint Readiness Review
+  - Commit: pending documentation update
+  - Merge: pending documentation update
+- FOS-0228 Legal Reference Traceability API Contract Readiness Review
   - Commit: pending documentation update
   - Merge: pending documentation update
 
@@ -538,12 +547,25 @@ Tests: 399 passing
 - Direct repository, pipeline, audit, provenance, evidence package, graph,
   persistence, ingestion or AI/NLP dependencies were not introduced into the
   embedded facade.
+- FOS-0226 accepted the embedded traceability DI registration as-is.
+- FOS-0227 concluded public endpoint exposure remains deferred.
+- Embedded traceability remains DI-wired but unexposed.
+- EmbeddedLegalReferenceFeature remains suitable for internal/service-level
+  composition.
+- FOS-0228 concluded future API exposure requires API-owned request and
+  response DTOs.
+- Internal Runtime and Domain DTOs must not be reused directly as public API
+  contracts.
+- Validation, error behavior, routing and versioning require dedicated review
+  before endpoint implementation.
+- Provenance, audit, evidence, repository, DI, pipeline and graph internals
+  remain hidden from any future public API exposure.
 
 ### Next Target
 
-- FOS-0226 Legal Reference Traceability Embedded DI Acceptance Review
+- FOS-0230 Legal Reference Traceability Documentation Acceptance Review
 
-Rationale: FOS-0225 registered the embedded traceability services in DI without
-adding an API endpoint or expanding product integration. The next step is to
-review the DI registration before any API endpoint, persistence, ingestion,
-AI/NLP integration, graph integration or runtime redesign.
+Rationale: FOS-0229 records the endpoint exposure and future API contract
+readiness decisions. The next step is to accept the documentation update before
+any endpoint, persistence, ingestion, AI/NLP integration, graph integration or
+runtime redesign.

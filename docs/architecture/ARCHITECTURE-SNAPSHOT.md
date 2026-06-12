@@ -320,6 +320,20 @@ contracts:
 - Direct repository, pipeline, audit, provenance, evidence package, graph,
   persistence, ingestion or AI/NLP dependencies were not introduced into the
   embedded facade.
+- FOS-0226 accepted the embedded traceability DI registration as-is.
+- FOS-0227 deferred public endpoint exposure.
+- Embedded traceability remains DI-wired but unexposed.
+- The embedded boundary remains the active integration surface for traceability.
+- FOS-0228 concluded future API exposure requires API-owned request and
+  response DTOs.
+- Internal Runtime and Domain DTOs must not be reused directly as public API
+  contracts.
+- Future API exposure must preserve public-safety constraints: no provenance,
+  audit, evidence, repository, DI, pipeline or graph internals in public
+  contracts.
+- Required preconditions before endpoint implementation:
+  API contract review, validation review, error behavior review, route review
+  and versioning review.
 
 ## Next
-- FOS-0226 Legal Reference Traceability Embedded DI Acceptance Review
+- FOS-0230 Legal Reference Traceability Documentation Acceptance Review
