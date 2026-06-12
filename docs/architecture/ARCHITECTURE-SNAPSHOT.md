@@ -711,3 +711,35 @@ Verification:
 
 Recommended next milestone:
 - FOS-0331 Raw Document Identity Contract.
+
+## FOS-0332 Raw Document Identity Value Object Snapshot
+
+FOS-0332 implements the first narrow raw document identity vocabulary slice.
+
+Implemented:
+- `RawDocumentId`.
+- `RawDocumentVersionId`.
+- `SourceDocumentId`.
+- Focused tests for validation, trimming and identity separation.
+
+Preserved:
+- Existing `LegislationDocumentId` behavior.
+- Existing `RawLegislationDocument` shape.
+- Existing ingestion runtime and repository behavior.
+
+Still deferred:
+- Hashing and fingerprinting.
+- Source/configuration snapshots.
+- Provenance and audit records.
+- Persistence and repository behavior changes.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 429 passing.
+
+Recommended next milestone:
+- FOS-0333 Raw Document Identity Linkage Contract Review.

@@ -911,3 +911,38 @@ Tests:
 
 Next target:
 - FOS-0331 Raw Document Identity Contract.
+
+## FOS-0332 Raw Document Identity Value Objects
+
+Status: implemented.
+
+Completed implementation:
+- Added `RawDocumentId`.
+- Added `RawDocumentVersionId`.
+- Added `SourceDocumentId`.
+- Preserved existing `LegislationDocumentId` and `RawLegislationDocument`
+  behavior.
+- Kept raw document identity vocabulary distinct from `LegislationSourceId`,
+  `LegislationSourceReference`, repository identity, legal reference identity
+  and future rule identity.
+- Added focused tests for validation, trimming and identity distinction.
+
+Constraints preserved:
+- No hashing implementation.
+- No fingerprint implementation.
+- No snapshots.
+- No provenance/audit implementation.
+- No persistence implementation.
+- No repository behavior changes.
+- No batch redesign.
+- No API implementation.
+- No graph implementation.
+- No source hierarchy implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 429 passing.
+
+Next target:
+- FOS-0333 Raw Document Identity Linkage Contract Review.

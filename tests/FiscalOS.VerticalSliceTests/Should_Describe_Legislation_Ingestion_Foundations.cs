@@ -47,6 +47,30 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Throws<ArgumentException>(() => new LegislationSourceId(value));
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Raw_document_id_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new RawDocumentId(value));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Raw_document_version_id_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new RawDocumentVersionId(value));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Source_document_id_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new SourceDocumentId(value));
+    }
+
     [Fact]
     public void Legislation_source_id_trims_and_exposes_value()
     {
@@ -54,6 +78,59 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
 
         Assert.Equal("monitorul-oficial", id.Value);
         Assert.Equal("monitorul-oficial", id.ToString());
+    }
+
+    [Fact]
+    public void Raw_document_id_trims_and_exposes_value()
+    {
+        var id = new RawDocumentId("  RAW-DOC-1 ");
+
+        Assert.Equal("RAW-DOC-1", id.Value);
+        Assert.Equal("RAW-DOC-1", id.ToString());
+    }
+
+    [Fact]
+    public void Raw_document_version_id_trims_and_exposes_value()
+    {
+        var id = new RawDocumentVersionId("  RAW-DOC-1-V1 ");
+
+        Assert.Equal("RAW-DOC-1-V1", id.Value);
+        Assert.Equal("RAW-DOC-1-V1", id.ToString());
+    }
+
+    [Fact]
+    public void Source_document_id_trims_and_exposes_value()
+    {
+        var id = new SourceDocumentId("  MO-1-2026 ");
+
+        Assert.Equal("MO-1-2026", id.Value);
+        Assert.Equal("MO-1-2026", id.ToString());
+    }
+
+    [Fact]
+    public void Raw_document_identity_terms_are_distinct_from_source_terms()
+    {
+        var rawDocumentId = new RawDocumentId("RAW-DOC-1");
+        var rawDocumentVersionId = new RawDocumentVersionId("RAW-DOC-1-V1");
+        var sourceDocumentId = new SourceDocumentId("MO-1-2026");
+        var sourceId = new LegislationSourceId("monitorul-oficial");
+        var sourceReference = new LegislationSourceReference("Monitorul Oficial 1/2026");
+
+        Assert.NotEqual(sourceId.Value, rawDocumentId.Value);
+        Assert.NotEqual(sourceReference.Value, rawDocumentId.Value);
+        Assert.NotEqual(sourceDocumentId.Value, rawDocumentId.Value);
+        Assert.NotEqual(rawDocumentId.Value, rawDocumentVersionId.Value);
+    }
+
+    [Fact]
+    public void Raw_document_identity_terms_do_not_change_existing_legislation_document_id()
+    {
+        var existingId = new LegislationDocumentId("DOC-1");
+        var rawDocumentId = new RawDocumentId("RAW-DOC-1");
+
+        Assert.Equal("DOC-1", existingId.Value);
+        Assert.Equal("RAW-DOC-1", rawDocumentId.Value);
+        Assert.NotEqual(existingId.Value, rawDocumentId.Value);
     }
 
     [Fact]
