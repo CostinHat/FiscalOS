@@ -1981,3 +1981,40 @@ Verification:
 
 Recommended next milestone:
 - FOS-0429 Runtime Legal Basis Resolver Boundary Review.
+
+## FOS-0431 Classification Runtime Composition Snapshot
+
+FOS-0431 adds host composition for the existing classification runtime without
+adding API endpoints or changing classification behavior.
+
+Implemented:
+- Added `ClassificationRuntimeServiceCollectionExtensions` with
+  `AddClassificationRuntime(...)`.
+- Registered curated runtime classification rules into the service collection.
+- Registered `RuleRegistry`, `ILegalBasisResolver` and `ClassificationEngine`.
+- Updated `AddFiscalOSApi(...)` to include classification runtime composition.
+- Added focused DI tests for runtime resolution, default rule composition,
+  resolver override behavior and API composition wiring.
+
+Preserved:
+- Existing manual construction call sites.
+- Existing legal basis resolver behavior.
+- Existing curated citation flow.
+- Existing LegalKnowledge dependency boundary.
+- Existing legal reference runtime composition.
+- Existing ingestion behavior.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Rule generation.
+- Graph implementation or graph traversal changes.
+- Moving `LegalCitation` or LegalKnowledge graph models.
+- AI/NLP integration.
+
+Verification:
+- `dotnet test`: 540 passing.
+
+Recommended next milestone:
+- FOS-0432 Classification Runtime Composition Review.

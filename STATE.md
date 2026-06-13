@@ -1985,3 +1985,35 @@ Tests:
 
 Next target:
 - FOS-0429 Runtime Legal Basis Resolver Boundary Review.
+
+## FOS-0431 Classification Runtime Composition
+
+Status: implemented.
+
+Completed implementation:
+- Added `AddClassificationRuntime(...)` as the classification runtime service
+  collection extension.
+- Registered curated runtime classification rules, `RuleRegistry`,
+  `ILegalBasisResolver` and `ClassificationEngine` using the existing runtime
+  composition style.
+- Wired classification runtime composition into `AddFiscalOSApi(...)`.
+- Added focused DI coverage for engine resolution, default curated rules,
+  resolver override behavior and API composition wiring.
+- Left `AlwaysPassRule` out of default composition because it is a pipeline
+  validation rule, not a curated runtime classification rule.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No LegalKnowledge model migration.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test`: 540 passing.
+
+Next target:
+- FOS-0432 Classification Runtime Composition Review.

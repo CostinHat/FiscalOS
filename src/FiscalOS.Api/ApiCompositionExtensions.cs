@@ -1,3 +1,4 @@
+using FiscalOS.Runtime.Classification;
 using FiscalOS.Runtime.LegalReferences;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,7 @@ public static class ApiCompositionExtensions
         ArgumentNullException.ThrowIfNull(services);
 
         services.AddLegalReferenceResolutionRuntime();
+        services.AddClassificationRuntime();
 
         return services;
     }
