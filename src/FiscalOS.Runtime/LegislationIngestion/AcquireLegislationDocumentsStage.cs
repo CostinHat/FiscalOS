@@ -62,6 +62,7 @@ public sealed class AcquireLegislationDocumentsStage : ILegislationIngestionStag
         provenance = AppendCandidateProvenance(
             provenance,
             context.BatchId,
+            _source.Id,
             documents);
         var auditEvents = AppendSourceAuditEvents(
             context.AuditEvents,
@@ -72,6 +73,7 @@ public sealed class AcquireLegislationDocumentsStage : ILegislationIngestionStag
         auditEvents = AppendCandidateAuditEvents(
             auditEvents,
             context.BatchId,
+            _source.Id,
             documents);
 
         return context with
@@ -147,6 +149,7 @@ public sealed class AcquireLegislationDocumentsStage : ILegislationIngestionStag
     private IReadOnlyList<IngestionProvenanceRecord> AppendCandidateProvenance(
         IReadOnlyList<IngestionProvenanceRecord> provenance,
         IngestionBatchId batchId,
+        LegislationSourceId sourceId,
         IReadOnlyList<RawLegislationDocument> documents)
     {
         var records = documents.Select(document =>
@@ -157,7 +160,7 @@ public sealed class AcquireLegislationDocumentsStage : ILegislationIngestionStag
                 _timestampProvider(),
                 batchId,
                 IngestionProvenanceCategory.RawDocument,
-                null,
+                sourceId,
                 null,
                 null,
                 null,
@@ -169,6 +172,7 @@ public sealed class AcquireLegislationDocumentsStage : ILegislationIngestionStag
     private IReadOnlyList<IngestionAuditEventRecord> AppendCandidateAuditEvents(
         IReadOnlyList<IngestionAuditEventRecord> auditEvents,
         IngestionBatchId batchId,
+        LegislationSourceId sourceId,
         IReadOnlyList<RawLegislationDocument> documents)
     {
         var records = documents.Select(document =>
@@ -180,7 +184,7 @@ public sealed class AcquireLegislationDocumentsStage : ILegislationIngestionStag
                 batchId,
                 IngestionAuditEventKind.CandidateFetched,
                 IngestionAuditEventOutcome.Completed,
-                null,
+                sourceId,
                 null,
                 null,
                 null,

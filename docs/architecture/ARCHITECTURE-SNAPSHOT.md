@@ -1385,3 +1385,51 @@ Verification:
 
 Recommended next milestone:
 - FOS-0375 Raw-Document Candidate Runtime Emission Review.
+
+## FOS-0377 Candidate Emission Source Linkage Snapshot
+
+FOS-0377 links candidate-level runtime emission back to stable source identity
+without assigning durable raw document identity.
+
+Implemented:
+- Candidate-level provenance records now preserve the emitting
+  `LegislationSourceId`.
+- Candidate-level audit event records now preserve the emitting
+  `LegislationSourceId`.
+- Existing deterministic candidate emission ID strings are unchanged.
+- `RawDocumentId` linkage remains null until raw document identity decision is
+  implemented.
+- Source metadata snapshot linkage remains null until runtime snapshot creation
+  exists.
+- Focused runtime assertions cover source linkage in single-document,
+  multi-document and failure paths.
+
+Preserved:
+- Existing batch-level emitted records.
+- Existing source-level emitted records.
+- Existing candidate emission ordering and ID naming.
+- Existing stage contract shape.
+- Existing ingestion trace behavior.
+- Existing repository behavior.
+- Existing source/document acquisition, validation, versioning and storage
+  behavior.
+
+Still deferred:
+- Raw document identity decision implementation.
+- Fingerprinting implementation.
+- Duplicate detection implementation.
+- Persistence and repository handoff for provenance/audit records.
+- Source metadata snapshot runtime creation.
+- Correlation and causation population.
+- Replay execution behavior.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 522 passing.
+
+Recommended next milestone:
+- FOS-0378 Candidate Emission Source Linkage Review.

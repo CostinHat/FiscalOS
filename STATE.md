@@ -1504,3 +1504,41 @@ Tests:
 
 Next target:
 - FOS-0375 Raw-Document Candidate Runtime Emission Review.
+
+## FOS-0377 Candidate Emission Source Linkage
+
+Status: implemented.
+
+Completed implementation:
+- Populated `SourceId` on candidate-level provenance records emitted from
+  `AcquireLegislationDocumentsStage`.
+- Populated `SourceId` on candidate-level audit event records emitted from
+  `AcquireLegislationDocumentsStage`.
+- Preserved existing deterministic candidate emission ID strings.
+- Kept `RawDocumentId` linkage null because raw document identity decision is
+  not implemented yet.
+- Kept source metadata snapshot linkage null because source metadata snapshot
+  runtime creation is not implemented yet.
+- Added focused runtime assertions for source linkage in single-document,
+  multi-document and failure paths.
+
+Constraints preserved:
+- No raw document identity decision implementation.
+- No fingerprinting implementation.
+- No duplicate detection implementation.
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No source hierarchy implementation.
+- No source metadata snapshot creation.
+- No correlation or causation population.
+- No `IngestionTraceEntry` changes.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 522 passing.
+
+Next target:
+- FOS-0378 Candidate Emission Source Linkage Review.

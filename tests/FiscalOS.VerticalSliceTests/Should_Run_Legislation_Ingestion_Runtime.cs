@@ -65,7 +65,9 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Equal(IngestionProvenanceCategory.Batch, result.Provenance[3].Category);
         Assert.Equal("in-memory-legislation-source", result.Provenance[1].SourceId!.Value);
         Assert.Null(result.Provenance[1].SourceMetadataSnapshotId);
+        Assert.Equal("in-memory-legislation-source", result.Provenance[2].SourceId!.Value);
         Assert.Null(result.Provenance[2].RawDocumentId);
+        Assert.Null(result.Provenance[2].SourceMetadataSnapshotId);
         Assert.Equal("Candidate fetched: DOC-1.", result.Provenance[2].Description);
         Assert.Equal(IngestionAuditEventKind.BatchStarted, result.AuditEvents[0].Kind);
         Assert.Equal(IngestionAuditEventKind.SourceSelected, result.AuditEvents[1].Kind);
@@ -79,9 +81,11 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Equal(IngestionAuditEventOutcome.Completed, result.AuditEvents[4].Outcome);
         Assert.Equal("in-memory-legislation-source", result.AuditEvents[1].SourceId!.Value);
         Assert.Equal("in-memory-legislation-source", result.AuditEvents[2].SourceId!.Value);
+        Assert.Equal("in-memory-legislation-source", result.AuditEvents[3].SourceId!.Value);
         Assert.Null(result.AuditEvents[1].SourceMetadataSnapshotId);
         Assert.Null(result.AuditEvents[2].SourceMetadataSnapshotId);
         Assert.Null(result.AuditEvents[3].RawDocumentId);
+        Assert.Null(result.AuditEvents[3].SourceMetadataSnapshotId);
         Assert.Equal("Candidate fetched: DOC-1.", result.AuditEvents[3].Details);
         Assert.All(result.Provenance, record => Assert.Null(record.CorrelationId));
         Assert.All(result.AuditEvents, record => Assert.Null(record.CausationId));
@@ -119,17 +123,25 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Contains(result.Trace, entry => entry.Description == "Stored 2 raw legislation document(s).");
         Assert.Contains(result.Provenance, record =>
             record.Id.Value == "BATCH-2:provenance:candidate-fetched:DOC-1" &&
+            record.SourceId is not null &&
+            record.SourceId.Value == "in-memory-legislation-source" &&
             record.RawDocumentId is null);
         Assert.Contains(result.Provenance, record =>
             record.Id.Value == "BATCH-2:provenance:candidate-fetched:DOC-2" &&
+            record.SourceId is not null &&
+            record.SourceId.Value == "in-memory-legislation-source" &&
             record.RawDocumentId is null);
         Assert.Contains(result.AuditEvents, record =>
             record.Id.Value == "BATCH-2:audit:candidate-fetched:DOC-1" &&
             record.Kind == IngestionAuditEventKind.CandidateFetched &&
+            record.SourceId is not null &&
+            record.SourceId.Value == "in-memory-legislation-source" &&
             record.RawDocumentId is null);
         Assert.Contains(result.AuditEvents, record =>
             record.Id.Value == "BATCH-2:audit:candidate-fetched:DOC-2" &&
             record.Kind == IngestionAuditEventKind.CandidateFetched &&
+            record.SourceId is not null &&
+            record.SourceId.Value == "in-memory-legislation-source" &&
             record.RawDocumentId is null);
     }
 
@@ -177,6 +189,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Equal("BATCH-FAILED:provenance:batch-failed", result.Provenance[3].Id.Value);
         Assert.Equal("storage failed", result.Provenance[3].Description);
         Assert.Equal("in-memory-legislation-source", result.Provenance[1].SourceId!.Value);
+        Assert.Equal("in-memory-legislation-source", result.Provenance[2].SourceId!.Value);
         Assert.Null(result.Provenance[2].RawDocumentId);
         Assert.Equal(IngestionAuditEventKind.BatchStarted, result.AuditEvents[0].Kind);
         Assert.Equal(IngestionAuditEventKind.SourceSelected, result.AuditEvents[1].Kind);
@@ -188,6 +201,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Equal(IngestionAuditEventOutcome.Completed, result.AuditEvents[2].Outcome);
         Assert.Equal(IngestionAuditEventOutcome.Completed, result.AuditEvents[3].Outcome);
         Assert.Equal(IngestionAuditEventOutcome.Failed, result.AuditEvents[4].Outcome);
+        Assert.Equal("in-memory-legislation-source", result.AuditEvents[3].SourceId!.Value);
         Assert.Null(result.AuditEvents[3].RawDocumentId);
         Assert.Equal("storage failed", result.AuditEvents[4].Details);
         Assert.Equal("in-memory-legislation-source", result.AuditEvents[1].SourceId!.Value);
