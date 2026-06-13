@@ -1755,3 +1755,42 @@ Verification:
 
 Recommended next milestone:
 - FOS-0403 ReferenceSegment Legal Core Migration Review.
+
+## FOS-0405 LegalReference Legal Core Migration Snapshot
+
+FOS-0405 makes `LegalReference` the fourth migrated Generic Legal Core
+primitive.
+
+Implemented:
+- Added canonical `LegalReference` to `FiscalOS.LegalCore`.
+- Updated Domain resolution contracts/models, Runtime resolution components and
+  tests to use `FiscalOS.LegalCore.LegalReference`.
+- Kept `FullyQualifiedLegalReference` in Domain while composing it from Legal
+  Core primitives.
+- Removed the old `FiscalOS.Domain.LegalReferences.LegalReference` type to
+  avoid dual structural legal address definitions.
+- Extended compatibility tests to assert the Legal Core namespace ownership.
+
+Preserved:
+- Existing non-empty segment validation.
+- Existing segment storage copy behavior.
+- Existing ordering, equality, hash code, parent, ancestor/descendant,
+  containment and `ToString()` behavior.
+- Existing Legal Reference Resolution behavior.
+- Existing ingestion behavior.
+
+Still deferred:
+- Moving `FullyQualifiedLegalReference`.
+- Moving resolution contracts, repositories or runtime components.
+- Matching/search/resolution behavior changes.
+- Graph/source hierarchy implementation.
+- API exposure.
+- Persistence and repository behavior.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 535 passing.
+
+Recommended next milestone:
+- FOS-0406 LegalReference Legal Core Migration Review.

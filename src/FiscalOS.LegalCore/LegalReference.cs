@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using FiscalOS.LegalCore;
 
-namespace FiscalOS.Domain.LegalReferences;
+namespace FiscalOS.LegalCore;
 
 /// <summary>
 /// A structural legal address: an ordered path of <see cref="ReferenceSegment"/>s

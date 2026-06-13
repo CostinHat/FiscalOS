@@ -1,4 +1,5 @@
 using FiscalOS.Domain.LegalReferences;
+using FiscalOS.LegalCore;
 
 namespace FiscalOS.Runtime.LegalReferences;
 
