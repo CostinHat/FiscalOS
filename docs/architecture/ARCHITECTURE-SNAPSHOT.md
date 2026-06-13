@@ -1257,3 +1257,43 @@ Verification:
 
 Recommended next milestone:
 - FOS-0366 Ingestion Batch-Level Runtime Emission Review.
+
+## FOS-0368 Ingestion Runtime Emission ID Policy Snapshot
+
+FOS-0368 formalizes runtime provenance and audit event ID creation without
+changing the batch-level emission surface.
+
+Implemented:
+- `IIngestionEmissionIdPolicy`.
+- `DefaultIngestionEmissionIdPolicy`.
+- Existing emitted ID format preserved:
+  `{batchId}:provenance:{emissionName}` and
+  `{batchId}:audit:{emissionName}`.
+- `LegislationIngestionPipeline` now delegates emitted provenance and audit
+  event ID construction to the policy.
+- Focused tests for default policy formatting and equivalent rerun ID stability.
+
+Preserved:
+- Existing batch-level emitted record IDs.
+- Existing stage contracts.
+- Existing ingestion trace behavior.
+- Existing repository behavior.
+- Existing source/document acquisition, validation, versioning and storage
+  behavior.
+
+Still deferred:
+- Persistence and repository handoff for provenance/audit records.
+- Source-level and raw-document-level provenance/audit emission.
+- Correlation and causation population.
+- Replay execution behavior.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 522 passing.
+
+Recommended next milestone:
+- FOS-0369 Ingestion Runtime Emission ID Policy Review.

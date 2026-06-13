@@ -148,6 +148,46 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
     }
 
     [Fact]
+    public void Default_emission_id_policy_preserves_existing_batch_id_format()
+    {
+        var policy = new DefaultIngestionEmissionIdPolicy();
+        var batchId = new IngestionBatchId("BATCH-1");
+
+        var provenanceId = policy.CreateProvenanceId(batchId, " batch-started ");
+        var auditEventId = policy.CreateAuditEventId(batchId, " batch-started ");
+
+        Assert.Equal("BATCH-1:provenance:batch-started", provenanceId.Value);
+        Assert.Equal("BATCH-1:audit:batch-started", auditEventId.Value);
+    }
+
+    [Fact]
+    public async Task Equivalent_batch_reruns_preserve_emitted_record_ids()
+    {
+        var firstPipeline = new LegislationIngestionPipeline(
+            new ILegislationIngestionStage[]
+            {
+                new DiscoverLegislationDocumentsStage(() => At),
+            },
+            () => At);
+        var secondPipeline = new LegislationIngestionPipeline(
+            new ILegislationIngestionStage[]
+            {
+                new DiscoverLegislationDocumentsStage(() => At),
+            },
+            () => At);
+
+        var first = await firstPipeline.RunAsync(Context("BATCH-RERUN"));
+        var second = await secondPipeline.RunAsync(Context("BATCH-RERUN"));
+
+        Assert.Equal(
+            first.Provenance.Select(record => record.Id.Value),
+            second.Provenance.Select(record => record.Id.Value));
+        Assert.Equal(
+            first.AuditEvents.Select(record => record.Id.Value),
+            second.AuditEvents.Select(record => record.Id.Value));
+    }
+
+    [Fact]
     public async Task In_memory_repository_replaces_documents_by_id()
     {
         var repository = new InMemoryRawLegislationDocumentRepository();

@@ -6,6 +6,7 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
 {
     private readonly IReadOnlyList<ILegislationIngestionStage> _stages;
     private readonly Func<DateTimeOffset> _timestampProvider;
+    private readonly IIngestionEmissionIdPolicy _emissionIdPolicy;
 
     public LegislationIngestionPipeline(params ILegislationIngestionStage[] stages)
         : this(stages, () => DateTimeOffset.UtcNow)
@@ -15,12 +16,22 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
     public LegislationIngestionPipeline(
         IReadOnlyList<ILegislationIngestionStage> stages,
         Func<DateTimeOffset> timestampProvider)
+        : this(stages, timestampProvider, new DefaultIngestionEmissionIdPolicy())
+    {
+    }
+
+    public LegislationIngestionPipeline(
+        IReadOnlyList<ILegislationIngestionStage> stages,
+        Func<DateTimeOffset> timestampProvider,
+        IIngestionEmissionIdPolicy emissionIdPolicy)
     {
         ArgumentNullException.ThrowIfNull(stages);
         ArgumentNullException.ThrowIfNull(timestampProvider);
+        ArgumentNullException.ThrowIfNull(emissionIdPolicy);
 
         _stages = stages.ToArray();
         _timestampProvider = timestampProvider;
+        _emissionIdPolicy = emissionIdPolicy;
     }
 
     public async Task<IngestionResult> RunAsync(
@@ -35,6 +46,7 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
             Provenance = AppendProvenance(
                 context.Provenance,
                 context.BatchId,
+                _emissionIdPolicy,
                 IngestionProvenanceCategory.Batch,
                 startedAt,
                 "Ingestion batch started.",
@@ -42,6 +54,7 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
             AuditEvents = AppendAuditEvent(
                 context.AuditEvents,
                 context.BatchId,
+                _emissionIdPolicy,
                 IngestionAuditEventKind.BatchStarted,
                 IngestionAuditEventOutcome.Completed,
                 startedAt,
@@ -71,6 +84,7 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
                 var provenance = AppendProvenance(
                     current.Provenance,
                     current.BatchId,
+                    _emissionIdPolicy,
                     IngestionProvenanceCategory.Batch,
                     failedAt,
                     ex.Message,
@@ -78,6 +92,7 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
                 var auditEvents = AppendAuditEvent(
                     current.AuditEvents,
                     current.BatchId,
+                    _emissionIdPolicy,
                     IngestionAuditEventKind.FailureRecorded,
                     IngestionAuditEventOutcome.Failed,
                     failedAt,
@@ -97,6 +112,7 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
         var completedProvenance = AppendProvenance(
             current.Provenance,
             current.BatchId,
+            _emissionIdPolicy,
             IngestionProvenanceCategory.Batch,
             completedAt,
             "Ingestion batch completed.",
@@ -104,6 +120,7 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
         var completedAuditEvents = AppendAuditEvent(
             current.AuditEvents,
             current.BatchId,
+            _emissionIdPolicy,
             IngestionAuditEventKind.BatchCompleted,
             IngestionAuditEventOutcome.Completed,
             completedAt,
@@ -121,6 +138,7 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
     private static IReadOnlyList<IngestionProvenanceRecord> AppendProvenance(
         IReadOnlyList<IngestionProvenanceRecord> provenance,
         IngestionBatchId batchId,
+        IIngestionEmissionIdPolicy emissionIdPolicy,
         IngestionProvenanceCategory category,
         DateTimeOffset createdAt,
         string description,
@@ -129,7 +147,7 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
         return provenance.Concat(new[]
         {
             new IngestionProvenanceRecord(
-                new IngestionProvenanceId($"{batchId.Value}:provenance:{suffix}"),
+                emissionIdPolicy.CreateProvenanceId(batchId, suffix),
                 createdAt,
                 batchId,
                 category,
@@ -144,6 +162,7 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
     private static IReadOnlyList<IngestionAuditEventRecord> AppendAuditEvent(
         IReadOnlyList<IngestionAuditEventRecord> auditEvents,
         IngestionBatchId batchId,
+        IIngestionEmissionIdPolicy emissionIdPolicy,
         IngestionAuditEventKind kind,
         IngestionAuditEventOutcome outcome,
         DateTimeOffset createdAt,
@@ -153,7 +172,7 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
         return auditEvents.Concat(new[]
         {
             new IngestionAuditEventRecord(
-                new IngestionAuditEventId($"{batchId.Value}:audit:{suffix}"),
+                emissionIdPolicy.CreateAuditEventId(batchId, suffix),
                 createdAt,
                 batchId,
                 kind,
