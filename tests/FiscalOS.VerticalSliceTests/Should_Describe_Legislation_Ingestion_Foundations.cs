@@ -7,6 +7,26 @@ namespace FiscalOS.VerticalSliceTests;
 
 public sealed class Should_Describe_Legislation_Ingestion_Foundations
 {
+    private sealed class FixedRawDocumentIdentityDecisionPolicy : IRawDocumentIdentityDecisionPolicy
+    {
+        public RawDocumentIdentityDecision Decide(
+            RawLegislationDocument candidate,
+            LegislationSourceId sourceId,
+            DateTimeOffset decidedAt)
+        {
+            ArgumentNullException.ThrowIfNull(candidate);
+            ArgumentNullException.ThrowIfNull(sourceId);
+
+            return new RawDocumentIdentityDecision(
+                new RawDocumentId($"RAW-{candidate.Id.Value}"),
+                null,
+                candidate.Id,
+                sourceId,
+                decidedAt,
+                "fixed test decision");
+        }
+    }
+
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
@@ -1175,6 +1195,131 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
     }
 
     [Fact]
+    public void Raw_document_identity_decision_stores_identity_source_candidate_timestamp_and_reason()
+    {
+        var rawDocumentId = new RawDocumentId("RAW-DOC-1");
+        var rawDocumentVersionId = new RawDocumentVersionId("RAW-DOC-1-V1");
+        var candidateDocumentId = new LegislationDocumentId("DOC-1");
+        var sourceId = new LegislationSourceId("monitorul-oficial");
+        var decidedAt = new DateTimeOffset(2026, 6, 13, 16, 30, 0, TimeSpan.Zero);
+
+        var decision = new RawDocumentIdentityDecision(
+            rawDocumentId,
+            rawDocumentVersionId,
+            candidateDocumentId,
+            sourceId,
+            decidedAt,
+            " selected existing lineage ");
+
+        Assert.Same(rawDocumentId, decision.RawDocumentId);
+        Assert.Same(rawDocumentVersionId, decision.RawDocumentVersionId);
+        Assert.Same(candidateDocumentId, decision.CandidateDocumentId);
+        Assert.Same(sourceId, decision.SourceId);
+        Assert.Equal(decidedAt, decision.DecidedAt);
+        Assert.Equal("selected existing lineage", decision.Reason);
+    }
+
+    [Fact]
+    public void Raw_document_identity_decision_allows_missing_version_identity()
+    {
+        var decision = new RawDocumentIdentityDecision(
+            new RawDocumentId("RAW-DOC-1"),
+            null,
+            new LegislationDocumentId("DOC-1"),
+            new LegislationSourceId("monitorul-oficial"),
+            DateTimeOffset.UnixEpoch,
+            "new lineage selected");
+
+        Assert.Null(decision.RawDocumentVersionId);
+    }
+
+    [Fact]
+    public void Raw_document_identity_decision_rejects_required_identity_inputs()
+    {
+        var rawDocumentId = new RawDocumentId("RAW-DOC-1");
+        var candidateDocumentId = new LegislationDocumentId("DOC-1");
+        var sourceId = new LegislationSourceId("monitorul-oficial");
+
+        Assert.Throws<ArgumentNullException>(() => new RawDocumentIdentityDecision(
+            null!,
+            null,
+            candidateDocumentId,
+            sourceId,
+            DateTimeOffset.UnixEpoch,
+            "selected"));
+        Assert.Throws<ArgumentNullException>(() => new RawDocumentIdentityDecision(
+            rawDocumentId,
+            null,
+            null!,
+            sourceId,
+            DateTimeOffset.UnixEpoch,
+            "selected"));
+        Assert.Throws<ArgumentNullException>(() => new RawDocumentIdentityDecision(
+            rawDocumentId,
+            null,
+            candidateDocumentId,
+            null!,
+            DateTimeOffset.UnixEpoch,
+            "selected"));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Raw_document_identity_decision_rejects_empty_reason(string reason)
+    {
+        Assert.Throws<ArgumentException>(() => new RawDocumentIdentityDecision(
+            new RawDocumentId("RAW-DOC-1"),
+            null,
+            new LegislationDocumentId("DOC-1"),
+            new LegislationSourceId("monitorul-oficial"),
+            DateTimeOffset.UnixEpoch,
+            reason));
+    }
+
+    [Fact]
+    public void Raw_document_identity_decision_preserves_record_value_semantics()
+    {
+        var decidedAt = DateTimeOffset.UnixEpoch;
+        var first = new RawDocumentIdentityDecision(
+            new RawDocumentId("RAW-DOC-1"),
+            new RawDocumentVersionId("RAW-DOC-1-V1"),
+            new LegislationDocumentId("DOC-1"),
+            new LegislationSourceId("monitorul-oficial"),
+            decidedAt,
+            "selected");
+        var second = new RawDocumentIdentityDecision(
+            new RawDocumentId("RAW-DOC-1"),
+            new RawDocumentVersionId("RAW-DOC-1-V1"),
+            new LegislationDocumentId("DOC-1"),
+            new LegislationSourceId("monitorul-oficial"),
+            decidedAt,
+            "selected");
+
+        Assert.Equal(first, second);
+    }
+
+    [Fact]
+    public void Raw_document_identity_decision_policy_returns_decision_without_runtime_integration()
+    {
+        IRawDocumentIdentityDecisionPolicy policy = new FixedRawDocumentIdentityDecisionPolicy();
+        var candidate = new RawLegislationDocument(
+            new LegislationDocumentId("DOC-1"),
+            new LegislationSourceReference("Monitorul Oficial 1/2026"),
+            "raw legislative text");
+        var sourceId = new LegislationSourceId("monitorul-oficial");
+        var decidedAt = new DateTimeOffset(2026, 6, 13, 17, 0, 0, TimeSpan.Zero);
+
+        var decision = policy.Decide(candidate, sourceId, decidedAt);
+
+        Assert.Equal("RAW-DOC-1", decision.RawDocumentId.Value);
+        Assert.Null(decision.RawDocumentVersionId);
+        Assert.Same(candidate.Id, decision.CandidateDocumentId);
+        Assert.Same(sourceId, decision.SourceId);
+        Assert.Equal(decidedAt, decision.DecidedAt);
+    }
+
+    [Fact]
     public void Raw_document_identity_terms_are_distinct_from_source_terms()
     {
         var rawDocumentId = new RawDocumentId("RAW-DOC-1");
@@ -1212,6 +1357,29 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Equal("DOC-1", existingId.Value);
         Assert.Equal("RAW-DOC-1", rawDocumentId.Value);
         Assert.NotEqual(existingId.Value, rawDocumentId.Value);
+    }
+
+    [Fact]
+    public void Raw_document_identity_decision_keeps_identity_concepts_separate()
+    {
+        var decision = new RawDocumentIdentityDecision(
+            new RawDocumentId("RAW-DOC-1"),
+            new RawDocumentVersionId("RAW-DOC-1-V1"),
+            new LegislationDocumentId("DOC-1"),
+            new LegislationSourceId("monitorul-oficial"),
+            DateTimeOffset.UnixEpoch,
+            "selected");
+        var sourceReference = new LegislationSourceReference("Monitorul Oficial 1/2026");
+        var legalDocumentReference = new LegalDocumentReference("Legea 227/2015");
+        var repositoryDocumentId = new LegislationDocumentId("DOC-1");
+        var futureRuleId = Guid.Parse("11111111-1111-1111-1111-111111111111");
+
+        Assert.NotEqual(decision.SourceId.Value, decision.RawDocumentId.Value);
+        Assert.NotEqual(sourceReference.Value, decision.RawDocumentId.Value);
+        Assert.NotEqual(decision.CandidateDocumentId.Value, decision.RawDocumentId.Value);
+        Assert.Equal(repositoryDocumentId.Value, decision.CandidateDocumentId.Value);
+        Assert.NotEqual(legalDocumentReference.Value, decision.RawDocumentId.Value);
+        Assert.NotEqual(futureRuleId.ToString(), decision.RawDocumentId.Value);
     }
 
     [Fact]

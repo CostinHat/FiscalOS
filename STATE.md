@@ -1542,3 +1542,38 @@ Tests:
 
 Next target:
 - FOS-0378 Candidate Emission Source Linkage Review.
+
+## FOS-0380 Raw Document Identity Decision Value Object and Contract
+
+Status: implemented.
+
+Completed implementation:
+- Added `RawDocumentIdentityDecision` to capture selected durable raw document
+  identity, optional raw document version identity, candidate document identity,
+  source identity, decision timestamp and decision reason.
+- Added `IRawDocumentIdentityDecisionPolicy` as the narrow contract for future
+  raw document identity decision implementations.
+- Preserved the distinction between durable `RawDocumentId` and existing
+  `LegislationDocumentId` candidate/repository identity.
+- Added focused foundation tests for validation, trimming, optional version
+  identity, value semantics, policy contract shape and identity separation.
+
+Constraints preserved:
+- No runtime identity decision execution.
+- No fingerprinting implementation.
+- No duplicate detection implementation.
+- No provenance or audit emission changes.
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No source hierarchy implementation.
+- No source metadata snapshot creation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 530 passing.
+
+Next target:
+- FOS-0381 Raw Document Identity Decision Foundation Review.

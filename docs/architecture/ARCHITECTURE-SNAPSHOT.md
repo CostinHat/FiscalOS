@@ -1433,3 +1433,46 @@ Verification:
 
 Recommended next milestone:
 - FOS-0378 Candidate Emission Source Linkage Review.
+
+## FOS-0380 Raw Document Identity Decision Value Object and Contract Snapshot
+
+FOS-0380 introduces the raw document identity decision vocabulary without
+executing identity decisions at runtime.
+
+Implemented:
+- `RawDocumentIdentityDecision` captures the selected `RawDocumentId`, optional
+  `RawDocumentVersionId`, candidate `LegislationDocumentId`,
+  `LegislationSourceId`, decision timestamp and reason.
+- `IRawDocumentIdentityDecisionPolicy` defines the narrow decision contract for
+  future runtime identity work.
+- Focused foundation tests cover required identity validation, reason trimming,
+  optional version identity, value semantics, contract shape and separation from
+  source, repository, legal reference and future rule identity concepts.
+
+Preserved:
+- Existing candidate runtime emission.
+- Existing source linkage on candidate provenance/audit records.
+- Existing `RawLegislationDocument` shape.
+- Existing repository behavior keyed by `LegislationDocumentId`.
+- Existing emitted provenance/audit ID strings.
+- Existing ingestion trace behavior.
+
+Still deferred:
+- Runtime raw document identity decision execution.
+- Fingerprint-backed decision policy.
+- Duplicate detection and previous-identity lookup.
+- Populating `RawDocumentId` on emitted provenance/audit records.
+- Persistence and repository handoff for identity decisions.
+- Source metadata snapshot runtime creation.
+- Replay execution behavior.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 530 passing.
+
+Recommended next milestone:
+- FOS-0381 Raw Document Identity Decision Foundation Review.
