@@ -1,7 +1,7 @@
 # FiscalOS State
 
 HEAD: 15cdfe9
-Tests: 492 passing
+Tests: 499 passing
 
 ## Completed
 
@@ -1177,3 +1177,38 @@ Tests:
 
 Next target:
 - FOS-0348 Ingestion Audit Event Kind Integration Review.
+
+## FOS-0350 Ingestion Audit Event Outcome Value Object
+
+Status: implemented.
+
+Completed implementation:
+- Added `IngestionAuditEventOutcome`.
+- Implemented validation, trimming, `Value`, `ToString()` and record value
+  semantics.
+- Added named static outcomes for `Completed`, `Skipped`, `Failed` and
+  `Deferred`.
+- Added focused tests for validation, trimming, value semantics, named
+  outcomes, distinction from `IngestionStatus` and distinction from
+  `IngestionTraceEntry`.
+
+Constraints preserved:
+- No `IngestionAuditEventRecord` changes.
+- No runtime status reuse.
+- No provenance categories.
+- No correlation or causation IDs.
+- No `IngestionTraceEntry` changes.
+- No runtime emission.
+- No batch integration.
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 499 passing.
+
+Next target:
+- FOS-0351 Ingestion Audit Event Outcome Record Integration Review.

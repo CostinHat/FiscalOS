@@ -996,3 +996,41 @@ Verification:
 
 Recommended next milestone:
 - FOS-0348 Ingestion Audit Event Kind Integration Review.
+
+## FOS-0350 Ingestion Audit Event Outcome Value Object Snapshot
+
+FOS-0350 implements the first narrow ingestion audit outcome vocabulary slice.
+
+Implemented:
+- `IngestionAuditEventOutcome`.
+- Validation, trimming, `Value`, `ToString()` and value semantics.
+- Named static outcomes for `Completed`, `Skipped`, `Failed` and `Deferred`.
+- Focused tests for validation, trimming, value semantics, named outcomes and
+  distinction from status/trace concepts.
+
+Preserved:
+- Existing ingestion runtime and repository behavior.
+- Existing `IngestionTraceEntry` behavior.
+- Existing `IngestionStatus` runtime status behavior.
+- Existing `IngestionAuditEventRecord` behavior.
+- Existing audit event kind behavior.
+
+Still deferred:
+- Audit event record outcome integration.
+- Runtime status reuse.
+- Provenance categories.
+- Correlation and causation IDs.
+- Runtime emission.
+- Batch integration.
+- Persistence and repository behavior changes.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 499 passing.
+
+Recommended next milestone:
+- FOS-0351 Ingestion Audit Event Outcome Record Integration Review.

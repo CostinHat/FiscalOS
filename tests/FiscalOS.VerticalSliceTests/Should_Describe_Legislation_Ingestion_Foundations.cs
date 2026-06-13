@@ -128,6 +128,14 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Throws<ArgumentException>(() => new IngestionAuditEventKind(value));
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Ingestion_audit_event_outcome_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new IngestionAuditEventOutcome(value));
+    }
+
     [Fact]
     public void Legislation_source_id_trims_and_exposes_value()
     {
@@ -228,10 +236,28 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
     }
 
     [Fact]
+    public void Ingestion_audit_event_outcome_trims_and_exposes_value()
+    {
+        var outcome = new IngestionAuditEventOutcome("  completed ");
+
+        Assert.Equal("completed", outcome.Value);
+        Assert.Equal("completed", outcome.ToString());
+    }
+
+    [Fact]
     public void Ingestion_audit_event_kind_preserves_record_value_semantics()
     {
         var first = new IngestionAuditEventKind("source-selected");
         var second = new IngestionAuditEventKind("source-selected");
+
+        Assert.Equal(first, second);
+    }
+
+    [Fact]
+    public void Ingestion_audit_event_outcome_preserves_record_value_semantics()
+    {
+        var first = new IngestionAuditEventOutcome("completed");
+        var second = new IngestionAuditEventOutcome("completed");
 
         Assert.Equal(first, second);
     }
@@ -261,12 +287,30 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
     }
 
     [Fact]
+    public void Ingestion_audit_event_outcome_exposes_named_outcomes()
+    {
+        Assert.Equal("completed", IngestionAuditEventOutcome.Completed.Value);
+        Assert.Equal("skipped", IngestionAuditEventOutcome.Skipped.Value);
+        Assert.Equal("failed", IngestionAuditEventOutcome.Failed.Value);
+        Assert.Equal("deferred", IngestionAuditEventOutcome.Deferred.Value);
+    }
+
+    [Fact]
     public void Ingestion_audit_event_kind_is_distinct_from_ingestion_status()
     {
         var kind = IngestionAuditEventKind.SourceSelected;
         var status = IngestionStatus.Succeeded;
 
         Assert.NotEqual(status.ToString(), kind.Value);
+    }
+
+    [Fact]
+    public void Ingestion_audit_event_outcome_is_distinct_from_ingestion_status()
+    {
+        var outcome = IngestionAuditEventOutcome.Completed;
+        var status = IngestionStatus.Succeeded;
+
+        Assert.NotEqual(status.ToString(), outcome.Value);
     }
 
     [Fact]
@@ -284,6 +328,23 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Equal("source selected", traceEntry.Description);
         Assert.NotEqual(traceEntry.Description, kind.Value);
         Assert.NotEqual(traceEntry.GetType(), kind.GetType());
+    }
+
+    [Fact]
+    public void Ingestion_audit_event_outcome_is_distinct_from_trace_entries()
+    {
+        var timestamp = new DateTimeOffset(2026, 6, 13, 14, 30, 0, TimeSpan.Zero);
+        var outcome = IngestionAuditEventOutcome.Completed;
+        var traceEntry = new IngestionTraceEntry(
+            IngestionStage.Acquisition,
+            IngestionStatus.Succeeded,
+            timestamp,
+            "completed acquisition");
+
+        Assert.Equal("completed", outcome.Value);
+        Assert.Equal(IngestionStatus.Succeeded, traceEntry.Status);
+        Assert.NotEqual(traceEntry.Status.ToString(), outcome.Value);
+        Assert.NotEqual(traceEntry.GetType(), outcome.GetType());
     }
 
     [Fact]
