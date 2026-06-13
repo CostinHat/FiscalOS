@@ -1,7 +1,7 @@
 # FiscalOS State
 
 HEAD: 15cdfe9
-Tests: 491 passing
+Tests: 492 passing
 
 ## Completed
 
@@ -1146,3 +1146,34 @@ Tests:
 
 Next target:
 - FOS-0346 Ingestion Audit Event Kind Record Integration Review.
+
+## FOS-0347 Ingestion Audit Event Kind Record Integration
+
+Status: implemented.
+
+Completed implementation:
+- Added required `IngestionAuditEventKind Kind` linkage to
+  `IngestionAuditEventRecord`.
+- Added null validation for missing audit event kind.
+- Updated focused tests for required kind validation, kind preservation,
+  optional linkage preservation, record value semantics and trace distinction.
+
+Constraints preserved:
+- No status/type enums.
+- No provenance categories.
+- No correlation or causation IDs.
+- No `IngestionTraceEntry` changes.
+- No runtime emission.
+- No batch integration.
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 492 passing.
+
+Next target:
+- FOS-0348 Ingestion Audit Event Kind Integration Review.

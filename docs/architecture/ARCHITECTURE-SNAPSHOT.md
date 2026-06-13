@@ -960,3 +960,39 @@ Verification:
 
 Recommended next milestone:
 - FOS-0346 Ingestion Audit Event Kind Record Integration Review.
+
+## FOS-0347 Ingestion Audit Event Kind Record Integration Snapshot
+
+FOS-0347 integrates audit event kind vocabulary into the audit event record
+without making audit events operational.
+
+Implemented:
+- Required `IngestionAuditEventKind Kind` on `IngestionAuditEventRecord`.
+- Null validation for missing audit event kind.
+- Focused tests for required kind validation, kind preservation, optional
+  linkage preservation, value semantics and trace distinction.
+
+Preserved:
+- Existing ingestion runtime and repository behavior.
+- Existing `IngestionTraceEntry` behavior.
+- Existing `IngestionAuditEventKind` vocabulary behavior.
+- Existing provenance identity and record behavior.
+
+Still deferred:
+- Status/type enums.
+- Provenance categories.
+- Correlation and causation IDs.
+- Runtime emission.
+- Batch integration.
+- Persistence and repository behavior changes.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 492 passing.
+
+Recommended next milestone:
+- FOS-0348 Ingestion Audit Event Kind Integration Review.

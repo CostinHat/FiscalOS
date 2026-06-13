@@ -380,6 +380,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             null!,
             DateTimeOffset.UnixEpoch,
             new IngestionBatchId("BATCH-1"),
+            IngestionAuditEventKind.SourceSelected,
             null,
             null,
             null,
@@ -407,6 +408,22 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Throws<ArgumentNullException>(() => new IngestionAuditEventRecord(
             new IngestionAuditEventId("AUDIT-EVENT-1"),
             DateTimeOffset.UnixEpoch,
+            null!,
+            IngestionAuditEventKind.SourceSelected,
+            null,
+            null,
+            null,
+            null,
+            "source selected"));
+    }
+
+    [Fact]
+    public void Ingestion_audit_event_record_rejects_missing_kind()
+    {
+        Assert.Throws<ArgumentNullException>(() => new IngestionAuditEventRecord(
+            new IngestionAuditEventId("AUDIT-EVENT-1"),
+            DateTimeOffset.UnixEpoch,
+            new IngestionBatchId("BATCH-1"),
             null!,
             null,
             null,
@@ -440,6 +457,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new IngestionAuditEventId("AUDIT-EVENT-1"),
             DateTimeOffset.UnixEpoch,
             new IngestionBatchId("BATCH-1"),
+            IngestionAuditEventKind.SourceSelected,
             null,
             null,
             null,
@@ -484,6 +502,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         var createdAt = new DateTimeOffset(2026, 6, 13, 12, 30, 0, TimeSpan.Zero);
         var id = new IngestionAuditEventId("AUDIT-EVENT-1");
         var batchId = new IngestionBatchId("BATCH-1");
+        var kind = IngestionAuditEventKind.SourceSelected;
         var sourceId = new LegislationSourceId("monitorul-oficial");
         var rawDocumentId = new RawDocumentId("RAW-DOC-1");
         var sourceMetadataSnapshotId = new SourceMetadataSnapshotId("SRC-SNAPSHOT-1");
@@ -493,6 +512,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             id,
             createdAt,
             batchId,
+            kind,
             sourceId,
             rawDocumentId,
             sourceMetadataSnapshotId,
@@ -502,6 +522,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Same(id, record.Id);
         Assert.Equal(createdAt, record.CreatedAt);
         Assert.Same(batchId, record.BatchId);
+        Assert.Same(kind, record.Kind);
         Assert.Same(sourceId, record.SourceId);
         Assert.Same(rawDocumentId, record.RawDocumentId);
         Assert.Same(sourceMetadataSnapshotId, record.SourceMetadataSnapshotId);
@@ -525,6 +546,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new IngestionAuditEventId("AUDIT-EVENT-1"),
             DateTimeOffset.UnixEpoch,
             new IngestionBatchId("BATCH-1"),
+            IngestionAuditEventKind.BatchCreated,
             null,
             null,
             null,
@@ -535,6 +557,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Null(provenanceRecord.RawDocumentId);
         Assert.Null(provenanceRecord.SourceMetadataSnapshotId);
         Assert.Null(provenanceRecord.ConfigurationSnapshotId);
+        Assert.Equal(IngestionAuditEventKind.BatchCreated, auditEventRecord.Kind);
         Assert.Null(auditEventRecord.SourceId);
         Assert.Null(auditEventRecord.RawDocumentId);
         Assert.Null(auditEventRecord.SourceMetadataSnapshotId);
@@ -567,6 +590,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new IngestionAuditEventId("AUDIT-EVENT-1"),
             createdAt,
             new IngestionBatchId("BATCH-1"),
+            IngestionAuditEventKind.SourceSelected,
             new LegislationSourceId("monitorul-oficial"),
             new RawDocumentId("RAW-DOC-1"),
             new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
@@ -576,6 +600,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new IngestionAuditEventId("AUDIT-EVENT-1"),
             createdAt,
             new IngestionBatchId("BATCH-1"),
+            IngestionAuditEventKind.SourceSelected,
             new LegislationSourceId("monitorul-oficial"),
             new RawDocumentId("RAW-DOC-1"),
             new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
@@ -603,6 +628,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new IngestionAuditEventId("AUDIT-EVENT-1"),
             timestamp,
             new IngestionBatchId("BATCH-1"),
+            IngestionAuditEventKind.SourceSelected,
             null,
             null,
             null,
