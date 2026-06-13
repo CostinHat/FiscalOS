@@ -1335,3 +1335,34 @@ Tests:
 
 Next target:
 - FOS-0361 Ingestion Correlation and Causation ID Integration Review.
+
+## FOS-0362 Ingestion Correlation and Causation ID Record Integration
+
+Status: implemented.
+
+Completed implementation:
+- Added optional `IngestionCorrelationId? CorrelationId` linkage to
+  `IngestionProvenanceRecord` and `IngestionAuditEventRecord`.
+- Added optional `IngestionCausationId? CausationId` linkage to
+  `IngestionProvenanceRecord` and `IngestionAuditEventRecord`.
+- Kept correlation and causation constructor parameters optional to preserve
+  existing record construction behavior.
+- Updated focused tests for supplied linkage preservation, omitted linkage
+  behavior and record value semantics.
+
+Constraints preserved:
+- No runtime emission.
+- No batch integration.
+- No persistence implementation.
+- No repository behavior changes.
+- No `IngestionTraceEntry` changes.
+- No API implementation.
+- No graph implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 520 passing.
+
+Next target:
+- FOS-0363 Ingestion Correlation and Causation ID Record Integration Review.

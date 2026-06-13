@@ -1180,3 +1180,41 @@ Verification:
 
 Recommended next milestone:
 - FOS-0361 Ingestion Correlation and Causation ID Integration Review.
+
+## FOS-0362 Ingestion Correlation and Causation ID Record Integration Snapshot
+
+FOS-0362 integrates ingestion correlation and causation identity vocabulary into
+the provenance and audit record shapes without emitting those records at
+runtime.
+
+Implemented:
+- Optional `IngestionCorrelationId? CorrelationId` on
+  `IngestionProvenanceRecord` and `IngestionAuditEventRecord`.
+- Optional `IngestionCausationId? CausationId` on
+  `IngestionProvenanceRecord` and `IngestionAuditEventRecord`.
+- Backward-compatible optional constructor parameters for existing record
+  construction.
+- Focused tests for supplied linkage preservation, omitted linkage behavior and
+  value semantics.
+
+Preserved:
+- Existing ingestion runtime and repository behavior.
+- Existing `IngestionTraceEntry` behavior.
+- Existing audit/provenance record required fields.
+- Existing identity, category, kind and outcome behavior.
+
+Still deferred:
+- Runtime emission.
+- Batch integration.
+- Persistence and repository behavior changes.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 520 passing.
+
+Recommended next milestone:
+- FOS-0363 Ingestion Correlation and Causation ID Record Integration Review.

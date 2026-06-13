@@ -18,6 +18,10 @@ public sealed record IngestionProvenanceRecord
 
     public ConfigurationSnapshotId? ConfigurationSnapshotId { get; }
 
+    public IngestionCorrelationId? CorrelationId { get; }
+
+    public IngestionCausationId? CausationId { get; }
+
     public string Description { get; }
 
     public IngestionProvenanceRecord(
@@ -29,7 +33,9 @@ public sealed record IngestionProvenanceRecord
         RawDocumentId? rawDocumentId,
         SourceMetadataSnapshotId? sourceMetadataSnapshotId,
         ConfigurationSnapshotId? configurationSnapshotId,
-        string description)
+        string description,
+        IngestionCorrelationId? correlationId = null,
+        IngestionCausationId? causationId = null)
     {
         ArgumentNullException.ThrowIfNull(id);
         ArgumentNullException.ThrowIfNull(batchId);
@@ -48,6 +54,8 @@ public sealed record IngestionProvenanceRecord
         RawDocumentId = rawDocumentId;
         SourceMetadataSnapshotId = sourceMetadataSnapshotId;
         ConfigurationSnapshotId = configurationSnapshotId;
+        CorrelationId = correlationId;
+        CausationId = causationId;
         Description = description.Trim();
     }
 }

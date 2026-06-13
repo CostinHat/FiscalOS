@@ -751,6 +751,8 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         var rawDocumentId = new RawDocumentId("RAW-DOC-1");
         var sourceMetadataSnapshotId = new SourceMetadataSnapshotId("SRC-SNAPSHOT-1");
         var configurationSnapshotId = new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1");
+        var correlationId = new IngestionCorrelationId("CORR-1");
+        var causationId = new IngestionCausationId("CAUSE-1");
 
         var record = new IngestionProvenanceRecord(
             id,
@@ -761,7 +763,9 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             rawDocumentId,
             sourceMetadataSnapshotId,
             configurationSnapshotId,
-            " source acquired ");
+            " source acquired ",
+            correlationId,
+            causationId);
 
         Assert.Same(id, record.Id);
         Assert.Equal(createdAt, record.CreatedAt);
@@ -771,6 +775,8 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Same(rawDocumentId, record.RawDocumentId);
         Assert.Same(sourceMetadataSnapshotId, record.SourceMetadataSnapshotId);
         Assert.Same(configurationSnapshotId, record.ConfigurationSnapshotId);
+        Assert.Same(correlationId, record.CorrelationId);
+        Assert.Same(causationId, record.CausationId);
         Assert.Equal("source acquired", record.Description);
     }
 
@@ -786,6 +792,8 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         var rawDocumentId = new RawDocumentId("RAW-DOC-1");
         var sourceMetadataSnapshotId = new SourceMetadataSnapshotId("SRC-SNAPSHOT-1");
         var configurationSnapshotId = new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1");
+        var correlationId = new IngestionCorrelationId("CORR-1");
+        var causationId = new IngestionCausationId("CAUSE-1");
 
         var record = new IngestionAuditEventRecord(
             id,
@@ -797,7 +805,9 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             rawDocumentId,
             sourceMetadataSnapshotId,
             configurationSnapshotId,
-            " source selected ");
+            " source selected ",
+            correlationId,
+            causationId);
 
         Assert.Same(id, record.Id);
         Assert.Equal(createdAt, record.CreatedAt);
@@ -808,6 +818,8 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Same(rawDocumentId, record.RawDocumentId);
         Assert.Same(sourceMetadataSnapshotId, record.SourceMetadataSnapshotId);
         Assert.Same(configurationSnapshotId, record.ConfigurationSnapshotId);
+        Assert.Same(correlationId, record.CorrelationId);
+        Assert.Same(causationId, record.CausationId);
         Assert.Equal("source selected", record.Details);
     }
 
@@ -841,12 +853,16 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Null(provenanceRecord.RawDocumentId);
         Assert.Null(provenanceRecord.SourceMetadataSnapshotId);
         Assert.Null(provenanceRecord.ConfigurationSnapshotId);
+        Assert.Null(provenanceRecord.CorrelationId);
+        Assert.Null(provenanceRecord.CausationId);
         Assert.Equal(IngestionAuditEventKind.BatchCreated, auditEventRecord.Kind);
         Assert.Equal(IngestionAuditEventOutcome.Completed, auditEventRecord.Outcome);
         Assert.Null(auditEventRecord.SourceId);
         Assert.Null(auditEventRecord.RawDocumentId);
         Assert.Null(auditEventRecord.SourceMetadataSnapshotId);
         Assert.Null(auditEventRecord.ConfigurationSnapshotId);
+        Assert.Null(auditEventRecord.CorrelationId);
+        Assert.Null(auditEventRecord.CausationId);
     }
 
     [Fact]
@@ -862,7 +878,9 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new RawDocumentId("RAW-DOC-1"),
             new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
             new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1"),
-            "source acquired");
+            "source acquired",
+            new IngestionCorrelationId("CORR-1"),
+            new IngestionCausationId("CAUSE-1"));
         var secondProvenanceRecord = new IngestionProvenanceRecord(
             new IngestionProvenanceId("PROV-1"),
             createdAt,
@@ -872,7 +890,9 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new RawDocumentId("RAW-DOC-1"),
             new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
             new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1"),
-            "source acquired");
+            "source acquired",
+            new IngestionCorrelationId("CORR-1"),
+            new IngestionCausationId("CAUSE-1"));
         var firstAuditEventRecord = new IngestionAuditEventRecord(
             new IngestionAuditEventId("AUDIT-EVENT-1"),
             createdAt,
@@ -883,7 +903,9 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new RawDocumentId("RAW-DOC-1"),
             new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
             new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1"),
-            "source selected");
+            "source selected",
+            new IngestionCorrelationId("CORR-1"),
+            new IngestionCausationId("CAUSE-1"));
         var secondAuditEventRecord = new IngestionAuditEventRecord(
             new IngestionAuditEventId("AUDIT-EVENT-1"),
             createdAt,
@@ -894,7 +916,9 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new RawDocumentId("RAW-DOC-1"),
             new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
             new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1"),
-            "source selected");
+            "source selected",
+            new IngestionCorrelationId("CORR-1"),
+            new IngestionCausationId("CAUSE-1"));
 
         Assert.Equal(firstProvenanceRecord, secondProvenanceRecord);
         Assert.Equal(firstAuditEventRecord, secondAuditEventRecord);
