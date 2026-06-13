@@ -492,6 +492,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             null!,
             DateTimeOffset.UnixEpoch,
             new IngestionBatchId("BATCH-1"),
+            IngestionProvenanceCategory.Source,
             null,
             null,
             null,
@@ -521,6 +522,22 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Throws<ArgumentNullException>(() => new IngestionProvenanceRecord(
             new IngestionProvenanceId("PROV-1"),
             DateTimeOffset.UnixEpoch,
+            null!,
+            IngestionProvenanceCategory.Source,
+            null,
+            null,
+            null,
+            null,
+            "source discovered"));
+    }
+
+    [Fact]
+    public void Ingestion_provenance_record_rejects_missing_category()
+    {
+        Assert.Throws<ArgumentNullException>(() => new IngestionProvenanceRecord(
+            new IngestionProvenanceId("PROV-1"),
+            DateTimeOffset.UnixEpoch,
+            new IngestionBatchId("BATCH-1"),
             null!,
             null,
             null,
@@ -586,6 +603,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new IngestionProvenanceId("PROV-1"),
             DateTimeOffset.UnixEpoch,
             new IngestionBatchId("BATCH-1"),
+            IngestionProvenanceCategory.Source,
             null,
             null,
             null,
@@ -617,6 +635,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         var createdAt = new DateTimeOffset(2026, 6, 13, 12, 0, 0, TimeSpan.Zero);
         var id = new IngestionProvenanceId("PROV-1");
         var batchId = new IngestionBatchId("BATCH-1");
+        var category = IngestionProvenanceCategory.Source;
         var sourceId = new LegislationSourceId("monitorul-oficial");
         var rawDocumentId = new RawDocumentId("RAW-DOC-1");
         var sourceMetadataSnapshotId = new SourceMetadataSnapshotId("SRC-SNAPSHOT-1");
@@ -626,6 +645,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             id,
             createdAt,
             batchId,
+            category,
             sourceId,
             rawDocumentId,
             sourceMetadataSnapshotId,
@@ -635,6 +655,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Same(id, record.Id);
         Assert.Equal(createdAt, record.CreatedAt);
         Assert.Same(batchId, record.BatchId);
+        Assert.Same(category, record.Category);
         Assert.Same(sourceId, record.SourceId);
         Assert.Same(rawDocumentId, record.RawDocumentId);
         Assert.Same(sourceMetadataSnapshotId, record.SourceMetadataSnapshotId);
@@ -686,6 +707,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new IngestionProvenanceId("PROV-1"),
             DateTimeOffset.UnixEpoch,
             new IngestionBatchId("BATCH-1"),
+            IngestionProvenanceCategory.Batch,
             null,
             null,
             null,
@@ -704,6 +726,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             "batch created");
 
         Assert.Null(provenanceRecord.SourceId);
+        Assert.Equal(IngestionProvenanceCategory.Batch, provenanceRecord.Category);
         Assert.Null(provenanceRecord.RawDocumentId);
         Assert.Null(provenanceRecord.SourceMetadataSnapshotId);
         Assert.Null(provenanceRecord.ConfigurationSnapshotId);
@@ -723,6 +746,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new IngestionProvenanceId("PROV-1"),
             createdAt,
             new IngestionBatchId("BATCH-1"),
+            IngestionProvenanceCategory.Source,
             new LegislationSourceId("monitorul-oficial"),
             new RawDocumentId("RAW-DOC-1"),
             new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
@@ -732,6 +756,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new IngestionProvenanceId("PROV-1"),
             createdAt,
             new IngestionBatchId("BATCH-1"),
+            IngestionProvenanceCategory.Source,
             new LegislationSourceId("monitorul-oficial"),
             new RawDocumentId("RAW-DOC-1"),
             new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
@@ -772,6 +797,7 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
             new IngestionProvenanceId("PROV-1"),
             timestamp,
             new IngestionBatchId("BATCH-1"),
+            IngestionProvenanceCategory.Source,
             null,
             null,
             null,

@@ -8,6 +8,8 @@ public sealed record IngestionProvenanceRecord
 
     public IngestionBatchId BatchId { get; }
 
+    public IngestionProvenanceCategory Category { get; }
+
     public LegislationSourceId? SourceId { get; }
 
     public RawDocumentId? RawDocumentId { get; }
@@ -22,6 +24,7 @@ public sealed record IngestionProvenanceRecord
         IngestionProvenanceId id,
         DateTimeOffset createdAt,
         IngestionBatchId batchId,
+        IngestionProvenanceCategory category,
         LegislationSourceId? sourceId,
         RawDocumentId? rawDocumentId,
         SourceMetadataSnapshotId? sourceMetadataSnapshotId,
@@ -30,6 +33,7 @@ public sealed record IngestionProvenanceRecord
     {
         ArgumentNullException.ThrowIfNull(id);
         ArgumentNullException.ThrowIfNull(batchId);
+        ArgumentNullException.ThrowIfNull(category);
 
         if (string.IsNullOrWhiteSpace(description))
         {
@@ -39,6 +43,7 @@ public sealed record IngestionProvenanceRecord
         Id = id;
         CreatedAt = createdAt;
         BatchId = batchId;
+        Category = category;
         SourceId = sourceId;
         RawDocumentId = rawDocumentId;
         SourceMetadataSnapshotId = sourceMetadataSnapshotId;

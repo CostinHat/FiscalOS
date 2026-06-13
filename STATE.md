@@ -1,7 +1,7 @@
 # FiscalOS State
 
 HEAD: 15cdfe9
-Tests: 507 passing
+Tests: 508 passing
 
 ## Completed
 
@@ -1274,3 +1274,32 @@ Tests:
 
 Next target:
 - FOS-0356 Ingestion Provenance Category Record Integration Review.
+
+## FOS-0357 Ingestion Provenance Category Record Integration
+
+Status: implemented.
+
+Completed implementation:
+- Added required `IngestionProvenanceCategory Category` linkage to
+  `IngestionProvenanceRecord`.
+- Added null validation for missing provenance category.
+- Updated focused tests for required category validation, category
+  preservation, optional linkage preservation, record value semantics and trace
+  distinction.
+
+Constraints preserved:
+- No runtime emission.
+- No batch integration.
+- No persistence implementation.
+- No repository behavior changes.
+- No audit record changes.
+- No API implementation.
+- No graph implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 508 passing.
+
+Next target:
+- FOS-0358 Ingestion Provenance Category Integration Review.

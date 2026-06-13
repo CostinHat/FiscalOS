@@ -1108,3 +1108,38 @@ Verification:
 
 Recommended next milestone:
 - FOS-0356 Ingestion Provenance Category Record Integration Review.
+
+## FOS-0357 Ingestion Provenance Category Record Integration Snapshot
+
+FOS-0357 integrates provenance category vocabulary into the provenance record
+without making provenance operational.
+
+Implemented:
+- Required `IngestionProvenanceCategory Category` on
+  `IngestionProvenanceRecord`.
+- Null validation for missing provenance category.
+- Focused tests for required category validation, category preservation,
+  optional linkage preservation, value semantics and trace distinction.
+
+Preserved:
+- Existing ingestion runtime and repository behavior.
+- Existing `IngestionTraceEntry` behavior.
+- Existing audit event record behavior.
+- Existing provenance category vocabulary behavior.
+
+Still deferred:
+- Correlation and causation IDs.
+- Runtime emission.
+- Batch integration.
+- Persistence and repository behavior changes.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 508 passing.
+
+Recommended next milestone:
+- FOS-0358 Ingestion Provenance Category Integration Review.
