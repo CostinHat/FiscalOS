@@ -1603,3 +1603,42 @@ Verification:
 
 Recommended next milestone:
 - FOS-0389 Generic Legal Core Primitive Compatibility Review.
+
+## FOS-0391 Generic Legal Core Minimal Project Boundary Snapshot
+
+FOS-0391 introduces the minimal `FiscalOS.LegalCore` project boundary without
+moving existing primitives.
+
+Implemented:
+- Added `src/FiscalOS.LegalCore/FiscalOS.LegalCore.csproj`.
+- Added `FiscalOS.LegalCore` to the solution under `src`.
+- Added `LegalCoreBoundary` as a marker for the new boundary.
+- Referenced `FiscalOS.LegalCore` from the vertical slice test project.
+- Extended Generic Legal Core compatibility tests to assert the marker and that
+  `FiscalOS.LegalCore` has no project or package dependencies.
+
+Preserved:
+- Existing `FiscalOS.Domain.LegalReferences` placement.
+- Existing `FiscalOS.LegalKnowledge` placement.
+- Existing runtime behavior.
+- Existing ingestion and legal reference resolution contracts.
+- Existing classification and rule execution behavior.
+
+Still deferred:
+- Moving existing primitive types.
+- Compatibility wrappers or namespace migration.
+- `JurisdictionId` migration.
+- Structural legal reference migration.
+- Source authority extraction.
+- Legal citation extraction.
+- Graph/source hierarchy implementation.
+- API exposure.
+- Persistence and repository behavior.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 535 passing.
+
+Recommended next milestone:
+- FOS-0392 Generic Legal Core Minimal Project Boundary Review.

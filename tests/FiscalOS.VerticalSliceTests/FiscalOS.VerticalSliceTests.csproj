@@ -16,5 +16,6 @@
     <ProjectReference Include="..\..\src\FiscalOS.Api\FiscalOS.Api.csproj" />
     <ProjectReference Include="..\..\src\FiscalOS.Runtime\FiscalOS.Runtime.csproj" />
     <ProjectReference Include="..\..\src\FiscalOS.Domain\FiscalOS.Domain.csproj" />
+    <ProjectReference Include="..\..\src\FiscalOS.LegalCore\FiscalOS.LegalCore.csproj" />
   </ItemGroup>
 </Project>

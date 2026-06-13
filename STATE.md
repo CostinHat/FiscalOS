@@ -1674,3 +1674,33 @@ Tests:
 
 Next target:
 - FOS-0389 Generic Legal Core Primitive Compatibility Review.
+
+## FOS-0391 Generic Legal Core Minimal Project Boundary
+
+Status: implemented.
+
+Completed implementation:
+- Added `src/FiscalOS.LegalCore/FiscalOS.LegalCore.csproj`.
+- Added `FiscalOS.LegalCore` to `FiscalOS.sln`.
+- Added `LegalCoreBoundary` as a minimal boundary marker.
+- Added a test project reference to `FiscalOS.LegalCore`.
+- Extended compatibility tests to assert the boundary marker and dependency-free
+  LegalCore project shape.
+
+Constraints preserved:
+- No primitive type movement.
+- No namespace migration.
+- No compatibility wrappers.
+- No runtime behavior changes.
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 535 passing.
+
+Next target:
+- FOS-0392 Generic Legal Core Minimal Project Boundary Review.
