@@ -1,7 +1,7 @@
 # FiscalOS State
 
 HEAD: 15cdfe9
-Tests: 484 passing
+Tests: 491 passing
 
 ## Completed
 
@@ -1112,3 +1112,37 @@ Tests:
 
 Next target:
 - FOS-0343 Ingestion Provenance and Audit Event Taxonomy Foundation Review.
+
+## FOS-0345 Ingestion Audit Event Kind Value Object
+
+Status: implemented.
+
+Completed implementation:
+- Added `IngestionAuditEventKind`.
+- Implemented validation, trimming, `Value`, `ToString()` and record value
+  semantics.
+- Added named static instances for the documented ingestion audit event kinds.
+- Added focused tests for validation, trimming, value semantics, named event
+  kinds, distinction from `IngestionStatus` and distinction from
+  `IngestionTraceEntry`.
+
+Constraints preserved:
+- No status/type enums.
+- No `IngestionAuditEventRecord` changes.
+- No provenance categories.
+- No correlation or causation IDs.
+- No `IngestionTraceEntry` changes.
+- No runtime emission.
+- No batch integration.
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 491 passing.
+
+Next target:
+- FOS-0346 Ingestion Audit Event Kind Record Integration Review.

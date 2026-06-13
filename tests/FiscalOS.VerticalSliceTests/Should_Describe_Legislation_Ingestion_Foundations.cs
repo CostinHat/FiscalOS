@@ -120,6 +120,14 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Throws<ArgumentException>(() => new IngestionAuditEventId(value));
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Ingestion_audit_event_kind_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new IngestionAuditEventKind(value));
+    }
+
     [Fact]
     public void Legislation_source_id_trims_and_exposes_value()
     {
@@ -208,6 +216,74 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
 
         Assert.Equal("AUDIT-EVENT-1", id.Value);
         Assert.Equal("AUDIT-EVENT-1", id.ToString());
+    }
+
+    [Fact]
+    public void Ingestion_audit_event_kind_trims_and_exposes_value()
+    {
+        var kind = new IngestionAuditEventKind("  source-selected ");
+
+        Assert.Equal("source-selected", kind.Value);
+        Assert.Equal("source-selected", kind.ToString());
+    }
+
+    [Fact]
+    public void Ingestion_audit_event_kind_preserves_record_value_semantics()
+    {
+        var first = new IngestionAuditEventKind("source-selected");
+        var second = new IngestionAuditEventKind("source-selected");
+
+        Assert.Equal(first, second);
+    }
+
+    [Fact]
+    public void Ingestion_audit_event_kind_exposes_documented_ingestion_event_kinds()
+    {
+        Assert.Equal("batch-created", IngestionAuditEventKind.BatchCreated.Value);
+        Assert.Equal("batch-started", IngestionAuditEventKind.BatchStarted.Value);
+        Assert.Equal("configuration-snapshot-selected", IngestionAuditEventKind.ConfigurationSnapshotSelected.Value);
+        Assert.Equal("source-selected", IngestionAuditEventKind.SourceSelected.Value);
+        Assert.Equal("source-skipped", IngestionAuditEventKind.SourceSkipped.Value);
+        Assert.Equal("source-metadata-snapshot-created", IngestionAuditEventKind.SourceMetadataSnapshotCreated.Value);
+        Assert.Equal("source-acquisition-started", IngestionAuditEventKind.SourceAcquisitionStarted.Value);
+        Assert.Equal("candidate-discovered", IngestionAuditEventKind.CandidateDiscovered.Value);
+        Assert.Equal("candidate-fetched", IngestionAuditEventKind.CandidateFetched.Value);
+        Assert.Equal("candidate-skipped", IngestionAuditEventKind.CandidateSkipped.Value);
+        Assert.Equal("uri-content-metadata-normalized", IngestionAuditEventKind.UriContentMetadataNormalized.Value);
+        Assert.Equal("fingerprint-computed", IngestionAuditEventKind.FingerprintComputed.Value);
+        Assert.Equal("raw-document-identity-decision-made", IngestionAuditEventKind.RawDocumentIdentityDecisionMade.Value);
+        Assert.Equal("duplicate-candidate-detected", IngestionAuditEventKind.DuplicateCandidateDetected.Value);
+        Assert.Equal("failure-recorded", IngestionAuditEventKind.FailureRecorded.Value);
+        Assert.Equal("retry-scheduled", IngestionAuditEventKind.RetryScheduled.Value);
+        Assert.Equal("retry-attempted", IngestionAuditEventKind.RetryAttempted.Value);
+        Assert.Equal("batch-completed", IngestionAuditEventKind.BatchCompleted.Value);
+        Assert.Equal("repository-handoff-package-created", IngestionAuditEventKind.RepositoryHandoffPackageCreated.Value);
+    }
+
+    [Fact]
+    public void Ingestion_audit_event_kind_is_distinct_from_ingestion_status()
+    {
+        var kind = IngestionAuditEventKind.SourceSelected;
+        var status = IngestionStatus.Succeeded;
+
+        Assert.NotEqual(status.ToString(), kind.Value);
+    }
+
+    [Fact]
+    public void Ingestion_audit_event_kind_is_distinct_from_trace_entries()
+    {
+        var timestamp = new DateTimeOffset(2026, 6, 13, 14, 0, 0, TimeSpan.Zero);
+        var kind = IngestionAuditEventKind.SourceSelected;
+        var traceEntry = new IngestionTraceEntry(
+            IngestionStage.Acquisition,
+            IngestionStatus.Succeeded,
+            timestamp,
+            "source selected");
+
+        Assert.Equal("source-selected", kind.Value);
+        Assert.Equal("source selected", traceEntry.Description);
+        Assert.NotEqual(traceEntry.Description, kind.Value);
+        Assert.NotEqual(traceEntry.GetType(), kind.GetType());
     }
 
     [Fact]

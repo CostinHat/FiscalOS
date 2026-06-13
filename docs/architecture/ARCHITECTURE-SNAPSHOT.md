@@ -923,3 +923,40 @@ Verification:
 
 Recommended next milestone:
 - FOS-0343 Ingestion Provenance and Audit Event Taxonomy Foundation Review.
+
+## FOS-0345 Ingestion Audit Event Kind Value Object Snapshot
+
+FOS-0345 implements the first narrow ingestion audit taxonomy vocabulary slice.
+
+Implemented:
+- `IngestionAuditEventKind`.
+- Validation, trimming, `Value`, `ToString()` and value semantics.
+- Named static instances for the documented ingestion audit event kinds.
+- Focused tests for validation, trimming, value semantics, named event kinds
+  and distinction from status/trace concepts.
+
+Preserved:
+- Existing ingestion runtime and repository behavior.
+- Existing `IngestionTraceEntry` behavior.
+- Existing `IngestionAuditEventRecord` behavior.
+- Existing provenance/audit identity and record behavior.
+
+Still deferred:
+- Status/type enums.
+- Audit event record integration.
+- Provenance categories.
+- Correlation and causation IDs.
+- Runtime emission.
+- Batch integration.
+- Persistence and repository behavior changes.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 491 passing.
+
+Recommended next milestone:
+- FOS-0346 Ingestion Audit Event Kind Record Integration Review.
