@@ -1642,3 +1642,40 @@ Verification:
 
 Recommended next milestone:
 - FOS-0392 Generic Legal Core Minimal Project Boundary Review.
+
+## FOS-0394 JurisdictionId Legal Core Migration Snapshot
+
+FOS-0394 makes `JurisdictionId` the first migrated Generic Legal Core primitive.
+
+Implemented:
+- Added canonical `JurisdictionId` to `FiscalOS.LegalCore`.
+- Updated `FiscalOS.LegalKnowledge` to depend on `FiscalOS.LegalCore`.
+- Updated `Jurisdiction`, `LegalCitation`, runtime curated citations and
+  vertical slice tests to use `FiscalOS.LegalCore.JurisdictionId`.
+- Removed the old `FiscalOS.LegalKnowledge.JurisdictionId` type to avoid dual
+  jurisdiction identity definitions.
+
+Preserved:
+- Existing jurisdiction ID validation, trimming, `ToString()` and value
+  semantics.
+- Existing legal citation behavior.
+- Existing runtime curated citation behavior.
+- Existing ingestion and legal reference resolution behavior.
+
+Still deferred:
+- Moving `Jurisdiction`.
+- Moving `LegalCitation`.
+- Moving structural legal reference primitives.
+- Source authority extraction.
+- Legal citation extraction.
+- Graph/source hierarchy implementation.
+- API exposure.
+- Persistence and repository behavior.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 535 passing.
+
+Recommended next milestone:
+- FOS-0395 JurisdictionId Legal Core Migration Review.

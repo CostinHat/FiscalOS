@@ -1,10 +1,11 @@
-using System;
 using System.Linq;
-using FiscalOS.Core;
+using System;
 using FiscalOS.Core.Classification;
+using FiscalOS.Core;
+using FiscalOS.LegalCore;
 using FiscalOS.LegalKnowledge;
-using FiscalOS.Runtime.Classification;
 using FiscalOS.Runtime.Classification.Rules;
+using FiscalOS.Runtime.Classification;
 using Xunit;
 
 namespace FiscalOS.VerticalSliceTests;

@@ -1,4 +1,5 @@
 using System;
+using FiscalOS.LegalCore;
 using FiscalOS.LegalKnowledge;
 using Xunit;
 

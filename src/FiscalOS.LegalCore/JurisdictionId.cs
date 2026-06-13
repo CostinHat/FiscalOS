@@ -1,4 +1,5 @@
-namespace FiscalOS.LegalKnowledge;
+using FiscalOS.LegalCore;
+namespace FiscalOS.LegalCore;
 
 public sealed record JurisdictionId
 {

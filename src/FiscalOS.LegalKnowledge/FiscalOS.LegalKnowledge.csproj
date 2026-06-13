@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FiscalOS.LegalCore\FiscalOS.LegalCore.csproj" />
+  </ItemGroup>
+
 </Project>

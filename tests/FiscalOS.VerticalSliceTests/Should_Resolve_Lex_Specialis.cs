@@ -1,5 +1,6 @@
-using System;
 using System.Linq;
+using System;
+using FiscalOS.LegalCore;
 using FiscalOS.LegalKnowledge;
 using Xunit;
 

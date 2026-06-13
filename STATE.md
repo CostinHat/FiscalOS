@@ -1704,3 +1704,31 @@ Tests:
 
 Next target:
 - FOS-0392 Generic Legal Core Minimal Project Boundary Review.
+
+## FOS-0394 JurisdictionId Legal Core Migration
+
+Status: implemented.
+
+Completed implementation:
+- Moved `JurisdictionId` into `FiscalOS.LegalCore` as the canonical
+  jurisdiction identity primitive.
+- Added a `FiscalOS.LegalKnowledge` project reference to `FiscalOS.LegalCore`.
+- Updated `Jurisdiction`, `LegalCitation`, runtime curated citations and
+  vertical slice tests to use the Legal Core jurisdiction identity.
+- Removed the prior `FiscalOS.LegalKnowledge.JurisdictionId` definition rather
+  than keeping a compatibility shim.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph or source hierarchy implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+- No runtime behavior changes beyond namespace ownership.
+
+Tests:
+- `dotnet test`: 535 passing.
+
+Next target:
+- FOS-0395 JurisdictionId Legal Core Migration Review.

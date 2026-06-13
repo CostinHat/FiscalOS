@@ -1,9 +1,10 @@
-using System;
 using System.Linq;
+using System;
 using FiscalOS.Core;
+using FiscalOS.LegalCore;
 using FiscalOS.LegalKnowledge;
-using FiscalOS.Runtime.Classification;
 using FiscalOS.Runtime.Classification.Rules;
+using FiscalOS.Runtime.Classification;
 using FiscalOS.Runtime.Evaluation;
 using Xunit;
 
