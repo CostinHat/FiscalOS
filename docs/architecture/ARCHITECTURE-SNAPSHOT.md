@@ -743,3 +743,38 @@ Verification:
 
 Recommended next milestone:
 - FOS-0333 Raw Document Identity Linkage Contract Review.
+
+## FOS-0334 Raw Document Fingerprint Value Object Snapshot
+
+FOS-0334 implements the first narrow fingerprint vocabulary slice.
+
+Implemented:
+- `RawDocumentContentHash`.
+- `RawDocumentHashAlgorithm`.
+- `RawDocumentFingerprint`.
+- Focused tests for validation, trimming, null handling and identity
+  distinction.
+
+Preserved:
+- Existing `RawLegislationDocument` shape.
+- Existing ingestion runtime and repository behavior.
+- Existing raw document identity value objects.
+
+Still deferred:
+- Hash computation.
+- Fingerprint policy.
+- Hash input selection policy.
+- Source/configuration snapshots.
+- Provenance and audit records.
+- Persistence and repository behavior changes.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 439 passing.
+
+Recommended next milestone:
+- FOS-0335 Raw Document Fingerprint Computation Review.

@@ -71,6 +71,22 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Throws<ArgumentException>(() => new SourceDocumentId(value));
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Raw_document_content_hash_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new RawDocumentContentHash(value));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Raw_document_hash_algorithm_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new RawDocumentHashAlgorithm(value));
+    }
+
     [Fact]
     public void Legislation_source_id_trims_and_exposes_value()
     {
@@ -108,6 +124,52 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
     }
 
     [Fact]
+    public void Raw_document_content_hash_trims_and_exposes_value()
+    {
+        var hash = new RawDocumentContentHash("  abc123 ");
+
+        Assert.Equal("abc123", hash.Value);
+        Assert.Equal("abc123", hash.ToString());
+    }
+
+    [Fact]
+    public void Raw_document_hash_algorithm_trims_and_exposes_value()
+    {
+        var algorithm = new RawDocumentHashAlgorithm("  sha256 ");
+
+        Assert.Equal("sha256", algorithm.Value);
+        Assert.Equal("sha256", algorithm.ToString());
+    }
+
+    [Fact]
+    public void Raw_document_fingerprint_stores_hash_and_algorithm()
+    {
+        var hash = new RawDocumentContentHash("abc123");
+        var algorithm = new RawDocumentHashAlgorithm("sha256");
+
+        var fingerprint = new RawDocumentFingerprint(hash, algorithm);
+
+        Assert.Same(hash, fingerprint.ContentHash);
+        Assert.Same(algorithm, fingerprint.Algorithm);
+    }
+
+    [Fact]
+    public void Raw_document_fingerprint_rejects_missing_hash()
+    {
+        Assert.Throws<ArgumentNullException>(() => new RawDocumentFingerprint(
+            null!,
+            new RawDocumentHashAlgorithm("sha256")));
+    }
+
+    [Fact]
+    public void Raw_document_fingerprint_rejects_missing_algorithm()
+    {
+        Assert.Throws<ArgumentNullException>(() => new RawDocumentFingerprint(
+            new RawDocumentContentHash("abc123"),
+            null!));
+    }
+
+    [Fact]
     public void Raw_document_identity_terms_are_distinct_from_source_terms()
     {
         var rawDocumentId = new RawDocumentId("RAW-DOC-1");
@@ -120,6 +182,20 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.NotEqual(sourceReference.Value, rawDocumentId.Value);
         Assert.NotEqual(sourceDocumentId.Value, rawDocumentId.Value);
         Assert.NotEqual(rawDocumentId.Value, rawDocumentVersionId.Value);
+    }
+
+    [Fact]
+    public void Raw_document_fingerprint_is_distinct_from_raw_document_identity()
+    {
+        var rawDocumentId = new RawDocumentId("RAW-DOC-1");
+        var rawDocumentVersionId = new RawDocumentVersionId("RAW-DOC-1-V1");
+        var fingerprint = new RawDocumentFingerprint(
+            new RawDocumentContentHash("abc123"),
+            new RawDocumentHashAlgorithm("sha256"));
+
+        Assert.NotEqual(rawDocumentId.Value, fingerprint.ContentHash.Value);
+        Assert.NotEqual(rawDocumentVersionId.Value, fingerprint.ContentHash.Value);
+        Assert.Equal("sha256", fingerprint.Algorithm.Value);
     }
 
     [Fact]

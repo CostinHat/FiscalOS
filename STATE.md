@@ -946,3 +946,36 @@ Tests:
 
 Next target:
 - FOS-0333 Raw Document Identity Linkage Contract Review.
+
+## FOS-0334 Raw Document Fingerprint Value Objects
+
+Status: implemented.
+
+Completed implementation:
+- Added `RawDocumentContentHash`.
+- Added `RawDocumentHashAlgorithm`.
+- Added `RawDocumentFingerprint`.
+- Kept fingerprints as identity evidence vocabulary only.
+- Added focused tests for validation, trimming, null handling and distinction
+  from raw document identity.
+
+Constraints preserved:
+- No hashing implementation.
+- No fingerprint computation implementation.
+- No fingerprint policy implementation.
+- No snapshots.
+- No provenance/audit implementation.
+- No persistence implementation.
+- No repository behavior changes.
+- No batch redesign.
+- No API implementation.
+- No graph implementation.
+- No source hierarchy implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 439 passing.
+
+Next target:
+- FOS-0335 Raw Document Fingerprint Computation Review.
