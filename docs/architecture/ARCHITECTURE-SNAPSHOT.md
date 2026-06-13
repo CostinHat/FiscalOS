@@ -1143,3 +1143,40 @@ Verification:
 
 Recommended next milestone:
 - FOS-0358 Ingestion Provenance Category Integration Review.
+
+## FOS-0360 Ingestion Correlation and Causation ID Value Object Snapshot
+
+FOS-0360 implements standalone ingestion correlation and causation linkage
+vocabulary.
+
+Implemented:
+- `IngestionCorrelationId`.
+- `IngestionCausationId`.
+- Validation, trimming, `Value`, `ToString()` and value semantics.
+- Focused tests for validation, trimming, value semantics and distinction from
+  identity and trace concepts.
+
+Preserved:
+- Existing ingestion runtime and repository behavior.
+- Existing `IngestionTraceEntry` behavior.
+- Existing audit and provenance record behavior.
+- Existing identity, category, kind and outcome behavior.
+
+Still deferred:
+- Audit record correlation/causation integration.
+- Provenance record correlation/causation integration.
+- Runtime emission.
+- Batch integration.
+- Persistence and repository behavior changes.
+- Graph behavior.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 520 passing.
+
+Recommended next milestone:
+- FOS-0361 Ingestion Correlation and Causation ID Integration Review.

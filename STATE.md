@@ -1303,3 +1303,35 @@ Tests:
 
 Next target:
 - FOS-0358 Ingestion Provenance Category Integration Review.
+
+## FOS-0360 Ingestion Correlation and Causation ID Value Objects
+
+Status: implemented.
+
+Completed implementation:
+- Added `IngestionCorrelationId`.
+- Added `IngestionCausationId`.
+- Implemented validation, trimming, `Value`, `ToString()` and record value
+  semantics.
+- Added focused tests for validation, trimming, value semantics and distinction
+  from batch ID, source ID, raw document ID, provenance ID, audit event ID and
+  `IngestionTraceEntry`.
+
+Constraints preserved:
+- No audit record integration.
+- No provenance record integration.
+- No runtime emission.
+- No batch integration.
+- No persistence implementation.
+- No repository behavior changes.
+- No graph behavior.
+- No `IngestionTraceEntry` changes.
+- No API implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 520 passing.
+
+Next target:
+- FOS-0361 Ingestion Correlation and Causation ID Integration Review.

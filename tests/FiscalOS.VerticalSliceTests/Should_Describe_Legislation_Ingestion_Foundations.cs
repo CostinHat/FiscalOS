@@ -123,6 +123,22 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
+    public void Ingestion_correlation_id_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new IngestionCorrelationId(value));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Ingestion_causation_id_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new IngestionCausationId(value));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
     public void Ingestion_audit_event_kind_rejects_empty(string value)
     {
         Assert.Throws<ArgumentException>(() => new IngestionAuditEventKind(value));
@@ -232,6 +248,24 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
 
         Assert.Equal("AUDIT-EVENT-1", id.Value);
         Assert.Equal("AUDIT-EVENT-1", id.ToString());
+    }
+
+    [Fact]
+    public void Ingestion_correlation_id_trims_and_exposes_value()
+    {
+        var id = new IngestionCorrelationId("  CORR-1 ");
+
+        Assert.Equal("CORR-1", id.Value);
+        Assert.Equal("CORR-1", id.ToString());
+    }
+
+    [Fact]
+    public void Ingestion_causation_id_trims_and_exposes_value()
+    {
+        var id = new IngestionCausationId("  CAUSE-1 ");
+
+        Assert.Equal("CAUSE-1", id.Value);
+        Assert.Equal("CAUSE-1", id.ToString());
     }
 
     [Fact]
@@ -425,6 +459,18 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
     }
 
     [Fact]
+    public void Ingestion_correlation_and_causation_ids_preserve_record_value_semantics()
+    {
+        var firstCorrelationId = new IngestionCorrelationId("CORR-1");
+        var secondCorrelationId = new IngestionCorrelationId("CORR-1");
+        var firstCausationId = new IngestionCausationId("CAUSE-1");
+        var secondCausationId = new IngestionCausationId("CAUSE-1");
+
+        Assert.Equal(firstCorrelationId, secondCorrelationId);
+        Assert.Equal(firstCausationId, secondCausationId);
+    }
+
+    [Fact]
     public void Ingestion_provenance_and_audit_event_ids_are_distinct_from_batch_identity()
     {
         var provenanceId = new IngestionProvenanceId("PROV-1");
@@ -433,6 +479,17 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
 
         Assert.NotEqual(batchId.Value, provenanceId.Value);
         Assert.NotEqual(batchId.Value, auditEventId.Value);
+    }
+
+    [Fact]
+    public void Ingestion_correlation_and_causation_ids_are_distinct_from_batch_identity()
+    {
+        var correlationId = new IngestionCorrelationId("CORR-1");
+        var causationId = new IngestionCausationId("CAUSE-1");
+        var batchId = new IngestionBatchId("BATCH-1");
+
+        Assert.NotEqual(batchId.Value, correlationId.Value);
+        Assert.NotEqual(batchId.Value, causationId.Value);
     }
 
     [Fact]
@@ -447,6 +504,17 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
     }
 
     [Fact]
+    public void Ingestion_correlation_and_causation_ids_are_distinct_from_source_identity()
+    {
+        var correlationId = new IngestionCorrelationId("CORR-1");
+        var causationId = new IngestionCausationId("CAUSE-1");
+        var sourceId = new LegislationSourceId("monitorul-oficial");
+
+        Assert.NotEqual(sourceId.Value, correlationId.Value);
+        Assert.NotEqual(sourceId.Value, causationId.Value);
+    }
+
+    [Fact]
     public void Ingestion_provenance_and_audit_event_ids_are_distinct_from_raw_document_identity()
     {
         var provenanceId = new IngestionProvenanceId("PROV-1");
@@ -455,6 +523,17 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
 
         Assert.NotEqual(rawDocumentId.Value, provenanceId.Value);
         Assert.NotEqual(rawDocumentId.Value, auditEventId.Value);
+    }
+
+    [Fact]
+    public void Ingestion_correlation_and_causation_ids_are_distinct_from_raw_document_identity()
+    {
+        var correlationId = new IngestionCorrelationId("CORR-1");
+        var causationId = new IngestionCausationId("CAUSE-1");
+        var rawDocumentId = new RawDocumentId("RAW-DOC-1");
+
+        Assert.NotEqual(rawDocumentId.Value, correlationId.Value);
+        Assert.NotEqual(rawDocumentId.Value, causationId.Value);
     }
 
     [Fact]
@@ -469,6 +548,38 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.NotEqual(sourceMetadataSnapshotId.Value, auditEventId.Value);
         Assert.NotEqual(configurationSnapshotId.Value, provenanceId.Value);
         Assert.NotEqual(configurationSnapshotId.Value, auditEventId.Value);
+    }
+
+    [Fact]
+    public void Ingestion_correlation_and_causation_ids_are_distinct_from_provenance_and_audit_event_ids()
+    {
+        var correlationId = new IngestionCorrelationId("CORR-1");
+        var causationId = new IngestionCausationId("CAUSE-1");
+        var provenanceId = new IngestionProvenanceId("PROV-1");
+        var auditEventId = new IngestionAuditEventId("AUDIT-EVENT-1");
+
+        Assert.NotEqual(provenanceId.Value, correlationId.Value);
+        Assert.NotEqual(provenanceId.Value, causationId.Value);
+        Assert.NotEqual(auditEventId.Value, correlationId.Value);
+        Assert.NotEqual(auditEventId.Value, causationId.Value);
+    }
+
+    [Fact]
+    public void Ingestion_correlation_and_causation_ids_are_distinct_from_trace_entries()
+    {
+        var timestamp = new DateTimeOffset(2026, 6, 13, 16, 0, 0, TimeSpan.Zero);
+        var correlationId = new IngestionCorrelationId("CORR-1");
+        var causationId = new IngestionCausationId("CAUSE-1");
+        var traceEntry = new IngestionTraceEntry(
+            IngestionStage.Acquisition,
+            IngestionStatus.Succeeded,
+            timestamp,
+            "source acquired");
+
+        Assert.NotEqual(traceEntry.Description, correlationId.Value);
+        Assert.NotEqual(traceEntry.Description, causationId.Value);
+        Assert.NotEqual(traceEntry.GetType(), correlationId.GetType());
+        Assert.NotEqual(traceEntry.GetType(), causationId.GetType());
     }
 
     [Fact]
