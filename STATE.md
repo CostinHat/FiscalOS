@@ -1824,3 +1824,35 @@ Tests:
 
 Next target:
 - FOS-0406 LegalReference Legal Core Migration Review.
+
+## FOS-0409 FullyQualifiedLegalReference Legal Core Migration
+
+Status: implemented.
+
+Completed implementation:
+- Moved `FullyQualifiedLegalReference` into `FiscalOS.LegalCore` as the
+  canonical absolute structural legal address primitive.
+- Updated Domain repository/contracts/models, Runtime traceability and embedded
+  components, and tests to consume the Legal Core fully qualified reference
+  type.
+- Removed the prior
+  `FiscalOS.Domain.LegalReferences.FullyQualifiedLegalReference` definition
+  rather than keeping a compatibility shim.
+- Extended Generic Legal Core compatibility coverage to pin the new namespace
+  ownership.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph or source hierarchy implementation.
+- No matching/search/resolution behavior changes.
+- No AI/NLP integration.
+- No rule generation implementation.
+- No runtime behavior changes beyond namespace ownership.
+
+Tests:
+- `dotnet test`: 535 passing.
+
+Next target:
+- FOS-0410 FullyQualifiedLegalReference Legal Core Migration Review.

@@ -1,6 +1,4 @@
-using FiscalOS.LegalCore;
-
-namespace FiscalOS.Domain.LegalReferences;
+namespace FiscalOS.LegalCore;
 
 /// <summary>
 /// An absolute structural legal address: a <see cref="LegalDocumentReference"/> together with a
