@@ -14,12 +14,6 @@ public sealed record DecisionLegalBasis(
 
     public bool IsEmpty => Resolution.IsEmpty;
 
-    public static DecisionLegalBasis Resolve(IReadOnlyList<LegalCitation> consideredCitations)
-    {
-        ArgumentNullException.ThrowIfNull(consideredCitations);
-
-        return new DecisionLegalBasis(
-            consideredCitations,
-            ConflictResolver.Resolve(consideredCitations));
-    }
+    public static DecisionLegalBasis Resolve(IReadOnlyList<LegalCitation> consideredCitations) =>
+        new LegalKnowledgeLegalBasisResolver().Resolve(consideredCitations);
 }

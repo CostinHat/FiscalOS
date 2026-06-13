@@ -1942,3 +1942,42 @@ Verification:
 
 Recommended next milestone:
 - FOS-0422 SourceHierarchy Legal Core Migration Review.
+
+## FOS-0428 Runtime Legal Basis Resolver Boundary Snapshot
+
+FOS-0428 introduces a narrow Runtime boundary for legal basis resolution without
+moving LegalKnowledge models or changing conflict resolution behavior.
+
+Implemented:
+- Added `ILegalBasisResolver` in Runtime classification.
+- Added `LegalKnowledgeLegalBasisResolver`, delegating to the existing
+  `ConflictResolver`.
+- Updated `ClassificationEngine` to use the resolver boundary.
+- Preserved the existing `ClassificationEngine(RuleRegistry)` constructor and
+  `DecisionLegalBasis.Resolve(...)` compatibility helper.
+- Added a focused test for configured resolver usage.
+
+Preserved:
+- Existing curated citation flow from classification rules.
+- Existing `ConflictResolver` behavior.
+- Existing `DecisionLegalBasis` shape.
+- Existing audit graph and purpose graph models.
+- Existing Runtime -> LegalKnowledge project reference.
+- Existing ingestion behavior.
+
+Still deferred:
+- Removing the Runtime project reference to LegalKnowledge.
+- Moving `LegalCitation` or `LegalSourceType`.
+- Moving purpose or audit graph models.
+- Replacing LegalKnowledge conflict resolution behavior.
+- Graph implementation or graph traversal changes.
+- API exposure.
+- Persistence and repository behavior.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 536 passing.
+
+Recommended next milestone:
+- FOS-0429 Runtime Legal Basis Resolver Boundary Review.

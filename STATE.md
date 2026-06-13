@@ -1952,3 +1952,36 @@ Tests:
 
 Next target:
 - FOS-0422 SourceHierarchy Legal Core Migration Review.
+
+## FOS-0428 Runtime Legal Basis Resolver Boundary
+
+Status: implemented.
+
+Completed implementation:
+- Added `ILegalBasisResolver` as the Runtime-facing legal basis resolution
+  boundary.
+- Added `LegalKnowledgeLegalBasisResolver` as the default implementation that
+  delegates to the existing LegalKnowledge `ConflictResolver` behavior.
+- Updated `ClassificationEngine` to depend on the resolver boundary while
+  preserving the existing one-argument constructor for current call sites.
+- Preserved `DecisionLegalBasis.Resolve(...)` as a compatibility helper that
+  delegates through the default resolver.
+- Added focused coverage proving `ClassificationEngine` uses the configured
+  resolver boundary.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No citation, source type or LegalKnowledge model migration.
+- No conflict resolution behavior changes.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 536 passing.
+
+Next target:
+- FOS-0429 Runtime Legal Basis Resolver Boundary Review.

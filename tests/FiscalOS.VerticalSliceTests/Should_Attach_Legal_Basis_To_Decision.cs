@@ -21,6 +21,25 @@ public sealed class Should_Attach_Legal_Basis_To_Decision
     private static ClassificationEngine Engine(params ClassificationRule[] rules) =>
         new(new DefaultRuleRegistry(rules));
 
+
+    private sealed class StubLegalBasisResolver : ILegalBasisResolver
+    {
+        private readonly LegalCitation _governingCitation;
+
+        public StubLegalBasisResolver(LegalCitation governingCitation) =>
+            _governingCitation = governingCitation;
+
+        public IReadOnlyList<LegalCitation>? SeenCitations { get; private set; }
+
+        public DecisionLegalBasis Resolve(IReadOnlyList<LegalCitation> consideredCitations)
+        {
+            SeenCitations = consideredCitations;
+
+            return new DecisionLegalBasis(
+                consideredCitations,
+                new ConflictResolutionResult(new[] { _governingCitation }));
+        }
+    }
     private sealed class CitingStubRule : ClassificationRule
     {
         private readonly IReadOnlyList<LegalCitation> _citations;
@@ -37,6 +56,22 @@ public sealed class Should_Attach_Legal_Basis_To_Decision
             new(RuleId, true, "stub passed", "StubCategory") { Citations = _citations };
     }
 
+
+    [Fact]
+    public async Task Engine_uses_configured_legal_basis_resolver()
+    {
+        var first = Citation(LegalSourceType.Law, SpecificityLevel.Specific, new DateOnly(2024, 1, 1), "Art. 1");
+        var second = Citation(LegalSourceType.Law, SpecificityLevel.Specific, new DateOnly(2024, 1, 1), "Art. 2");
+        var resolver = new StubLegalBasisResolver(second);
+        var engine = new ClassificationEngine(
+            new DefaultRuleRegistry(new ClassificationRule[] { new CitingStubRule(first, second) }),
+            resolver);
+
+        var decision = await engine.ClassifyAsync(new FiscalSubject());
+
+        Assert.Equal(new[] { first, second }, resolver.SeenCitations);
+        Assert.Equal(new[] { second }, decision.Explanation.LegalBasis.GoverningCitations);
+    }
     [Fact]
     public async Task Single_citation_becomes_a_resolved_legal_basis()
     {
