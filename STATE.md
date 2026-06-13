@@ -1467,3 +1467,40 @@ Tests:
 
 Next target:
 - FOS-0372 Source-Level Provenance and Audit Runtime Emission Review.
+
+## FOS-0374 Raw-Document Candidate Provenance and Audit Runtime Emission
+
+Status: implemented.
+
+Completed implementation:
+- Emitted one candidate-level provenance record per fetched
+  `RawLegislationDocument` from `AcquireLegislationDocumentsStage`.
+- Emitted one candidate-level audit event per fetched `RawLegislationDocument`
+  with `IngestionAuditEventKind.CandidateFetched`.
+- Used deterministic emission names based on existing `LegislationDocumentId`
+  values.
+- Kept `RawDocumentId` linkage null because raw document identity decision is
+  not implemented yet.
+- Added focused runtime assertions for single-document, multi-document and
+  failure paths.
+
+Constraints preserved:
+- No raw document identity decision implementation.
+- No fingerprinting implementation.
+- No duplicate detection implementation.
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No source hierarchy implementation.
+- No source metadata snapshot creation.
+- No correlation or causation population.
+- No `IngestionTraceEntry` changes.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 522 passing.
+
+Next target:
+- FOS-0375 Raw-Document Candidate Runtime Emission Review.

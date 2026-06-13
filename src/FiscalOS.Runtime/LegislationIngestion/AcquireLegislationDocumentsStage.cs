@@ -59,12 +59,20 @@ public sealed class AcquireLegislationDocumentsStage : ILegislationIngestionStag
             context.BatchId,
             _source.Id,
             sourceSelectedAt);
+        provenance = AppendCandidateProvenance(
+            provenance,
+            context.BatchId,
+            documents);
         var auditEvents = AppendSourceAuditEvents(
             context.AuditEvents,
             context.BatchId,
             _source.Id,
             sourceSelectedAt,
             sourceAcquisitionStartedAt);
+        auditEvents = AppendCandidateAuditEvents(
+            auditEvents,
+            context.BatchId,
+            documents);
 
         return context with
         {
@@ -134,5 +142,50 @@ public sealed class AcquireLegislationDocumentsStage : ILegislationIngestionStag
                 null,
                 "Source acquisition started."),
         }).ToList();
+    }
+
+    private IReadOnlyList<IngestionProvenanceRecord> AppendCandidateProvenance(
+        IReadOnlyList<IngestionProvenanceRecord> provenance,
+        IngestionBatchId batchId,
+        IReadOnlyList<RawLegislationDocument> documents)
+    {
+        var records = documents.Select(document =>
+            new IngestionProvenanceRecord(
+                _emissionIdPolicy.CreateProvenanceId(
+                    batchId,
+                    $"candidate-fetched:{document.Id.Value}"),
+                _timestampProvider(),
+                batchId,
+                IngestionProvenanceCategory.RawDocument,
+                null,
+                null,
+                null,
+                null,
+                $"Candidate fetched: {document.Id.Value}."));
+
+        return provenance.Concat(records).ToList();
+    }
+
+    private IReadOnlyList<IngestionAuditEventRecord> AppendCandidateAuditEvents(
+        IReadOnlyList<IngestionAuditEventRecord> auditEvents,
+        IngestionBatchId batchId,
+        IReadOnlyList<RawLegislationDocument> documents)
+    {
+        var records = documents.Select(document =>
+            new IngestionAuditEventRecord(
+                _emissionIdPolicy.CreateAuditEventId(
+                    batchId,
+                    $"candidate-fetched:{document.Id.Value}"),
+                _timestampProvider(),
+                batchId,
+                IngestionAuditEventKind.CandidateFetched,
+                IngestionAuditEventOutcome.Completed,
+                null,
+                null,
+                null,
+                null,
+                $"Candidate fetched: {document.Id.Value}."));
+
+        return auditEvents.Concat(records).ToList();
     }
 }
