@@ -1562,3 +1562,44 @@ Verification:
 
 Recommended next milestone:
 - FOS-0387 Generic Legal Core ADR Review.
+
+## FOS-0388 Generic Legal Core Primitive Compatibility Tests Snapshot
+
+FOS-0388 adds compatibility tests for Generic Legal Core primitive candidates
+before any project, namespace or type movement.
+
+Implemented:
+- Added compatibility tests for structural legal references:
+  `LegalDocumentReference`, `ReferenceSegment`, `LegalReference` and
+  `FullyQualifiedLegalReference`.
+- Added compatibility tests for `JurisdictionId` and `Jurisdiction`.
+- Added compatibility tests for later-review candidates: `LegalCitation`,
+  `LegalSourceType`, `SourceAuthorityLevel`, `SourceHierarchy` and
+  `SpecificityLevel`.
+- Added dependency-direction assertions that the current Domain and
+  LegalKnowledge projects do not depend on Runtime or API.
+
+Preserved:
+- Existing `FiscalOS.Domain.LegalReferences` placement.
+- Existing `FiscalOS.LegalKnowledge` placement.
+- Existing runtime behavior.
+- Existing ingestion and legal reference resolution contracts.
+- Existing classification and rule execution behavior.
+
+Still deferred:
+- New `FiscalOS.LegalCore` project or namespace.
+- Moving existing primitive types.
+- Compatibility wrappers or namespace migration.
+- Source authority extraction.
+- Legal citation extraction.
+- Graph/source hierarchy implementation.
+- API exposure.
+- Persistence and repository behavior.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 535 passing.
+
+Recommended next milestone:
+- FOS-0389 Generic Legal Core Primitive Compatibility Review.

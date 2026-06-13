@@ -1642,3 +1642,35 @@ Tests:
 
 Next target:
 - FOS-0387 Generic Legal Core ADR Review.
+
+## FOS-0388 Generic Legal Core Primitive Compatibility Tests
+
+Status: implemented.
+
+Completed implementation:
+- Added compatibility coverage for Generic Legal Core primitive candidates.
+- Pinned current structural legal reference behavior for document references,
+  reference segments, legal references and fully qualified legal references.
+- Pinned current jurisdiction identity behavior.
+- Pinned later-review compatibility for legal citation, source authority,
+  source hierarchy and citation specificity vocabulary.
+- Added dependency-direction assertions that current primitive projects do not
+  depend on Runtime or API.
+
+Constraints preserved:
+- No type movement.
+- No new `FiscalOS.LegalCore` project or namespace.
+- No production code changes.
+- No runtime behavior changes.
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 535 passing.
+
+Next target:
+- FOS-0389 Generic Legal Core Primitive Compatibility Review.
