@@ -95,6 +95,14 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Throws<ArgumentException>(() => new SourceMetadataSnapshotId(value));
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Configuration_snapshot_id_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new ConfigurationSnapshotId(value));
+    }
+
     [Fact]
     public void Legislation_source_id_trims_and_exposes_value()
     {
@@ -156,6 +164,93 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
 
         Assert.Equal("SRC-SNAPSHOT-1", id.Value);
         Assert.Equal("SRC-SNAPSHOT-1", id.ToString());
+    }
+
+    [Fact]
+    public void Configuration_snapshot_id_trims_and_exposes_value()
+    {
+        var id = new ConfigurationSnapshotId("  CONFIG-SNAPSHOT-1 ");
+
+        Assert.Equal("CONFIG-SNAPSHOT-1", id.Value);
+        Assert.Equal("CONFIG-SNAPSHOT-1", id.ToString());
+    }
+
+    [Fact]
+    public void Configuration_snapshot_preserves_created_timestamp_and_schema_version()
+    {
+        var createdAt = new DateTimeOffset(2026, 6, 13, 11, 0, 0, TimeSpan.Zero);
+
+        var snapshot = new ConfigurationSnapshot(
+            new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1"),
+            createdAt,
+            "1");
+
+        Assert.Equal("CONFIG-SNAPSHOT-1", snapshot.Id.Value);
+        Assert.Equal(createdAt, snapshot.CreatedAt);
+        Assert.Equal("1", snapshot.SchemaVersion);
+    }
+
+    [Fact]
+    public void Configuration_snapshot_schema_version_is_trimmed()
+    {
+        var snapshot = new ConfigurationSnapshot(
+            new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1"),
+            DateTimeOffset.UnixEpoch,
+            " 1 ");
+
+        Assert.Equal("1", snapshot.SchemaVersion);
+    }
+
+    [Fact]
+    public void Configuration_snapshot_rejects_missing_id()
+    {
+        Assert.Throws<ArgumentNullException>(() => new ConfigurationSnapshot(
+            null!,
+            DateTimeOffset.UnixEpoch,
+            "1"));
+    }
+
+    [Fact]
+    public void Configuration_snapshot_rejects_empty_schema_version()
+    {
+        Assert.Throws<ArgumentException>(() => new ConfigurationSnapshot(
+            new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1"),
+            DateTimeOffset.UnixEpoch,
+            " "));
+    }
+
+    [Fact]
+    public void Configuration_snapshot_preserves_record_value_semantics()
+    {
+        var createdAt = DateTimeOffset.UnixEpoch;
+        var first = new ConfigurationSnapshot(
+            new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1"),
+            createdAt,
+            "1");
+        var second = new ConfigurationSnapshot(
+            new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1"),
+            createdAt,
+            "1");
+
+        Assert.Equal(first, second);
+    }
+
+    [Fact]
+    public void Configuration_snapshot_id_is_distinct_from_source_metadata_snapshot_id()
+    {
+        var configurationSnapshotId = new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1");
+        var sourceMetadataSnapshotId = new SourceMetadataSnapshotId("SRC-SNAPSHOT-1");
+
+        Assert.NotEqual(sourceMetadataSnapshotId.Value, configurationSnapshotId.Value);
+    }
+
+    [Fact]
+    public void Configuration_snapshot_id_is_distinct_from_batch_identity()
+    {
+        var configurationSnapshotId = new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1");
+        var batchId = new IngestionBatchId("BATCH-1");
+
+        Assert.NotEqual(batchId.Value, configurationSnapshotId.Value);
     }
 
     [Fact]

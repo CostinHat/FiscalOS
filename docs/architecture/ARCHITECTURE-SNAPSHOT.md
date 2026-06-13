@@ -812,3 +812,38 @@ Verification:
 
 Recommended next milestone:
 - FOS-0337 Configuration Snapshot Foundation Review.
+
+## FOS-0338 Configuration Snapshot Value Object Snapshot
+
+FOS-0338 implements the first narrow configuration snapshot vocabulary slice.
+
+Implemented:
+- `ConfigurationSnapshotId`.
+- `ConfigurationSnapshot`.
+- Snapshot fields limited to snapshot ID, created timestamp and schema version.
+- Focused tests for validation, timestamp preservation, schema version
+  preservation, value semantics and identity distinction.
+
+Preserved:
+- Existing ingestion runtime and repository behavior.
+- Existing source metadata snapshot behavior.
+- Existing batch identity behavior.
+
+Still deferred:
+- Policy references.
+- Source filters.
+- Redaction behavior.
+- Batch integration.
+- Provenance and audit records.
+- Persistence and repository behavior changes.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 459 passing.
+
+Recommended next milestone:
+- FOS-0339 Configuration Policy Reference Foundation Review.

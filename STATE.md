@@ -1010,3 +1010,36 @@ Tests:
 
 Next target:
 - FOS-0337 Configuration Snapshot Foundation Review.
+
+## FOS-0338 Configuration Snapshot Value Objects
+
+Status: implemented.
+
+Completed implementation:
+- Added `ConfigurationSnapshotId`.
+- Added `ConfigurationSnapshot`.
+- Included snapshot ID, created timestamp and schema version only.
+- Added focused tests for ID validation/trimming, created timestamp
+  preservation, schema version preservation, record value semantics and
+  distinction from source metadata snapshot and batch identity.
+
+Constraints preserved:
+- No policy references.
+- No source filters.
+- No redaction behavior.
+- No batch integration.
+- No provenance/audit implementation.
+- No persistence implementation.
+- No repository behavior changes.
+- No batch redesign.
+- No API implementation.
+- No graph implementation.
+- No source hierarchy implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 459 passing.
+
+Next target:
+- FOS-0339 Configuration Policy Reference Foundation Review.
