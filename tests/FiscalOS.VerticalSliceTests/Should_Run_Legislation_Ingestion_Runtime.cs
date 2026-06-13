@@ -35,6 +35,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
                 new DiscoverLegislationDocumentsStage(() => At),
                 new AcquireLegislationDocumentsStage(source, () => At),
                 new ValidateRawLegislationDocumentsStage(() => At),
+                new DecideRawDocumentIdentityStage(source.Id, new DeterministicRawDocumentIdentityDecisionPolicy(), () => At),
                 new VersionLegislationDocumentsStage(() => At),
                 new StoreRawLegislationDocumentsStage(repository, () => At),
             },
@@ -47,12 +48,19 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Equal(IngestionStatus.Succeeded, result.Status);
         Assert.Equal("BATCH-1", result.BatchId.Value);
         Assert.Same(document, stored);
-        Assert.Equal(5, result.Trace.Count);
+        Assert.Equal(6, result.Trace.Count);
         Assert.Equal(IngestionStage.Discovery, result.Trace[0].Stage);
         Assert.Equal(IngestionStage.Acquisition, result.Trace[1].Stage);
         Assert.Equal(IngestionStage.Normalization, result.Trace[2].Stage);
-        Assert.Equal(IngestionStage.Versioning, result.Trace[3].Stage);
-        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[4].Stage);
+        Assert.Equal(IngestionStage.RawDocumentIdentity, result.Trace[3].Stage);
+        Assert.Equal(IngestionStage.Versioning, result.Trace[4].Stage);
+        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[5].Stage);
+        Assert.Single(result.RawDocumentIdentityDecisions);
+        Assert.Equal("raw-document:in-memory-legislation-source:DOC-1", result.RawDocumentIdentityDecisions[0].RawDocumentId.Value);
+        Assert.Null(result.RawDocumentIdentityDecisions[0].RawDocumentVersionId);
+        Assert.Equal("DOC-1", result.RawDocumentIdentityDecisions[0].CandidateDocumentId.Value);
+        Assert.Equal("in-memory-legislation-source", result.RawDocumentIdentityDecisions[0].SourceId.Value);
+        Assert.Equal(At, result.RawDocumentIdentityDecisions[0].DecidedAt);
         Assert.Equal(4, result.Provenance.Count);
         Assert.Equal(5, result.AuditEvents.Count);
         Assert.Equal("BATCH-1:provenance:batch-started", result.Provenance[0].Id.Value);
@@ -104,6 +112,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
                 new DiscoverLegislationDocumentsStage(() => At),
                 new AcquireLegislationDocumentsStage(source, () => At),
                 new ValidateRawLegislationDocumentsStage(() => At),
+                new DecideRawDocumentIdentityStage(source.Id, new DeterministicRawDocumentIdentityDecisionPolicy(), () => At),
                 new VersionLegislationDocumentsStage(() => At),
                 new StoreRawLegislationDocumentsStage(repository, () => At),
             },
@@ -119,8 +128,18 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Contains(result.Trace, entry => entry.Description == "Discovered legislation ingestion batch.");
         Assert.Contains(result.Trace, entry => entry.Description == "Acquired 2 document(s).");
         Assert.Contains(result.Trace, entry => entry.Description == "Validated 2 raw legislation document(s).");
+        Assert.Contains(result.Trace, entry => entry.Description == "Decided identity for 2 raw legislation document(s).");
         Assert.Contains(result.Trace, entry => entry.Description == "Versioned 2 raw legislation document(s).");
         Assert.Contains(result.Trace, entry => entry.Description == "Stored 2 raw legislation document(s).");
+        Assert.Equal(2, result.RawDocumentIdentityDecisions.Count);
+        Assert.Contains(result.RawDocumentIdentityDecisions, decision =>
+            decision.RawDocumentId.Value == "raw-document:in-memory-legislation-source:DOC-1" &&
+            decision.CandidateDocumentId.Value == "DOC-1" &&
+            decision.SourceId.Value == "in-memory-legislation-source");
+        Assert.Contains(result.RawDocumentIdentityDecisions, decision =>
+            decision.RawDocumentId.Value == "raw-document:in-memory-legislation-source:DOC-2" &&
+            decision.CandidateDocumentId.Value == "DOC-2" &&
+            decision.SourceId.Value == "in-memory-legislation-source");
         Assert.Contains(result.Provenance, record =>
             record.Id.Value == "BATCH-2:provenance:candidate-fetched:DOC-1" &&
             record.SourceId is not null &&
@@ -156,6 +175,7 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
                 new DiscoverLegislationDocumentsStage(() => At),
                 new AcquireLegislationDocumentsStage(source, () => At),
                 new ValidateRawLegislationDocumentsStage(() => At),
+                new DecideRawDocumentIdentityStage(source.Id, new DeterministicRawDocumentIdentityDecisionPolicy(), () => At),
                 new VersionLegislationDocumentsStage(() => At),
                 new FailingLegislationIngestionStage(IngestionStage.CuratedPromotion, "storage failed"),
                 new StoreRawLegislationDocumentsStage(repository, () => At),
@@ -169,18 +189,22 @@ public sealed class Should_Run_Legislation_Ingestion_Runtime
         Assert.Equal(IngestionStatus.Failed, result.Status);
         Assert.Equal("BATCH-FAILED", result.BatchId.Value);
         Assert.Null(stored);
-        Assert.Equal(5, result.Trace.Count);
+        Assert.Equal(6, result.Trace.Count);
         Assert.Equal(IngestionStage.Discovery, result.Trace[0].Stage);
         Assert.Equal(IngestionStatus.Succeeded, result.Trace[0].Status);
         Assert.Equal(IngestionStage.Acquisition, result.Trace[1].Stage);
         Assert.Equal(IngestionStatus.Succeeded, result.Trace[1].Status);
         Assert.Equal(IngestionStage.Normalization, result.Trace[2].Stage);
         Assert.Equal(IngestionStatus.Succeeded, result.Trace[2].Status);
-        Assert.Equal(IngestionStage.Versioning, result.Trace[3].Stage);
+        Assert.Equal(IngestionStage.RawDocumentIdentity, result.Trace[3].Stage);
         Assert.Equal(IngestionStatus.Succeeded, result.Trace[3].Status);
-        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[4].Stage);
-        Assert.Equal(IngestionStatus.Failed, result.Trace[4].Status);
-        Assert.Equal("storage failed", result.Trace[4].Description);
+        Assert.Equal(IngestionStage.Versioning, result.Trace[4].Stage);
+        Assert.Equal(IngestionStatus.Succeeded, result.Trace[4].Status);
+        Assert.Equal(IngestionStage.CuratedPromotion, result.Trace[5].Stage);
+        Assert.Equal(IngestionStatus.Failed, result.Trace[5].Status);
+        Assert.Equal("storage failed", result.Trace[5].Description);
+        Assert.Single(result.RawDocumentIdentityDecisions);
+        Assert.Equal("raw-document:in-memory-legislation-source:DOC-1", result.RawDocumentIdentityDecisions[0].RawDocumentId.Value);
         Assert.Equal(4, result.Provenance.Count);
         Assert.Equal(5, result.AuditEvents.Count);
         Assert.Equal("BATCH-FAILED:provenance:batch-started", result.Provenance[0].Id.Value);

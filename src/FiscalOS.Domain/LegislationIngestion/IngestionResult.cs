@@ -12,6 +12,7 @@ public sealed record IngestionResult
             batchId,
             status,
             trace,
+            Array.Empty<RawDocumentIdentityDecision>(),
             Array.Empty<IngestionProvenanceRecord>(),
             Array.Empty<IngestionAuditEventRecord>())
     {
@@ -23,15 +24,34 @@ public sealed record IngestionResult
         IReadOnlyList<IngestionTraceEntry> trace,
         IReadOnlyList<IngestionProvenanceRecord> provenance,
         IReadOnlyList<IngestionAuditEventRecord> auditEvents)
+        : this(
+            batchId,
+            status,
+            trace,
+            Array.Empty<RawDocumentIdentityDecision>(),
+            provenance,
+            auditEvents)
+    {
+    }
+
+    public IngestionResult(
+        IngestionBatchId batchId,
+        IngestionStatus status,
+        IReadOnlyList<IngestionTraceEntry> trace,
+        IReadOnlyList<RawDocumentIdentityDecision> rawDocumentIdentityDecisions,
+        IReadOnlyList<IngestionProvenanceRecord> provenance,
+        IReadOnlyList<IngestionAuditEventRecord> auditEvents)
     {
         ArgumentNullException.ThrowIfNull(batchId);
         ArgumentNullException.ThrowIfNull(trace);
+        ArgumentNullException.ThrowIfNull(rawDocumentIdentityDecisions);
         ArgumentNullException.ThrowIfNull(provenance);
         ArgumentNullException.ThrowIfNull(auditEvents);
 
         BatchId = batchId;
         Status = status;
         Trace = trace;
+        RawDocumentIdentityDecisions = rawDocumentIdentityDecisions;
         Provenance = provenance;
         AuditEvents = auditEvents;
     }
@@ -41,6 +61,8 @@ public sealed record IngestionResult
     public IngestionStatus Status { get; init; }
 
     public IReadOnlyList<IngestionTraceEntry> Trace { get; init; }
+
+    public IReadOnlyList<RawDocumentIdentityDecision> RawDocumentIdentityDecisions { get; init; }
 
     public IReadOnlyList<IngestionProvenanceRecord> Provenance { get; init; }
 

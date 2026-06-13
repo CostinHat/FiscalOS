@@ -4,8 +4,9 @@ public enum IngestionStage
 {
     Discovery,
     Acquisition,
-    Versioning,
     Normalization,
+    RawDocumentIdentity,
+    Versioning,
     CitationDetection,
     CandidateExtraction,
     HumanReview,

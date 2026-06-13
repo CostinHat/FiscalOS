@@ -1476,3 +1476,47 @@ Verification:
 
 Recommended next milestone:
 - FOS-0381 Raw Document Identity Decision Foundation Review.
+
+## FOS-0383 Raw Document Identity Decision Runtime Foundation Snapshot
+
+FOS-0383 executes raw document identity decisions in the in-memory ingestion
+runtime while keeping provenance/audit linkage and persistence deferred.
+
+Implemented:
+- `IngestionContext` now carries `RawDocumentIdentityDecision` records.
+- `IngestionResult` exposes raw document identity decisions to callers.
+- `IngestionStage.RawDocumentIdentity` identifies the decision stage.
+- `DeterministicRawDocumentIdentityDecisionPolicy` creates stable runtime
+  `RawDocumentId` values from source identity and candidate document identity.
+- `DecideRawDocumentIdentityStage` runs after validation and before versioning.
+- Composed ingestion runtime includes the decision stage by default.
+- Focused runtime assertions cover single-document, multi-document and failure
+  paths.
+
+Preserved:
+- Existing source acquisition behavior.
+- Existing validation, versioning and storage behavior.
+- Existing candidate provenance/audit records.
+- Existing emitted provenance/audit ID strings.
+- Existing repository behavior keyed by `LegislationDocumentId`.
+- Existing `RawLegislationDocument` shape.
+
+Still deferred:
+- Fingerprint-backed identity decisions.
+- Duplicate detection and previous-identity lookup.
+- Populating `RawDocumentId` on emitted provenance/audit records.
+- Persisting raw document identity decisions.
+- Repository handoff for raw document identity.
+- Source metadata snapshot runtime creation.
+- Replay execution behavior.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 530 passing.
+
+Recommended next milestone:
+- FOS-0384 Raw Document Identity Decision Runtime Foundation Review.

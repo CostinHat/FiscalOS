@@ -103,6 +103,7 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
                     current.BatchId,
                     IngestionStatus.Failed,
                     failedTrace,
+                    current.RawDocumentIdentityDecisions,
                     provenance,
                     auditEvents);
             }
@@ -131,6 +132,7 @@ public sealed class LegislationIngestionPipeline : ILegislationIngestionPipeline
             current.BatchId,
             IngestionStatus.Succeeded,
             current.Trace,
+            current.RawDocumentIdentityDecisions,
             completedProvenance,
             completedAuditEvents);
     }

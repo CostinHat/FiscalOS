@@ -1577,3 +1577,37 @@ Tests:
 
 Next target:
 - FOS-0381 Raw Document Identity Decision Foundation Review.
+
+## FOS-0383 Raw Document Identity Decision Runtime Foundation
+
+Status: implemented.
+
+Completed implementation:
+- Extended `IngestionContext` to carry `RawDocumentIdentityDecision` records.
+- Extended `IngestionResult` to expose carried raw document identity decisions.
+- Added `IngestionStage.RawDocumentIdentity`.
+- Added `DeterministicRawDocumentIdentityDecisionPolicy` for the first
+  runtime-only identity decision policy.
+- Added `DecideRawDocumentIdentityStage` and inserted it after validation and
+  before versioning in composed ingestion runtime.
+- Added runtime assertions for single-document, multi-document and failure
+  paths.
+
+Constraints preserved:
+- No fingerprint-backed identity decision implementation.
+- No duplicate detection implementation.
+- No provenance or audit `RawDocumentId` population.
+- No raw document identity persistence.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No source hierarchy implementation.
+- No source metadata snapshot creation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 530 passing.
+
+Next target:
+- FOS-0384 Raw Document Identity Decision Runtime Foundation Review.

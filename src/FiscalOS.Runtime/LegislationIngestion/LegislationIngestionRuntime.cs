@@ -35,6 +35,10 @@ public sealed class LegislationIngestionRuntime
                 new DiscoverLegislationDocumentsStage(timestampProvider),
                 new AcquireLegislationDocumentsStage(source, timestampProvider),
                 new ValidateRawLegislationDocumentsStage(timestampProvider),
+                new DecideRawDocumentIdentityStage(
+                    source.Id,
+                    new DeterministicRawDocumentIdentityDecisionPolicy(),
+                    timestampProvider),
                 new VersionLegislationDocumentsStage(timestampProvider),
                 new StoreRawLegislationDocumentsStage(repository, timestampProvider),
             },
