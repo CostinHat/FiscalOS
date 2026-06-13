@@ -1,5 +1,6 @@
 using System;
 using FiscalOS.Domain.LegislationIngestion;
+using FiscalOS.Domain.LegalReferences;
 using Xunit;
 
 namespace FiscalOS.VerticalSliceTests;
@@ -103,6 +104,22 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Throws<ArgumentException>(() => new ConfigurationSnapshotId(value));
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Ingestion_provenance_id_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new IngestionProvenanceId(value));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Ingestion_audit_event_id_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new IngestionAuditEventId(value));
+    }
+
     [Fact]
     public void Legislation_source_id_trims_and_exposes_value()
     {
@@ -173,6 +190,97 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
 
         Assert.Equal("CONFIG-SNAPSHOT-1", id.Value);
         Assert.Equal("CONFIG-SNAPSHOT-1", id.ToString());
+    }
+
+    [Fact]
+    public void Ingestion_provenance_id_trims_and_exposes_value()
+    {
+        var id = new IngestionProvenanceId("  PROV-1 ");
+
+        Assert.Equal("PROV-1", id.Value);
+        Assert.Equal("PROV-1", id.ToString());
+    }
+
+    [Fact]
+    public void Ingestion_audit_event_id_trims_and_exposes_value()
+    {
+        var id = new IngestionAuditEventId("  AUDIT-EVENT-1 ");
+
+        Assert.Equal("AUDIT-EVENT-1", id.Value);
+        Assert.Equal("AUDIT-EVENT-1", id.ToString());
+    }
+
+    [Fact]
+    public void Ingestion_provenance_and_audit_event_ids_preserve_record_value_semantics()
+    {
+        var firstProvenanceId = new IngestionProvenanceId("PROV-1");
+        var secondProvenanceId = new IngestionProvenanceId("PROV-1");
+        var firstAuditEventId = new IngestionAuditEventId("AUDIT-EVENT-1");
+        var secondAuditEventId = new IngestionAuditEventId("AUDIT-EVENT-1");
+
+        Assert.Equal(firstProvenanceId, secondProvenanceId);
+        Assert.Equal(firstAuditEventId, secondAuditEventId);
+    }
+
+    [Fact]
+    public void Ingestion_provenance_and_audit_event_ids_are_distinct_from_batch_identity()
+    {
+        var provenanceId = new IngestionProvenanceId("PROV-1");
+        var auditEventId = new IngestionAuditEventId("AUDIT-EVENT-1");
+        var batchId = new IngestionBatchId("BATCH-1");
+
+        Assert.NotEqual(batchId.Value, provenanceId.Value);
+        Assert.NotEqual(batchId.Value, auditEventId.Value);
+    }
+
+    [Fact]
+    public void Ingestion_provenance_and_audit_event_ids_are_distinct_from_source_identity()
+    {
+        var provenanceId = new IngestionProvenanceId("PROV-1");
+        var auditEventId = new IngestionAuditEventId("AUDIT-EVENT-1");
+        var sourceId = new LegislationSourceId("monitorul-oficial");
+
+        Assert.NotEqual(sourceId.Value, provenanceId.Value);
+        Assert.NotEqual(sourceId.Value, auditEventId.Value);
+    }
+
+    [Fact]
+    public void Ingestion_provenance_and_audit_event_ids_are_distinct_from_raw_document_identity()
+    {
+        var provenanceId = new IngestionProvenanceId("PROV-1");
+        var auditEventId = new IngestionAuditEventId("AUDIT-EVENT-1");
+        var rawDocumentId = new RawDocumentId("RAW-DOC-1");
+
+        Assert.NotEqual(rawDocumentId.Value, provenanceId.Value);
+        Assert.NotEqual(rawDocumentId.Value, auditEventId.Value);
+    }
+
+    [Fact]
+    public void Ingestion_provenance_and_audit_event_ids_are_distinct_from_snapshot_identities()
+    {
+        var provenanceId = new IngestionProvenanceId("PROV-1");
+        var auditEventId = new IngestionAuditEventId("AUDIT-EVENT-1");
+        var sourceMetadataSnapshotId = new SourceMetadataSnapshotId("SRC-SNAPSHOT-1");
+        var configurationSnapshotId = new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1");
+
+        Assert.NotEqual(sourceMetadataSnapshotId.Value, provenanceId.Value);
+        Assert.NotEqual(sourceMetadataSnapshotId.Value, auditEventId.Value);
+        Assert.NotEqual(configurationSnapshotId.Value, provenanceId.Value);
+        Assert.NotEqual(configurationSnapshotId.Value, auditEventId.Value);
+    }
+
+    [Fact]
+    public void Ingestion_provenance_and_audit_event_ids_are_distinct_from_legal_reference_resolution_terms()
+    {
+        var provenanceId = new IngestionProvenanceId("PROV-1");
+        var auditEventId = new IngestionAuditEventId("AUDIT-EVENT-1");
+        var legalReference = new LegalReference(new[] { new ReferenceSegment("Article", "47") });
+        var resolutionDecision = new ResolutionDecision(ResolutionStatus.Unresolved);
+
+        Assert.NotEqual(legalReference.ToString(), provenanceId.Value);
+        Assert.NotEqual(legalReference.ToString(), auditEventId.Value);
+        Assert.NotEqual(resolutionDecision.Status.ToString(), provenanceId.Value);
+        Assert.NotEqual(resolutionDecision.Status.ToString(), auditEventId.Value);
     }
 
     [Fact]

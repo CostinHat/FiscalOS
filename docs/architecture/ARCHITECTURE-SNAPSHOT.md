@@ -846,4 +846,41 @@ Verification:
 - `dotnet test`: 459 passing.
 
 Recommended next milestone:
-- FOS-0339 Configuration Policy Reference Foundation Review.
+- FOS-0339 Provenance and Audit Foundation Review.
+
+## FOS-0340 Ingestion Provenance and Audit Identity Value Object Snapshot
+
+FOS-0340 implements the first narrow ingestion provenance and audit identity
+vocabulary slice.
+
+Implemented:
+- `IngestionProvenanceId`.
+- `IngestionAuditEventId`.
+- Focused tests for validation, trimming, value semantics and identity
+  distinction.
+
+Preserved:
+- Existing ingestion runtime and repository behavior.
+- Existing `IngestionTraceEntry` behavior.
+- Existing batch, source, raw document, snapshot and legal-reference identity
+  behavior.
+
+Still deferred:
+- Provenance records.
+- Audit event records.
+- Event taxonomy.
+- Correlation and causation IDs.
+- Runtime emission.
+- Batch integration.
+- Persistence and repository behavior changes.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 471 passing.
+
+Recommended next milestone:
+- FOS-0341 Ingestion Provenance and Audit Record Foundation Review.

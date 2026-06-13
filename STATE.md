@@ -1,7 +1,7 @@
 # FiscalOS State
 
-HEAD: 9cf3527
-Tests: 409 passing
+HEAD: 15cdfe9
+Tests: 471 passing
 
 ## Completed
 
@@ -1042,4 +1042,38 @@ Tests:
 - `dotnet test`: 459 passing.
 
 Next target:
-- FOS-0339 Configuration Policy Reference Foundation Review.
+- FOS-0339 Provenance and Audit Foundation Review.
+
+## FOS-0340 Ingestion Provenance and Audit Identity Value Objects
+
+Status: implemented.
+
+Completed implementation:
+- Added `IngestionProvenanceId`.
+- Added `IngestionAuditEventId`.
+- Kept provenance and audit identity vocabulary distinct from batch identity,
+  source identity, raw document identity, snapshot identities and legal
+  reference/resolution terms.
+- Added focused tests for validation, trimming, record value semantics and
+  identity distinction.
+
+Constraints preserved:
+- No provenance records.
+- No audit event records.
+- No `IngestionTraceEntry` changes.
+- No event taxonomy.
+- No correlation or causation IDs.
+- No runtime emission.
+- No batch integration.
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 471 passing.
+
+Next target:
+- FOS-0341 Ingestion Provenance and Audit Record Foundation Review.
