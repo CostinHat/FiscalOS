@@ -1,13 +1,14 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Threading;
+using System;
 using FiscalOS.Domain.LegalReferences;
-using FiscalOS.Runtime.LegalReferences;
+using FiscalOS.LegalCore;
 using FiscalOS.Runtime.LegalReferences.Embedded;
 using FiscalOS.Runtime.LegalReferences.Traceability;
+using FiscalOS.Runtime.LegalReferences;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 

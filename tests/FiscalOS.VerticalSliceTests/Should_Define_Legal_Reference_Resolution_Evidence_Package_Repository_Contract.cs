@@ -1,8 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Threading;
+using System;
 using FiscalOS.Domain.LegalReferences;
+using FiscalOS.LegalCore;
 using Xunit;
 
 namespace FiscalOS.VerticalSliceTests;

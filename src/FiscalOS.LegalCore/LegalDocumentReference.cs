@@ -1,4 +1,5 @@
-namespace FiscalOS.Domain.LegalReferences;
+using FiscalOS.LegalCore;
+namespace FiscalOS.LegalCore;
 
 public sealed record LegalDocumentReference
 {

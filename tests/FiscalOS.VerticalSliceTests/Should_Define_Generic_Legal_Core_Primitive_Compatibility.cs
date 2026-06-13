@@ -23,6 +23,7 @@ public sealed class Should_Define_Generic_Legal_Core_Primitive_Compatibility
         var qualified = new FullyQualifiedLegalReference(document, reference);
 
         Assert.Equal("Legea 227/2015", document.Value);
+        Assert.Equal("FiscalOS.LegalCore", typeof(LegalDocumentReference).Namespace);
         Assert.Equal("Article", article.Kind);
         Assert.Equal("47", article.Value);
         Assert.Equal("Article 47 / Paragraph 3", reference.ToString());

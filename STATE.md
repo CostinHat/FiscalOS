@@ -1732,3 +1732,33 @@ Tests:
 
 Next target:
 - FOS-0395 JurisdictionId Legal Core Migration Review.
+
+## FOS-0398 LegalDocumentReference Legal Core Migration
+
+Status: implemented.
+
+Completed implementation:
+- Moved `LegalDocumentReference` into `FiscalOS.LegalCore` as the canonical
+  legal document reference primitive.
+- Added a `FiscalOS.Domain` project reference to `FiscalOS.LegalCore`.
+- Updated `FullyQualifiedLegalReference` and direct construction call sites to
+  use the Legal Core document reference identity.
+- Removed the prior `FiscalOS.Domain.LegalReferences.LegalDocumentReference`
+  definition rather than keeping a compatibility shim.
+- Extended Generic Legal Core compatibility coverage to pin the new namespace
+  ownership.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph or source hierarchy implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+- No runtime behavior changes beyond namespace ownership.
+
+Tests:
+- `dotnet test`: 535 passing.
+
+Next target:
+- FOS-0399 LegalDocumentReference Legal Core Migration Review.

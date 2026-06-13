@@ -1,6 +1,7 @@
 using System;
-using FiscalOS.Domain.LegislationIngestion;
 using FiscalOS.Domain.LegalReferences;
+using FiscalOS.Domain.LegislationIngestion;
+using FiscalOS.LegalCore;
 using Xunit;
 
 namespace FiscalOS.VerticalSliceTests;

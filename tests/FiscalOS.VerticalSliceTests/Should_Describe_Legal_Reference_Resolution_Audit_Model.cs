@@ -1,5 +1,6 @@
 using System;
 using FiscalOS.Domain.LegalReferences;
+using FiscalOS.LegalCore;
 using Xunit;
 
 namespace FiscalOS.VerticalSliceTests;

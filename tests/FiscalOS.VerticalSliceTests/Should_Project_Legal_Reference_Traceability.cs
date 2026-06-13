@@ -1,6 +1,7 @@
-using System;
 using System.Linq;
+using System;
 using FiscalOS.Domain.LegalReferences;
+using FiscalOS.LegalCore;
 using FiscalOS.Runtime.LegalReferences.Traceability;
 using Xunit;
 

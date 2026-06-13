@@ -1,10 +1,11 @@
-using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 using FiscalOS.Domain.LegalReferences;
-using FiscalOS.Runtime.LegalReferences;
+using FiscalOS.LegalCore;
 using FiscalOS.Runtime.LegalReferences.Embedded;
 using FiscalOS.Runtime.LegalReferences.Traceability;
+using FiscalOS.Runtime.LegalReferences;
 using Xunit;
 
 namespace FiscalOS.VerticalSliceTests;
