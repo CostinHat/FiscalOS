@@ -1831,3 +1831,40 @@ Verification:
 
 Recommended next milestone:
 - FOS-0410 FullyQualifiedLegalReference Legal Core Migration Review.
+
+## FOS-0415 SourceAuthorityLevel Legal Core Migration Snapshot
+
+FOS-0415 makes `SourceAuthorityLevel` the first LegalKnowledge vocabulary type
+migrated into Generic Legal Core.
+
+Implemented:
+- Added canonical `SourceAuthorityLevel` to `FiscalOS.LegalCore`.
+- Updated `SourceAuthority`, `SourceHierarchy`, `CitationAuthority` and
+  `LexSuperiorResult` to use `FiscalOS.LegalCore.SourceAuthorityLevel`.
+- Removed the old `FiscalOS.LegalKnowledge.SourceAuthorityLevel` type to avoid
+  dual legal authority level definitions.
+- Extended compatibility tests to assert the Legal Core namespace ownership.
+
+Preserved:
+- Existing authority ordering values.
+- Existing source type to authority level mapping.
+- Existing source hierarchy comparison behavior.
+- Existing lex superior and conflict resolution behavior.
+- Existing ingestion behavior.
+
+Still deferred:
+- Moving `LegalCitation`.
+- Moving `LegalSourceType`.
+- Moving `SpecificityLevel`.
+- Moving `SourceHierarchy`.
+- Graph/source hierarchy implementation.
+- API exposure.
+- Persistence and repository behavior.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 535 passing.
+
+Recommended next milestone:
+- FOS-0416 SourceAuthorityLevel Legal Core Migration Review.

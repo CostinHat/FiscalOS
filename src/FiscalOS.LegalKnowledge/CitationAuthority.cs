@@ -1,3 +1,5 @@
+using FiscalOS.LegalCore;
+
 namespace FiscalOS.LegalKnowledge;
 
 public static class CitationAuthority
