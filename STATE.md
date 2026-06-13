@@ -1919,3 +1919,36 @@ Tests:
 
 Next target:
 - FOS-0419 SpecificityLevel Legal Core Migration Review.
+
+## FOS-0421 SourceHierarchy Legal Core Migration
+
+Status: implemented.
+
+Completed implementation:
+- Moved `SourceHierarchy` into `FiscalOS.LegalCore` as the canonical graph-free
+  source authority ordering context value object.
+- Updated LegalKnowledge citation authority behavior and focused authority tests
+  to consume the Legal Core source hierarchy type.
+- Extended Generic Legal Core compatibility coverage to pin the new namespace
+  ownership.
+- Removed the prior `FiscalOS.LegalKnowledge.SourceHierarchy` definition rather
+  than keeping a compatibility shim.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No citation or source type migration.
+- No source authority mapping behavior changes.
+- No matching/search/resolution behavior changes.
+- No AI/NLP integration.
+- No rule generation implementation.
+- No runtime behavior changes beyond namespace ownership.
+
+Tests:
+- `dotnet test`: 535 passing.
+
+Next target:
+- FOS-0422 SourceHierarchy Legal Core Migration Review.

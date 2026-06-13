@@ -1905,3 +1905,40 @@ Verification:
 
 Recommended next milestone:
 - FOS-0419 SpecificityLevel Legal Core Migration Review.
+
+## FOS-0421 SourceHierarchy Legal Core Migration Snapshot
+
+FOS-0421 makes `SourceHierarchy` the third LegalKnowledge vocabulary type
+migrated into Generic Legal Core.
+
+Implemented:
+- Added canonical `SourceHierarchy` to `FiscalOS.LegalCore`.
+- Updated `CitationAuthority` and focused source hierarchy tests to use
+  `FiscalOS.LegalCore.SourceHierarchy`.
+- Removed the old `FiscalOS.LegalKnowledge.SourceHierarchy` type to avoid dual
+  source hierarchy value definitions.
+- Extended compatibility tests to assert the Legal Core namespace ownership.
+
+Preserved:
+- Existing source authority level wrapping behavior.
+- Existing higher/lower/equal comparison behavior.
+- Existing `IComparable<SourceHierarchy>` sort behavior.
+- Existing citation authority behavior.
+- Existing ingestion behavior.
+
+Still deferred:
+- Moving `LegalCitation`.
+- Moving `LegalSourceType`.
+- Moving `SourceAuthority` or citation authority behavior.
+- Source hierarchy graph storage or traversal.
+- Graph implementation.
+- API exposure.
+- Persistence and repository behavior.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 535 passing.
+
+Recommended next milestone:
+- FOS-0422 SourceHierarchy Legal Core Migration Review.

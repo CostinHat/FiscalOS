@@ -84,6 +84,7 @@ public sealed class Should_Define_Generic_Legal_Core_Primitive_Compatibility
         Assert.Equal(SourceAuthorityLevel.Statutory, SourceAuthority.LevelFor(citation.SourceType));
         Assert.Equal("FiscalOS.LegalCore", typeof(SpecificityLevel).Namespace);
         Assert.Equal(SourceAuthorityLevel.Statutory, CitationAuthority.LevelOf(citation));
+        Assert.Equal("FiscalOS.LegalCore", typeof(SourceHierarchy).Namespace);
         Assert.Equal(new SourceHierarchy(SourceAuthorityLevel.Statutory), CitationAuthority.HierarchyOf(citation));
         Assert.Equal(SpecificityLevel.Specific, CitationSpecificity.SpecificityOf(citation));
     }

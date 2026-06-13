@@ -1,6 +1,4 @@
-using FiscalOS.LegalCore;
-
-namespace FiscalOS.LegalKnowledge;
+namespace FiscalOS.LegalCore;
 
 public sealed record SourceHierarchy(SourceAuthorityLevel Level)
     : IComparable<SourceHierarchy>
