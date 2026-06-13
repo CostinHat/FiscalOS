@@ -1,4 +1,4 @@
-namespace FiscalOS.Domain.LegalReferences;
+namespace FiscalOS.LegalCore;
 
 public sealed record ReferenceSegment
 {

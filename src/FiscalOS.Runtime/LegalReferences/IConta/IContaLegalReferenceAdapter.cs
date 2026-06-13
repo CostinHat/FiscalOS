@@ -1,4 +1,5 @@
 using FiscalOS.Domain.LegalReferences;
+using FiscalOS.LegalCore;
 using FiscalOS.Runtime.LegalReferences.Embedded;
 using FiscalOS.Runtime.LegalReferences.Traceability;
 

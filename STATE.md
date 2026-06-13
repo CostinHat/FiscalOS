@@ -1762,3 +1762,33 @@ Tests:
 
 Next target:
 - FOS-0399 LegalDocumentReference Legal Core Migration Review.
+
+## FOS-0402 ReferenceSegment Legal Core Migration
+
+Status: implemented.
+
+Completed implementation:
+- Moved `ReferenceSegment` into `FiscalOS.LegalCore` as the canonical
+  structural reference segment primitive.
+- Updated `LegalReference` and direct construction call sites to use the Legal
+  Core reference segment type.
+- Removed the prior `FiscalOS.Domain.LegalReferences.ReferenceSegment`
+  definition rather than keeping a compatibility shim.
+- Extended Generic Legal Core compatibility coverage to pin the new namespace
+  ownership.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph or source hierarchy implementation.
+- No segment-kind taxonomy implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+- No runtime behavior changes beyond namespace ownership.
+
+Tests:
+- `dotnet test`: 535 passing.
+
+Next target:
+- FOS-0403 ReferenceSegment Legal Core Migration Review.
