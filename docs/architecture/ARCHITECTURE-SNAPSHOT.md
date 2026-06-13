@@ -778,3 +778,37 @@ Verification:
 
 Recommended next milestone:
 - FOS-0335 Raw Document Fingerprint Computation Review.
+
+## FOS-0336 Source Metadata Snapshot Value Object Snapshot
+
+FOS-0336 implements the first narrow source metadata snapshot vocabulary slice.
+
+Implemented:
+- `SourceMetadataSnapshotId`.
+- `SourceMetadataSnapshot`.
+- Snapshot fields limited to snapshot ID, source ID, source metadata, created
+  timestamp and schema version.
+- Focused tests for validation, metadata preservation, source linkage, record
+  value semantics and identity distinction.
+
+Preserved:
+- Existing `LegislationSourceMetadata` behavior.
+- Existing `ILegislationSource` contract shape from FOS-0330.
+- Existing ingestion runtime and repository behavior.
+
+Still deferred:
+- Batch integration.
+- Configuration snapshots.
+- Provenance and audit records.
+- Persistence and repository behavior changes.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 449 passing.
+
+Recommended next milestone:
+- FOS-0337 Configuration Snapshot Foundation Review.

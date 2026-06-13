@@ -87,6 +87,14 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Throws<ArgumentException>(() => new RawDocumentHashAlgorithm(value));
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Source_metadata_snapshot_id_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new SourceMetadataSnapshotId(value));
+    }
+
     [Fact]
     public void Legislation_source_id_trims_and_exposes_value()
     {
@@ -139,6 +147,120 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
 
         Assert.Equal("sha256", algorithm.Value);
         Assert.Equal("sha256", algorithm.ToString());
+    }
+
+    [Fact]
+    public void Source_metadata_snapshot_id_trims_and_exposes_value()
+    {
+        var id = new SourceMetadataSnapshotId("  SRC-SNAPSHOT-1 ");
+
+        Assert.Equal("SRC-SNAPSHOT-1", id.Value);
+        Assert.Equal("SRC-SNAPSHOT-1", id.ToString());
+    }
+
+    [Fact]
+    public void Source_metadata_snapshot_preserves_metadata_and_source_linkage()
+    {
+        var createdAt = new DateTimeOffset(2026, 6, 13, 10, 0, 0, TimeSpan.Zero);
+        var sourceId = new LegislationSourceId("monitorul-oficial");
+        var metadata = new LegislationSourceMetadata(
+            sourceId,
+            "Monitorul Oficial",
+            "official-publication");
+
+        var snapshot = new SourceMetadataSnapshot(
+            new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
+            metadata,
+            createdAt,
+            "1");
+
+        Assert.Equal("SRC-SNAPSHOT-1", snapshot.Id.Value);
+        Assert.Same(sourceId, snapshot.SourceId);
+        Assert.Same(metadata, snapshot.Metadata);
+        Assert.Equal(createdAt, snapshot.CreatedAt);
+        Assert.Equal("1", snapshot.SchemaVersion);
+    }
+
+    [Fact]
+    public void Source_metadata_snapshot_schema_version_is_trimmed()
+    {
+        var snapshot = new SourceMetadataSnapshot(
+            new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
+            new LegislationSourceMetadata(
+                new LegislationSourceId("monitorul-oficial"),
+                "Monitorul Oficial",
+                "official-publication"),
+            DateTimeOffset.UnixEpoch,
+            " 1 ");
+
+        Assert.Equal("1", snapshot.SchemaVersion);
+    }
+
+    [Fact]
+    public void Source_metadata_snapshot_rejects_missing_id()
+    {
+        Assert.Throws<ArgumentNullException>(() => new SourceMetadataSnapshot(
+            null!,
+            new LegislationSourceMetadata(
+                new LegislationSourceId("monitorul-oficial"),
+                "Monitorul Oficial",
+                "official-publication"),
+            DateTimeOffset.UnixEpoch,
+            "1"));
+    }
+
+    [Fact]
+    public void Source_metadata_snapshot_rejects_missing_metadata()
+    {
+        Assert.Throws<ArgumentNullException>(() => new SourceMetadataSnapshot(
+            new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
+            null!,
+            DateTimeOffset.UnixEpoch,
+            "1"));
+    }
+
+    [Fact]
+    public void Source_metadata_snapshot_rejects_empty_schema_version()
+    {
+        Assert.Throws<ArgumentException>(() => new SourceMetadataSnapshot(
+            new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
+            new LegislationSourceMetadata(
+                new LegislationSourceId("monitorul-oficial"),
+                "Monitorul Oficial",
+                "official-publication"),
+            DateTimeOffset.UnixEpoch,
+            " "));
+    }
+
+    [Fact]
+    public void Source_metadata_snapshot_id_is_distinct_from_source_id()
+    {
+        var sourceId = new LegislationSourceId("monitorul-oficial");
+        var snapshotId = new SourceMetadataSnapshotId("SRC-SNAPSHOT-1");
+
+        Assert.NotEqual(sourceId.Value, snapshotId.Value);
+    }
+
+    [Fact]
+    public void Source_metadata_snapshot_preserves_record_value_semantics()
+    {
+        var createdAt = DateTimeOffset.UnixEpoch;
+        var metadata = new LegislationSourceMetadata(
+            new LegislationSourceId("monitorul-oficial"),
+            "Monitorul Oficial",
+            "official-publication");
+        var first = new SourceMetadataSnapshot(
+            new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
+            metadata,
+            createdAt,
+            "1");
+        var second = new SourceMetadataSnapshot(
+            new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
+            metadata,
+            createdAt,
+            "1");
+
+        Assert.Equal(first, second);
     }
 
     [Fact]

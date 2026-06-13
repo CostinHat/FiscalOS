@@ -979,3 +979,34 @@ Tests:
 
 Next target:
 - FOS-0335 Raw Document Fingerprint Computation Review.
+
+## FOS-0336 Source Metadata Snapshot Value Objects
+
+Status: implemented.
+
+Completed implementation:
+- Added `SourceMetadataSnapshotId`.
+- Added `SourceMetadataSnapshot`.
+- Included snapshot ID, source ID, source metadata, created timestamp and schema
+  version only.
+- Added focused tests for ID validation/trimming, metadata preservation, source
+  ID linkage, record value semantics and distinction from `LegislationSourceId`.
+
+Constraints preserved:
+- No batch integration.
+- No configuration snapshots.
+- No provenance/audit implementation.
+- No persistence implementation.
+- No repository behavior changes.
+- No batch redesign.
+- No API implementation.
+- No graph implementation.
+- No source hierarchy implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 449 passing.
+
+Next target:
+- FOS-0337 Configuration Snapshot Foundation Review.
