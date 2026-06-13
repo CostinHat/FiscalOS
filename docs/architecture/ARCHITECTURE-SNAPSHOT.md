@@ -1218,3 +1218,42 @@ Verification:
 
 Recommended next milestone:
 - FOS-0363 Ingestion Correlation and Causation ID Record Integration Review.
+
+## FOS-0365 Ingestion Batch-Level Provenance and Audit Runtime Emission Snapshot
+
+FOS-0365 introduces the first runtime provenance and audit emission path while
+keeping the records in memory and scoped to batch lifecycle events.
+
+Implemented:
+- `IngestionContext.Provenance` and `IngestionContext.AuditEvents`.
+- `IngestionResult.Provenance` and `IngestionResult.AuditEvents`.
+- Backward-compatible default empty provenance and audit event collections for
+  existing context/result construction.
+- Batch-started, batch-completed and batch-failed provenance records emitted by
+  `LegislationIngestionPipeline`.
+- Batch-started, batch-completed and failure-recorded audit event records
+  emitted by `LegislationIngestionPipeline`.
+- Focused runtime tests for successful and failed batch-level emission.
+
+Preserved:
+- Existing stage contracts.
+- Existing ingestion trace behavior.
+- Existing repository behavior.
+- Existing source/document acquisition, validation, versioning and storage
+  behavior.
+
+Still deferred:
+- Persistence and repository handoff for provenance/audit records.
+- Source-level and raw-document-level provenance/audit emission.
+- Correlation and causation population.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 520 passing.
+
+Recommended next milestone:
+- FOS-0366 Ingestion Batch-Level Runtime Emission Review.

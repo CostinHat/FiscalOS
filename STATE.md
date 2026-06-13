@@ -1366,3 +1366,36 @@ Tests:
 
 Next target:
 - FOS-0363 Ingestion Correlation and Causation ID Record Integration Review.
+
+## FOS-0365 Ingestion Batch-Level Provenance and Audit Runtime Emission
+
+Status: implemented.
+
+Completed implementation:
+- Added in-memory provenance and audit event collections to
+  `IngestionContext`.
+- Added in-memory provenance and audit event collections to `IngestionResult`.
+- Preserved existing three-argument `IngestionContext` and `IngestionResult`
+  construction by defaulting provenance and audit event collections to empty.
+- Emitted batch-level provenance and audit records from
+  `LegislationIngestionPipeline` for batch start, batch completion and batch
+  failure.
+- Added focused runtime tests for successful batch emission and failed batch
+  emission.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No source hierarchy implementation.
+- No source/document-level provenance or audit emission.
+- No `IngestionTraceEntry` changes.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 520 passing.
+
+Next target:
+- FOS-0366 Ingestion Batch-Level Runtime Emission Review.
