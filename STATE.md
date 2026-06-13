@@ -1,7 +1,7 @@
 # FiscalOS State
 
 HEAD: 15cdfe9
-Tests: 500 passing
+Tests: 507 passing
 
 ## Completed
 
@@ -1243,3 +1243,34 @@ Tests:
 
 Next target:
 - FOS-0353 Ingestion Audit Event Outcome Integration Review.
+
+## FOS-0355 Ingestion Provenance Category Value Object
+
+Status: implemented.
+
+Completed implementation:
+- Added `IngestionProvenanceCategory`.
+- Implemented validation, trimming, `Value`, `ToString()` and record value
+  semantics.
+- Added named static categories for `Source`, `Batch`, `Snapshot`,
+  `RawDocument`, `Identity` and `Configuration`.
+- Added focused tests for validation, trimming, value semantics, named
+  categories, distinction from audit event kind/outcome and distinction from
+  `IngestionTraceEntry`.
+
+Constraints preserved:
+- No `IngestionProvenanceRecord` changes.
+- No runtime emission.
+- No batch integration.
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 507 passing.
+
+Next target:
+- FOS-0356 Ingestion Provenance Category Record Integration Review.

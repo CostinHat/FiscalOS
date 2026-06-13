@@ -1071,3 +1071,40 @@ Verification:
 
 Recommended next milestone:
 - FOS-0353 Ingestion Audit Event Outcome Integration Review.
+
+## FOS-0355 Ingestion Provenance Category Value Object Snapshot
+
+FOS-0355 implements the first narrow ingestion provenance category vocabulary
+slice.
+
+Implemented:
+- `IngestionProvenanceCategory`.
+- Validation, trimming, `Value`, `ToString()` and value semantics.
+- Named static categories for `Source`, `Batch`, `Snapshot`, `RawDocument`,
+  `Identity` and `Configuration`.
+- Focused tests for validation, trimming, value semantics, named categories and
+  distinction from audit/trace concepts.
+
+Preserved:
+- Existing ingestion runtime and repository behavior.
+- Existing `IngestionTraceEntry` behavior.
+- Existing `IngestionProvenanceRecord` behavior.
+- Existing audit event kind and outcome behavior.
+
+Still deferred:
+- Provenance record category integration.
+- Correlation and causation IDs.
+- Runtime emission.
+- Batch integration.
+- Persistence and repository behavior changes.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 507 passing.
+
+Recommended next milestone:
+- FOS-0356 Ingestion Provenance Category Record Integration Review.

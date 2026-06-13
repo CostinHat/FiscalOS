@@ -136,6 +136,14 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Throws<ArgumentException>(() => new IngestionAuditEventOutcome(value));
     }
 
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Ingestion_provenance_category_rejects_empty(string value)
+    {
+        Assert.Throws<ArgumentException>(() => new IngestionProvenanceCategory(value));
+    }
+
     [Fact]
     public void Legislation_source_id_trims_and_exposes_value()
     {
@@ -245,6 +253,15 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
     }
 
     [Fact]
+    public void Ingestion_provenance_category_trims_and_exposes_value()
+    {
+        var category = new IngestionProvenanceCategory("  raw-document ");
+
+        Assert.Equal("raw-document", category.Value);
+        Assert.Equal("raw-document", category.ToString());
+    }
+
+    [Fact]
     public void Ingestion_audit_event_kind_preserves_record_value_semantics()
     {
         var first = new IngestionAuditEventKind("source-selected");
@@ -258,6 +275,15 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
     {
         var first = new IngestionAuditEventOutcome("completed");
         var second = new IngestionAuditEventOutcome("completed");
+
+        Assert.Equal(first, second);
+    }
+
+    [Fact]
+    public void Ingestion_provenance_category_preserves_record_value_semantics()
+    {
+        var first = new IngestionProvenanceCategory("raw-document");
+        var second = new IngestionProvenanceCategory("raw-document");
 
         Assert.Equal(first, second);
     }
@@ -293,6 +319,28 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Equal("skipped", IngestionAuditEventOutcome.Skipped.Value);
         Assert.Equal("failed", IngestionAuditEventOutcome.Failed.Value);
         Assert.Equal("deferred", IngestionAuditEventOutcome.Deferred.Value);
+    }
+
+    [Fact]
+    public void Ingestion_provenance_category_exposes_named_categories()
+    {
+        Assert.Equal("source", IngestionProvenanceCategory.Source.Value);
+        Assert.Equal("batch", IngestionProvenanceCategory.Batch.Value);
+        Assert.Equal("snapshot", IngestionProvenanceCategory.Snapshot.Value);
+        Assert.Equal("raw-document", IngestionProvenanceCategory.RawDocument.Value);
+        Assert.Equal("identity", IngestionProvenanceCategory.Identity.Value);
+        Assert.Equal("configuration", IngestionProvenanceCategory.Configuration.Value);
+    }
+
+    [Fact]
+    public void Ingestion_provenance_category_is_distinct_from_audit_event_kind_and_outcome()
+    {
+        var category = IngestionProvenanceCategory.Source;
+        var kind = IngestionAuditEventKind.SourceSelected;
+        var outcome = IngestionAuditEventOutcome.Completed;
+
+        Assert.NotEqual(kind.Value, category.Value);
+        Assert.NotEqual(outcome.Value, category.Value);
     }
 
     [Fact]
@@ -345,6 +393,23 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
         Assert.Equal(IngestionStatus.Succeeded, traceEntry.Status);
         Assert.NotEqual(traceEntry.Status.ToString(), outcome.Value);
         Assert.NotEqual(traceEntry.GetType(), outcome.GetType());
+    }
+
+    [Fact]
+    public void Ingestion_provenance_category_is_distinct_from_trace_entries()
+    {
+        var timestamp = new DateTimeOffset(2026, 6, 13, 15, 0, 0, TimeSpan.Zero);
+        var category = IngestionProvenanceCategory.Source;
+        var traceEntry = new IngestionTraceEntry(
+            IngestionStage.Acquisition,
+            IngestionStatus.Succeeded,
+            timestamp,
+            "source acquired");
+
+        Assert.Equal("source", category.Value);
+        Assert.Equal("source acquired", traceEntry.Description);
+        Assert.NotEqual(traceEntry.Description, category.Value);
+        Assert.NotEqual(traceEntry.GetType(), category.GetType());
     }
 
     [Fact]
