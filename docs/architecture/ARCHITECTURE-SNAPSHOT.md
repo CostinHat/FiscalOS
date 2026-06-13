@@ -1520,3 +1520,45 @@ Verification:
 
 Recommended next milestone:
 - FOS-0384 Raw Document Identity Decision Runtime Foundation Review.
+
+## FOS-0386 Generic Legal Core Architecture Decision Record Snapshot
+
+FOS-0386 records the Generic Legal Core boundary as an architecture decision
+without moving code or changing runtime behavior.
+
+Implemented:
+- Added `ARCH-0012-GENERIC-LEGAL-CORE-BOUNDARY.md`.
+- Defined Generic Legal Core as a future owner for shared structural legal
+  primitives.
+- Documented candidate vocabulary including `JurisdictionId`,
+  `LegalDocumentReference`, `ReferenceSegment`, `LegalReference` and
+  `FullyQualifiedLegalReference`.
+- Documented later-review candidates including `LegalSourceType`,
+  `SourceAuthorityLevel`, `SourceHierarchy` and `LegalCitation`.
+- Updated the architecture index, global invariants and identity/concept owner
+  matrix.
+
+Preserved:
+- Existing `FiscalOS.Domain.LegalReferences` placement.
+- Existing `FiscalOS.LegalKnowledge` placement.
+- Existing ingestion runtime and raw document identity behavior.
+- Existing Legal Reference Resolution contracts.
+- Existing classification and rule execution behavior.
+
+Still deferred:
+- New `FiscalOS.LegalCore` project or namespace.
+- Moving any existing type.
+- Compatibility wrappers or namespace migration.
+- Source authority extraction.
+- Legal citation extraction.
+- Graph/source hierarchy implementation.
+- API exposure.
+- Persistence and repository behavior.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 530 passing.
+
+Recommended next milestone:
+- FOS-0387 Generic Legal Core ADR Review.

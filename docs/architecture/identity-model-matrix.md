@@ -39,3 +39,4 @@
 | Resolution output and correction | FOS-0322 ADR | Durable outcome, additive correction and supersession |
 | Downstream consumer boundary | FOS-0323 ADR | Projection/reading boundary only |
 | Documentation consolidation | FOS-0324 ADR | Acceptance and consolidation record |
+| Generic legal core boundary | ARCH-0012 | Shared structural legal primitives only |

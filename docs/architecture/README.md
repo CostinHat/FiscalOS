@@ -24,6 +24,14 @@ to its document (where one exists) or names the commit that introduced it.
 - **ARCH-0009** (`f2be656`) — PracticeGraph remains a planning concept, independent from LegalGraph, and is not promoted to a runtime model at this stage.
 - **ARCH-0010** (`539c1cd`) — LegalGraph remains a planning concept and is not promoted to a first-class implemented runtime model at this stage.
 
+- [ARCH-0011-Legal-Reference-Addressing-Model.md](ARCH-0011-Legal-Reference-Addressing-Model.md)
+  -- LegalReference represents structural legal addressing, not legal content,
+  interpretation, or fiscal conclusions.
+- [ARCH-0012-GENERIC-LEGAL-CORE-BOUNDARY.md](ARCH-0012-GENERIC-LEGAL-CORE-BOUNDARY.md)
+  -- Generic Legal Core owns shared structural legal primitives while excluding
+  ingestion runtime, resolution execution, graph behavior, AI/NLP, and rule
+  generation.
+
 ## Traceability
 
 - [TRACE-0001-ROADMAP-RECONCILIATION.md](TRACE-0001-ROADMAP-RECONCILIATION.md)

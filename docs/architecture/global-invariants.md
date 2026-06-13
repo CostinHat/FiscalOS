@@ -21,6 +21,9 @@ These invariants apply across FOS-0306 through FOS-0326.
 - Source Hierarchy is exposed as context only; graph storage and traversal are future work.
 - Repositories store and retrieve; they do not redefine identity.
 - Consumers read projections; they do not mutate canonical records.
+- Generic Legal Core owns shared structural legal vocabulary only; it does not
+  execute ingestion, resolution, classification, graph traversal, AI/NLP, or
+  rule generation.
 - `LegalGraph` and `LegalAtom` are conceptual or future architecture terms, not
   implemented ingestion artifacts.
 

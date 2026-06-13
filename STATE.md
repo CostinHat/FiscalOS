@@ -1611,3 +1611,34 @@ Tests:
 
 Next target:
 - FOS-0384 Raw Document Identity Decision Runtime Foundation Review.
+
+## FOS-0386 Generic Legal Core Architecture Decision Record
+
+Status: implemented.
+
+Completed implementation:
+- Added `ARCH-0012-GENERIC-LEGAL-CORE-BOUNDARY.md`.
+- Defined Generic Legal Core as the owner of shared structural legal
+  primitives.
+- Documented candidate vocabulary, ownership rules, dependency direction,
+  deferred decisions and explicit exclusions.
+- Updated the architecture index, global invariants and identity/concept owner
+  matrix to reference the Generic Legal Core boundary.
+
+Constraints preserved:
+- No code movement.
+- No project creation.
+- No runtime behavior changes.
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No source hierarchy graph traversal.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 530 passing.
+
+Next target:
+- FOS-0387 Generic Legal Core ADR Review.
