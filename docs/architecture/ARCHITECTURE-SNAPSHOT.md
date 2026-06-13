@@ -1297,3 +1297,45 @@ Verification:
 
 Recommended next milestone:
 - FOS-0369 Ingestion Runtime Emission ID Policy Review.
+
+## FOS-0371 Source-Level Provenance and Audit Runtime Emission Snapshot
+
+FOS-0371 extends in-memory runtime emission from batch lifecycle records to
+source-level acquisition records.
+
+Implemented:
+- `AcquireLegislationDocumentsStage` now accepts an `IIngestionEmissionIdPolicy`.
+- Existing acquisition-stage constructors continue to default to
+  `DefaultIngestionEmissionIdPolicy`.
+- One source-level provenance record is emitted with
+  `IngestionProvenanceCategory.Source` and `LegislationSourceId` linkage.
+- Source-level audit events are emitted for `SourceSelected` and
+  `SourceAcquisitionStarted`.
+- Focused runtime assertions cover source-level ordering, source ID linkage and
+  deferred source metadata snapshot linkage.
+
+Preserved:
+- Existing batch-level emitted records.
+- Existing stage contract shape.
+- Existing ingestion trace behavior.
+- Existing repository behavior.
+- Existing source/document acquisition, validation, versioning and storage
+  behavior.
+
+Still deferred:
+- Persistence and repository handoff for provenance/audit records.
+- Raw-document-level provenance/audit emission.
+- Source metadata snapshot runtime creation.
+- Correlation and causation population.
+- Replay execution behavior.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 522 passing.
+
+Recommended next milestone:
+- FOS-0372 Source-Level Provenance and Audit Runtime Emission Review.
