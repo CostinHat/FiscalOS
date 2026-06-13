@@ -1,4 +1,4 @@
-namespace FiscalOS.LegalKnowledge;
+namespace FiscalOS.LegalCore;
 
 public enum SpecificityLevel
 {

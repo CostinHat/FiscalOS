@@ -1868,3 +1868,40 @@ Verification:
 
 Recommended next milestone:
 - FOS-0416 SourceAuthorityLevel Legal Core Migration Review.
+
+## FOS-0418 SpecificityLevel Legal Core Migration Snapshot
+
+FOS-0418 makes `SpecificityLevel` the second LegalKnowledge vocabulary type
+migrated into Generic Legal Core.
+
+Implemented:
+- Added canonical `SpecificityLevel` to `FiscalOS.LegalCore`.
+- Updated `LegalCitation`, `CitationSpecificity` and `LexSpecialisResult` to use
+  `FiscalOS.LegalCore.SpecificityLevel`.
+- Removed the old `FiscalOS.LegalKnowledge.SpecificityLevel` type to avoid dual
+  legal specificity level definitions.
+- Extended compatibility tests to assert the Legal Core namespace ownership.
+
+Preserved:
+- Existing specificity ordering values.
+- Existing citation specificity validation behavior.
+- Existing lex specialis and conflict resolution behavior.
+- Existing runtime citation fixtures.
+- Existing ingestion behavior.
+
+Still deferred:
+- Moving `LegalCitation`.
+- Moving `LegalSourceType`.
+- Moving `SourceHierarchy`.
+- Moving lex specialis or conflict resolution behavior.
+- Graph/source hierarchy implementation.
+- API exposure.
+- Persistence and repository behavior.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 535 passing.
+
+Recommended next milestone:
+- FOS-0419 SpecificityLevel Legal Core Migration Review.
