@@ -10,6 +10,8 @@ public sealed record IngestionAuditEventRecord
 
     public IngestionAuditEventKind Kind { get; }
 
+    public IngestionAuditEventOutcome Outcome { get; }
+
     public LegislationSourceId? SourceId { get; }
 
     public RawDocumentId? RawDocumentId { get; }
@@ -25,6 +27,7 @@ public sealed record IngestionAuditEventRecord
         DateTimeOffset createdAt,
         IngestionBatchId batchId,
         IngestionAuditEventKind kind,
+        IngestionAuditEventOutcome outcome,
         LegislationSourceId? sourceId,
         RawDocumentId? rawDocumentId,
         SourceMetadataSnapshotId? sourceMetadataSnapshotId,
@@ -34,6 +37,7 @@ public sealed record IngestionAuditEventRecord
         ArgumentNullException.ThrowIfNull(id);
         ArgumentNullException.ThrowIfNull(batchId);
         ArgumentNullException.ThrowIfNull(kind);
+        ArgumentNullException.ThrowIfNull(outcome);
 
         if (string.IsNullOrWhiteSpace(details))
         {
@@ -44,6 +48,7 @@ public sealed record IngestionAuditEventRecord
         CreatedAt = createdAt;
         BatchId = batchId;
         Kind = kind;
+        Outcome = outcome;
         SourceId = sourceId;
         RawDocumentId = rawDocumentId;
         SourceMetadataSnapshotId = sourceMetadataSnapshotId;

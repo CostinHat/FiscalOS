@@ -1,7 +1,7 @@
 # FiscalOS State
 
 HEAD: 15cdfe9
-Tests: 499 passing
+Tests: 500 passing
 
 ## Completed
 
@@ -1212,3 +1212,34 @@ Tests:
 
 Next target:
 - FOS-0351 Ingestion Audit Event Outcome Record Integration Review.
+
+## FOS-0352 Ingestion Audit Event Outcome Record Integration
+
+Status: implemented.
+
+Completed implementation:
+- Added required `IngestionAuditEventOutcome Outcome` linkage to
+  `IngestionAuditEventRecord`.
+- Added null validation for missing audit event outcome.
+- Updated focused tests for required outcome validation, outcome preservation,
+  optional linkage preservation, record value semantics and trace distinction.
+
+Constraints preserved:
+- No runtime status reuse.
+- No provenance categories.
+- No correlation or causation IDs.
+- No `IngestionTraceEntry` changes.
+- No runtime emission.
+- No batch integration.
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 500 passing.
+
+Next target:
+- FOS-0353 Ingestion Audit Event Outcome Integration Review.

@@ -1034,3 +1034,40 @@ Verification:
 
 Recommended next milestone:
 - FOS-0351 Ingestion Audit Event Outcome Record Integration Review.
+
+## FOS-0352 Ingestion Audit Event Outcome Record Integration Snapshot
+
+FOS-0352 integrates audit event outcome vocabulary into the audit event record
+without reusing runtime status or making audit events operational.
+
+Implemented:
+- Required `IngestionAuditEventOutcome Outcome` on `IngestionAuditEventRecord`.
+- Null validation for missing audit event outcome.
+- Focused tests for required outcome validation, outcome preservation, optional
+  linkage preservation, value semantics and trace distinction.
+
+Preserved:
+- Existing ingestion runtime and repository behavior.
+- Existing `IngestionTraceEntry` behavior.
+- Existing `IngestionStatus` runtime status behavior.
+- Existing audit event kind behavior.
+- Existing provenance identity and record behavior.
+
+Still deferred:
+- Runtime status reuse.
+- Provenance categories.
+- Correlation and causation IDs.
+- Runtime emission.
+- Batch integration.
+- Persistence and repository behavior changes.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 500 passing.
+
+Recommended next milestone:
+- FOS-0353 Ingestion Audit Event Outcome Integration Review.
