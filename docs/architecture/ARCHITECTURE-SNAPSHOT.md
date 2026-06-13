@@ -884,3 +884,42 @@ Verification:
 
 Recommended next milestone:
 - FOS-0341 Ingestion Provenance and Audit Record Foundation Review.
+
+## FOS-0342 Ingestion Provenance and Audit Record Value Object Snapshot
+
+FOS-0342 implements the first narrow ingestion provenance and audit record
+vocabulary slice.
+
+Implemented:
+- `IngestionProvenanceRecord`.
+- `IngestionAuditEventRecord`.
+- Record fields limited to record ID, created timestamp, batch ID, optional
+  source ID, optional raw document ID, optional source metadata snapshot ID,
+  optional configuration snapshot ID and description/details text.
+- Focused tests for validation, timestamp preservation, optional linkage
+  preservation, value semantics and trace distinction.
+
+Preserved:
+- Existing ingestion runtime and repository behavior.
+- Existing `IngestionTraceEntry` behavior.
+- Existing provenance/audit identity behavior.
+- Existing batch, source, raw document and snapshot identity behavior.
+
+Still deferred:
+- Event taxonomy.
+- Status/type enums.
+- Correlation and causation IDs.
+- Runtime emission.
+- Batch integration.
+- Persistence and repository behavior changes.
+- Batch redesign.
+- API exposure.
+- Graph/source hierarchy implementation.
+- AI/NLP integration.
+- Rule generation.
+
+Verification:
+- `dotnet test`: 484 passing.
+
+Recommended next milestone:
+- FOS-0343 Ingestion Provenance and Audit Event Taxonomy Foundation Review.

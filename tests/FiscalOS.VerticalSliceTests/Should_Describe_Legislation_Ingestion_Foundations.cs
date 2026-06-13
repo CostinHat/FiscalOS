@@ -284,6 +284,269 @@ public sealed class Should_Describe_Legislation_Ingestion_Foundations
     }
 
     [Fact]
+    public void Ingestion_provenance_record_rejects_missing_id()
+    {
+        Assert.Throws<ArgumentNullException>(() => new IngestionProvenanceRecord(
+            null!,
+            DateTimeOffset.UnixEpoch,
+            new IngestionBatchId("BATCH-1"),
+            null,
+            null,
+            null,
+            null,
+            "source discovered"));
+    }
+
+    [Fact]
+    public void Ingestion_audit_event_record_rejects_missing_id()
+    {
+        Assert.Throws<ArgumentNullException>(() => new IngestionAuditEventRecord(
+            null!,
+            DateTimeOffset.UnixEpoch,
+            new IngestionBatchId("BATCH-1"),
+            null,
+            null,
+            null,
+            null,
+            "source selected"));
+    }
+
+    [Fact]
+    public void Ingestion_provenance_record_rejects_missing_batch_id()
+    {
+        Assert.Throws<ArgumentNullException>(() => new IngestionProvenanceRecord(
+            new IngestionProvenanceId("PROV-1"),
+            DateTimeOffset.UnixEpoch,
+            null!,
+            null,
+            null,
+            null,
+            null,
+            "source discovered"));
+    }
+
+    [Fact]
+    public void Ingestion_audit_event_record_rejects_missing_batch_id()
+    {
+        Assert.Throws<ArgumentNullException>(() => new IngestionAuditEventRecord(
+            new IngestionAuditEventId("AUDIT-EVENT-1"),
+            DateTimeOffset.UnixEpoch,
+            null!,
+            null,
+            null,
+            null,
+            null,
+            "source selected"));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Ingestion_provenance_record_rejects_empty_description(string description)
+    {
+        Assert.Throws<ArgumentException>(() => new IngestionProvenanceRecord(
+            new IngestionProvenanceId("PROV-1"),
+            DateTimeOffset.UnixEpoch,
+            new IngestionBatchId("BATCH-1"),
+            null,
+            null,
+            null,
+            null,
+            description));
+    }
+
+    [Theory]
+    [InlineData("")]
+    [InlineData("   ")]
+    public void Ingestion_audit_event_record_rejects_empty_details(string details)
+    {
+        Assert.Throws<ArgumentException>(() => new IngestionAuditEventRecord(
+            new IngestionAuditEventId("AUDIT-EVENT-1"),
+            DateTimeOffset.UnixEpoch,
+            new IngestionBatchId("BATCH-1"),
+            null,
+            null,
+            null,
+            null,
+            details));
+    }
+
+    [Fact]
+    public void Ingestion_provenance_record_preserves_timestamp_and_optional_linkages()
+    {
+        var createdAt = new DateTimeOffset(2026, 6, 13, 12, 0, 0, TimeSpan.Zero);
+        var id = new IngestionProvenanceId("PROV-1");
+        var batchId = new IngestionBatchId("BATCH-1");
+        var sourceId = new LegislationSourceId("monitorul-oficial");
+        var rawDocumentId = new RawDocumentId("RAW-DOC-1");
+        var sourceMetadataSnapshotId = new SourceMetadataSnapshotId("SRC-SNAPSHOT-1");
+        var configurationSnapshotId = new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1");
+
+        var record = new IngestionProvenanceRecord(
+            id,
+            createdAt,
+            batchId,
+            sourceId,
+            rawDocumentId,
+            sourceMetadataSnapshotId,
+            configurationSnapshotId,
+            " source acquired ");
+
+        Assert.Same(id, record.Id);
+        Assert.Equal(createdAt, record.CreatedAt);
+        Assert.Same(batchId, record.BatchId);
+        Assert.Same(sourceId, record.SourceId);
+        Assert.Same(rawDocumentId, record.RawDocumentId);
+        Assert.Same(sourceMetadataSnapshotId, record.SourceMetadataSnapshotId);
+        Assert.Same(configurationSnapshotId, record.ConfigurationSnapshotId);
+        Assert.Equal("source acquired", record.Description);
+    }
+
+    [Fact]
+    public void Ingestion_audit_event_record_preserves_timestamp_and_optional_linkages()
+    {
+        var createdAt = new DateTimeOffset(2026, 6, 13, 12, 30, 0, TimeSpan.Zero);
+        var id = new IngestionAuditEventId("AUDIT-EVENT-1");
+        var batchId = new IngestionBatchId("BATCH-1");
+        var sourceId = new LegislationSourceId("monitorul-oficial");
+        var rawDocumentId = new RawDocumentId("RAW-DOC-1");
+        var sourceMetadataSnapshotId = new SourceMetadataSnapshotId("SRC-SNAPSHOT-1");
+        var configurationSnapshotId = new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1");
+
+        var record = new IngestionAuditEventRecord(
+            id,
+            createdAt,
+            batchId,
+            sourceId,
+            rawDocumentId,
+            sourceMetadataSnapshotId,
+            configurationSnapshotId,
+            " source selected ");
+
+        Assert.Same(id, record.Id);
+        Assert.Equal(createdAt, record.CreatedAt);
+        Assert.Same(batchId, record.BatchId);
+        Assert.Same(sourceId, record.SourceId);
+        Assert.Same(rawDocumentId, record.RawDocumentId);
+        Assert.Same(sourceMetadataSnapshotId, record.SourceMetadataSnapshotId);
+        Assert.Same(configurationSnapshotId, record.ConfigurationSnapshotId);
+        Assert.Equal("source selected", record.Details);
+    }
+
+    [Fact]
+    public void Ingestion_provenance_and_audit_event_records_allow_missing_optional_linkages()
+    {
+        var provenanceRecord = new IngestionProvenanceRecord(
+            new IngestionProvenanceId("PROV-1"),
+            DateTimeOffset.UnixEpoch,
+            new IngestionBatchId("BATCH-1"),
+            null,
+            null,
+            null,
+            null,
+            "batch created");
+        var auditEventRecord = new IngestionAuditEventRecord(
+            new IngestionAuditEventId("AUDIT-EVENT-1"),
+            DateTimeOffset.UnixEpoch,
+            new IngestionBatchId("BATCH-1"),
+            null,
+            null,
+            null,
+            null,
+            "batch created");
+
+        Assert.Null(provenanceRecord.SourceId);
+        Assert.Null(provenanceRecord.RawDocumentId);
+        Assert.Null(provenanceRecord.SourceMetadataSnapshotId);
+        Assert.Null(provenanceRecord.ConfigurationSnapshotId);
+        Assert.Null(auditEventRecord.SourceId);
+        Assert.Null(auditEventRecord.RawDocumentId);
+        Assert.Null(auditEventRecord.SourceMetadataSnapshotId);
+        Assert.Null(auditEventRecord.ConfigurationSnapshotId);
+    }
+
+    [Fact]
+    public void Ingestion_provenance_and_audit_event_records_preserve_record_value_semantics()
+    {
+        var createdAt = DateTimeOffset.UnixEpoch;
+        var firstProvenanceRecord = new IngestionProvenanceRecord(
+            new IngestionProvenanceId("PROV-1"),
+            createdAt,
+            new IngestionBatchId("BATCH-1"),
+            new LegislationSourceId("monitorul-oficial"),
+            new RawDocumentId("RAW-DOC-1"),
+            new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
+            new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1"),
+            "source acquired");
+        var secondProvenanceRecord = new IngestionProvenanceRecord(
+            new IngestionProvenanceId("PROV-1"),
+            createdAt,
+            new IngestionBatchId("BATCH-1"),
+            new LegislationSourceId("monitorul-oficial"),
+            new RawDocumentId("RAW-DOC-1"),
+            new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
+            new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1"),
+            "source acquired");
+        var firstAuditEventRecord = new IngestionAuditEventRecord(
+            new IngestionAuditEventId("AUDIT-EVENT-1"),
+            createdAt,
+            new IngestionBatchId("BATCH-1"),
+            new LegislationSourceId("monitorul-oficial"),
+            new RawDocumentId("RAW-DOC-1"),
+            new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
+            new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1"),
+            "source selected");
+        var secondAuditEventRecord = new IngestionAuditEventRecord(
+            new IngestionAuditEventId("AUDIT-EVENT-1"),
+            createdAt,
+            new IngestionBatchId("BATCH-1"),
+            new LegislationSourceId("monitorul-oficial"),
+            new RawDocumentId("RAW-DOC-1"),
+            new SourceMetadataSnapshotId("SRC-SNAPSHOT-1"),
+            new ConfigurationSnapshotId("CONFIG-SNAPSHOT-1"),
+            "source selected");
+
+        Assert.Equal(firstProvenanceRecord, secondProvenanceRecord);
+        Assert.Equal(firstAuditEventRecord, secondAuditEventRecord);
+    }
+
+    [Fact]
+    public void Ingestion_provenance_and_audit_event_records_are_distinct_from_trace_entries()
+    {
+        var timestamp = new DateTimeOffset(2026, 6, 13, 13, 0, 0, TimeSpan.Zero);
+        var provenanceRecord = new IngestionProvenanceRecord(
+            new IngestionProvenanceId("PROV-1"),
+            timestamp,
+            new IngestionBatchId("BATCH-1"),
+            null,
+            null,
+            null,
+            null,
+            "source acquired");
+        var auditEventRecord = new IngestionAuditEventRecord(
+            new IngestionAuditEventId("AUDIT-EVENT-1"),
+            timestamp,
+            new IngestionBatchId("BATCH-1"),
+            null,
+            null,
+            null,
+            null,
+            "source selected");
+        var traceEntry = new IngestionTraceEntry(
+            IngestionStage.Acquisition,
+            IngestionStatus.Succeeded,
+            timestamp,
+            "source acquired");
+
+        Assert.Equal(timestamp, traceEntry.Timestamp);
+        Assert.Equal(timestamp, provenanceRecord.CreatedAt);
+        Assert.Equal(timestamp, auditEventRecord.CreatedAt);
+        Assert.NotEqual(traceEntry.Description, auditEventRecord.Details);
+        Assert.NotEqual(traceEntry.GetType(), provenanceRecord.GetType());
+        Assert.NotEqual(traceEntry.GetType(), auditEventRecord.GetType());
+    }
+
+    [Fact]
     public void Configuration_snapshot_preserves_created_timestamp_and_schema_version()
     {
         var createdAt = new DateTimeOffset(2026, 6, 13, 11, 0, 0, TimeSpan.Zero);

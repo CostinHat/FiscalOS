@@ -1,7 +1,7 @@
 # FiscalOS State
 
 HEAD: 15cdfe9
-Tests: 471 passing
+Tests: 484 passing
 
 ## Completed
 
@@ -1077,3 +1077,38 @@ Tests:
 
 Next target:
 - FOS-0341 Ingestion Provenance and Audit Record Foundation Review.
+
+## FOS-0342 Ingestion Provenance and Audit Record Value Objects
+
+Status: implemented.
+
+Completed implementation:
+- Added `IngestionProvenanceRecord`.
+- Added `IngestionAuditEventRecord`.
+- Included record ID, created timestamp, batch ID, optional source ID,
+  optional raw document ID, optional source metadata snapshot ID, optional
+  configuration snapshot ID and description/details text only.
+- Added focused tests for required ID validation, required batch linkage,
+  created timestamp preservation, optional linkage preservation, non-empty
+  description/details validation, record value semantics and distinction from
+  `IngestionTraceEntry`.
+
+Constraints preserved:
+- No event taxonomy.
+- No status/type enums.
+- No correlation or causation IDs.
+- No `IngestionTraceEntry` changes.
+- No runtime emission.
+- No batch integration.
+- No persistence implementation.
+- No repository behavior changes.
+- No API implementation.
+- No graph implementation.
+- No AI/NLP integration.
+- No rule generation implementation.
+
+Tests:
+- `dotnet test`: 484 passing.
+
+Next target:
+- FOS-0343 Ingestion Provenance and Audit Event Taxonomy Foundation Review.
