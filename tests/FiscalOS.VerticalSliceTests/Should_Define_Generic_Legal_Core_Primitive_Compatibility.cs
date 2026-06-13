@@ -1,5 +1,5 @@
-using System.IO;
 using System;
+using System.IO;
 using FiscalOS.Domain.LegalReferences;
 using FiscalOS.LegalCore;
 using FiscalOS.LegalKnowledge;
@@ -91,11 +91,13 @@ public sealed class Should_Define_Generic_Legal_Core_Primitive_Compatibility
         var root = RepositoryRoot();
         var domainProject = File.ReadAllText(Path.Combine(root, "src", "FiscalOS.Domain", "FiscalOS.Domain.csproj"));
         var legalKnowledgeProject = File.ReadAllText(Path.Combine(root, "src", "FiscalOS.LegalKnowledge", "FiscalOS.LegalKnowledge.csproj"));
+        var runtimeProject = File.ReadAllText(Path.Combine(root, "src", "FiscalOS.Runtime", "FiscalOS.Runtime.csproj"));
         var legalCoreProject = File.ReadAllText(Path.Combine(root, "src", "FiscalOS.LegalCore", "FiscalOS.LegalCore.csproj"));
 
         Assert.Equal("FiscalOS.LegalCore", LegalCoreBoundary.Name);
         Assert.Contains("FiscalOS.LegalCore", domainProject);
         Assert.Contains("FiscalOS.LegalCore", legalKnowledgeProject);
+        Assert.Contains("FiscalOS.LegalCore", runtimeProject);
         Assert.DoesNotContain("ProjectReference", legalCoreProject);
         Assert.DoesNotContain("PackageReference", legalCoreProject);
         Assert.DoesNotContain("FiscalOS.Runtime", domainProject);

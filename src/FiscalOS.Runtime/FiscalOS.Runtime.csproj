@@ -8,6 +8,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.0" />
     <ProjectReference Include="..\FiscalOS.Core\FiscalOS.Core.csproj" />
     <ProjectReference Include="..\FiscalOS.Domain\FiscalOS.Domain.csproj" />
+    <ProjectReference Include="..\FiscalOS.LegalCore\FiscalOS.LegalCore.csproj" />
     <ProjectReference Include="..\FiscalOS.LegalKnowledge\FiscalOS.LegalKnowledge.csproj" />
   </ItemGroup>
 </Project>
