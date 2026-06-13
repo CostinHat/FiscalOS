@@ -92,6 +92,7 @@ public sealed class Should_Define_Generic_Legal_Core_Primitive_Compatibility
         var legalCoreProject = File.ReadAllText(Path.Combine(root, "src", "FiscalOS.LegalCore", "FiscalOS.LegalCore.csproj"));
 
         Assert.Equal("FiscalOS.LegalCore", LegalCoreBoundary.Name);
+        Assert.Contains("FiscalOS.LegalCore", domainProject);
         Assert.Contains("FiscalOS.LegalCore", legalKnowledgeProject);
         Assert.DoesNotContain("ProjectReference", legalCoreProject);
         Assert.DoesNotContain("PackageReference", legalCoreProject);
