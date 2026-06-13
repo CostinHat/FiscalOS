@@ -1,5 +1,5 @@
-using System.IO;
 using System;
+using System.IO;
 using FiscalOS.Domain.LegalReferences;
 using FiscalOS.LegalCore;
 using FiscalOS.LegalKnowledge;
