@@ -2017,3 +2017,35 @@ Tests:
 
 Next target:
 - FOS-0432 Classification Runtime Composition Review.
+
+## FOS-0434 Classification Custom Rule Registration
+
+Status: implemented.
+
+Completed implementation:
+- Added `AddClassificationRule<TClassificationRule>()` as the narrow
+  service-collection boundary for static custom classification rule
+  registration.
+- Reused the helper for curated runtime rule registration in
+  `AddClassificationRuntime(...)`.
+- Preserved the default curated rules and the exclusion of `AlwaysPassRule`
+  from runtime composition.
+- Added focused DI coverage for custom rule inclusion, idempotent same-rule
+  registration and `RuleRegistry` override behavior.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test`: 543 passing.
+
+Next target:
+- FOS-0435 Classification Custom Rule Registration Review.

@@ -6,12 +6,23 @@ namespace FiscalOS.Runtime.Classification;
 
 public static class ClassificationRuntimeServiceCollectionExtensions
 {
+    public static IServiceCollection AddClassificationRule<TClassificationRule>(
+        this IServiceCollection services)
+        where TClassificationRule : class, ClassificationRule
+    {
+        ArgumentNullException.ThrowIfNull(services);
+
+        services.TryAddEnumerable(ServiceDescriptor.Singleton<ClassificationRule, TClassificationRule>());
+
+        return services;
+    }
+
     public static IServiceCollection AddClassificationRuntime(this IServiceCollection services)
     {
         ArgumentNullException.ThrowIfNull(services);
 
-        services.TryAddEnumerable(ServiceDescriptor.Singleton<ClassificationRule, MicroenterpriseClassificationRule>());
-        services.TryAddEnumerable(ServiceDescriptor.Singleton<ClassificationRule, VatPayerClassificationRule>());
+        services.AddClassificationRule<MicroenterpriseClassificationRule>();
+        services.AddClassificationRule<VatPayerClassificationRule>();
 
         services.TryAddSingleton<RuleRegistry>(sp =>
             new DefaultRuleRegistry(sp.GetServices<ClassificationRule>()));
