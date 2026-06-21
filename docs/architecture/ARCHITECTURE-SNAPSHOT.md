@@ -2419,3 +2419,36 @@ Verification:
 
 Recommended next milestone:
 - FOS-0447 Classification Runtime Service Lifetime Review.
+
+## FOS-0447 Classification Runtime Service Lifetime Review Snapshot
+
+FOS-0447 reviews classification runtime service lifetimes without changing
+runtime composition.
+
+Validated:
+- Current classification DI lifetimes are intentional singleton registrations.
+- `ClassificationEngine` singleton lifetime matches its dependency graph.
+- `RuleRegistry` singleton lifetime matches immutable runtime rule registration.
+- `ILegalBasisResolver` singleton lifetime matches current stateless resolver
+  behavior.
+- Current lifetimes do not introduce hidden mutable shared state.
+- Current lifetimes do not introduce scoped dependency capture risks.
+- Current lifetimes do not introduce service locator behavior.
+- Runtime composition remains deterministic.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Dynamic rule loading.
+- Scoped runtime classification services.
+- Ingestion changes.
+- Rule generation.
+- Graph implementation or graph traversal changes.
+- AI/NLP integration.
+
+Verification:
+- `dotnet test`: 543 passing.
+
+Recommended next milestone:
+- FOS-0448 Classification Runtime Service Lifetime Acceptance.
