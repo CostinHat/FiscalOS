@@ -2656,3 +2656,38 @@ Tests:
 
 Next target:
 - FOS-0453 Classification Custom Rule Extension Contract Review.
+
+## FOS-0453 Classification Custom Rule Extension Contract Review
+
+Status: reviewed.
+
+Review findings:
+- Verified `AddClassificationRule<TClassificationRule>()` remains the sole
+  custom classification rule extension boundary.
+- Verified custom rules integrate through the same `RuleRegistry` path as
+  curated rules.
+- Verified custom rule registration does not bypass runtime composition.
+- Verified custom rule registration remains explicit and code-owned.
+- Verified no dynamic discovery of classification rules exists.
+- Verified no configuration-driven classification rule registration exists.
+- Verified no classification plugin architecture exists.
+- Verified no runtime mutation path exists for the rule set after composition;
+  `DefaultRuleRegistry` captures registered rules into an internal list.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No ingestion changes.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test`: 543 passing.
+
+Next target:
+- FOS-0454 Classification Custom Rule Extension Contract Acceptance.
