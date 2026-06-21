@@ -2130,3 +2130,34 @@ Verification:
 
 Recommended next milestone:
 - FOS-0438 Classification Rule Ordering Acceptance.
+
+## FOS-0438 Classification Rule Ordering Acceptance Snapshot
+
+FOS-0438 accepts the current classification rule ordering behavior as a narrow
+runtime contract: rules come from `RuleRegistry`, execution is sorted by
+descending `ClassificationRule.Priority`, and equal priorities preserve registry
+enumeration order.
+
+Accepted:
+- Priority remains the only execution ordering signal.
+- Curated and custom rules participate in one ordering path after registration.
+- `RuleRegistry` remains the source boundary for rule instances.
+- `ClassificationEngine` applies execution priority after reading the registry
+  and does not take ownership of DI registration order.
+- No new ordering extension point was introduced.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Dynamic rule loading.
+- Explicit duplicate rule identity policy review.
+- Rule generation.
+- Graph implementation or graph traversal changes.
+- AI/NLP integration.
+
+Verification:
+- `dotnet test`: 543 passing.
+
+Recommended next milestone:
+- FOS-0439 Classification Duplicate Rule Identity Policy Review.

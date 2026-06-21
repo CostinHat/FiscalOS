@@ -2125,3 +2125,33 @@ Tests:
 
 Next target:
 - FOS-0438 Classification Rule Ordering Acceptance.
+
+## FOS-0438 Classification Rule Ordering Acceptance
+
+Status: accepted.
+
+Accepted scope:
+- Accepted the existing priority-based classification rule ordering behavior.
+- Accepted `RuleRegistry` as the rule source boundary for ordering.
+- Accepted that curated and custom classification rules share the same ordering
+  path once registered.
+- Accepted stable same-priority behavior as registry enumeration order.
+- Accepted that `ClassificationEngine` applies execution priority but does not
+  own DI registration ordering concerns.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test`: 543 passing.
+
+Next target:
+- FOS-0439 Classification Duplicate Rule Identity Policy Review.
