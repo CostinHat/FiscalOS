@@ -2155,3 +2155,40 @@ Tests:
 
 Next target:
 - FOS-0439 Classification Duplicate Rule Identity Policy Review.
+
+## FOS-0439 Classification Duplicate Rule Identity Policy Review
+
+Status: accepted.
+
+Review findings:
+- Verified duplicate registration handling remains bounded to DI registration
+  policy through `TryAddEnumerable`.
+- Verified current idempotency is based on classification rule implementation
+  type registration.
+- Verified rule identity for DI registration is not inferred from `RuleId`.
+- Verified rule identity for DI registration is not inferred from
+  `Description`.
+- Verified `RuleRegistry` remains a consumer of registered
+  `ClassificationRule` instances and does not act as an identity authority.
+- Verified `ClassificationEngine` remains unaware of duplicate registration
+  policy and only consumes the rules exposed by `RuleRegistry`.
+- Verified duplicate `RuleId` values are not a registration concern; the
+  current fail-fast behavior is downstream in audit graph construction because
+  duplicate rule IDs produce duplicate audit node IDs.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test`: 543 passing.
+
+Next target:
+- FOS-0440 Classification Duplicate Rule Identity Policy Acceptance.
