@@ -2521,3 +2521,39 @@ Verification:
 
 Recommended next milestone:
 - FOS-0450 Classification Runtime Composition Determinism Acceptance.
+
+## FOS-0450 Classification Runtime Composition Determinism Acceptance Snapshot
+
+FOS-0450 accepts the classification runtime composition determinism contract
+reviewed in FOS-0449 without changing runtime behavior.
+
+Accepted:
+- Runtime composition remains deterministic across equivalent registrations.
+- `ClassificationEngine` resolves an equivalent dependency graph for equivalent
+  service collections.
+- `RuleRegistry` construction remains deterministic under current registered
+  rule capture.
+- Curated rule registration order remains bounded to the existing
+  `AddClassificationRuntime(...)` sequence.
+- Custom rule registration order remains bounded to caller-defined registration
+  order and `TryAddEnumerable` idempotency.
+- Override behavior remains deterministic through composition-root registration
+  order and `TryAdd*` defaults.
+- No hidden ordering dependency exists outside accepted contracts.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Dynamic rule loading.
+- Alternative runtime composition strategies.
+- Ingestion changes.
+- Rule generation.
+- Graph implementation or graph traversal changes.
+- AI/NLP integration.
+
+Verification:
+- `dotnet test`: 543 passing.
+
+Recommended next milestone:
+- FOS-0451 Classification Default Curated Rule Set Review.
