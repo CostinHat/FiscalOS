@@ -2049,3 +2049,40 @@ Tests:
 
 Next target:
 - FOS-0435 Classification Custom Rule Registration Review.
+
+## FOS-0435 Classification Custom Rule Registration Review
+
+Status: reviewed.
+
+Review findings:
+- Verified `AddClassificationRule<TClassificationRule>()` remains a narrow
+  Runtime service-collection boundary for static custom classification rule
+  registration.
+- Verified curated runtime rules are still registered through the same helper
+  from `AddClassificationRuntime(...)`.
+- Verified default runtime composition still includes
+  `MicroenterpriseClassificationRule` and `VatPayerClassificationRule`.
+- Verified `AlwaysPassRule` remains excluded from default runtime composition.
+- Verified duplicate same-rule registration remains idempotent by
+  implementation type through `TryAddEnumerable`.
+- Verified explicit `RuleRegistry` overrides remain honored before default
+  registry registration.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No duplicate `RuleId` policy.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test --filter FullyQualifiedName~Should_Register_Classification_Runtime`: 7 passing.
+- `dotnet test`: 543 passing.
+
+Next target:
+- FOS-0436 Classification Custom Rule Registration Acceptance.
