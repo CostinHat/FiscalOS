@@ -2656,3 +2656,37 @@ Verification:
 
 Recommended next milestone:
 - FOS-0454 Classification Custom Rule Extension Contract Acceptance.
+
+## FOS-0454 Classification Custom Rule Extension Contract Acceptance Snapshot
+
+FOS-0454 accepts the custom classification rule extension contract reviewed in
+FOS-0453 without changing runtime behavior.
+
+Accepted:
+- `AddClassificationRule<TClassificationRule>()` remains the sole custom rule
+  extension boundary.
+- Custom rules integrate through the same `RuleRegistry` path as curated rules.
+- Custom rule registration remains explicit, code-owned and part of runtime
+  composition.
+- No dynamic discovery exists.
+- No configuration-driven registration exists.
+- No classification plugin architecture exists.
+- No runtime mutation of the rule set exists after composition.
+- Runtime composition remains deterministic.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Dynamic rule loading.
+- Plugin architecture.
+- Ingestion changes.
+- Rule generation.
+- Graph implementation or graph traversal changes.
+- AI/NLP integration.
+
+Verification:
+- `dotnet test`: 543 passing.
+
+Recommended next milestone:
+- FOS-0455 Classification Rule Evaluation Result Contract Review.
