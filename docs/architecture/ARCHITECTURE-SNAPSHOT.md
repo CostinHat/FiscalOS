@@ -2590,3 +2590,35 @@ Verification:
 
 Recommended next milestone:
 - FOS-0452 Classification Default Curated Rule Set Acceptance.
+
+## FOS-0452 Classification Default Curated Rule Set Acceptance Snapshot
+
+FOS-0452 accepts the default curated classification rule set reviewed in
+FOS-0451 without changing runtime composition.
+
+Accepted:
+- The default curated runtime rule set remains intentionally small.
+- `MicroenterpriseClassificationRule` remains included by default.
+- `VatPayerClassificationRule` remains included by default.
+- `AlwaysPassRule` remains excluded from runtime composition.
+- Curated rule inclusion remains explicit and code-owned.
+- No dynamic discovery of classification rules exists.
+- No configuration-driven rule loading exists.
+- Rule registration remains deterministic.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Dynamic rule loading.
+- Assembly scanning or automatic rule discovery.
+- Ingestion changes.
+- Rule generation.
+- Graph implementation or graph traversal changes.
+- AI/NLP integration.
+
+Verification:
+- `dotnet test`: 543 passing.
+
+Recommended next milestone:
+- FOS-0453 Classification Custom Rule Extension Contract Review.
