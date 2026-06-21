@@ -2510,3 +2510,42 @@ Tests:
 
 Next target:
 - FOS-0449 Classification Runtime Composition Determinism Review.
+
+## FOS-0449 Classification Runtime Composition Determinism Review
+
+Status: reviewed.
+
+Review findings:
+- Verified runtime composition is deterministic across equivalent service
+  registrations.
+- Verified `ClassificationEngine` resolves the same dependency graph for
+  equivalent service collections.
+- Verified `RuleRegistry` construction remains deterministic by capturing
+  registered `ClassificationRule` instances into a list.
+- Verified curated rule registration order remains deterministic in
+  `AddClassificationRuntime(...)`.
+- Verified custom rule registration remains deterministic under caller-defined
+  registration order and existing `TryAddEnumerable` idempotency.
+- Verified override behavior remains deterministic through composition-root
+  registration order and `TryAdd*` defaults.
+- Verified no hidden ordering dependency exists outside accepted contracts:
+  service registration order, registry enumeration order for same priority and
+  priority-based execution ordering.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No ingestion changes.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test`: 543 passing.
+
+Next target:
+- FOS-0450 Classification Runtime Composition Determinism Acceptance.
