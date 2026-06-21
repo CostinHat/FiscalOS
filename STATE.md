@@ -2364,3 +2364,40 @@ Tests:
 
 Next target:
 - FOS-0445 Classification Runtime Override Contract Review.
+
+## FOS-0445 Classification Runtime Override Contract Review
+
+Status: reviewed.
+
+Review findings:
+- Verified runtime override behavior remains explicit and predictable through
+  composition-root registration order.
+- Verified `RuleRegistry` overrides remain honored before default
+  registration.
+- Verified `ILegalBasisResolver` overrides remain honored before default
+  registration.
+- Verified override behavior is composition-root driven by callers registering
+  services before `AddClassificationRuntime(...)`.
+- Verified `ClassificationEngine` remains unaware of DI override mechanics.
+- Verified classification runtime default services use `TryAdd*` registration
+  and do not self-replace existing registrations.
+- Verified constructor and runtime composition do not introduce service locator
+  behavior.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No ingestion changes.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test`: 543 passing.
+
+Next target:
+- FOS-0446 Classification Runtime Override Contract Acceptance.
