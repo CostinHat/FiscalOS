@@ -2258,3 +2258,34 @@ Verification:
 
 Recommended next milestone:
 - FOS-0442 Classification Rule Metadata Contract Acceptance.
+
+## FOS-0442 Classification Rule Metadata Contract Acceptance Snapshot
+
+FOS-0442 accepts the classification rule metadata contract reviewed in
+FOS-0441 without changing runtime behavior.
+
+Accepted:
+- `RuleId` remains classification metadata only.
+- `Description` remains explanatory metadata only.
+- `Priority` remains execution-order metadata only.
+- Metadata ownership remains with `ClassificationRule` implementations.
+- `RuleRegistry` consumes metadata but does not define metadata semantics.
+- `ClassificationEngine` consumes metadata for ordering and decision output but
+  does not define metadata semantics.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Dynamic rule loading.
+- Metadata persistence or external configuration.
+- Ingestion changes.
+- Rule generation.
+- Graph implementation or graph traversal changes.
+- AI/NLP integration.
+
+Verification:
+- `dotnet test`: 543 passing.
+
+Recommended next milestone:
+- FOS-0443 Classification Runtime Constructor Contract Review.
