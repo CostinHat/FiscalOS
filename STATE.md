@@ -2052,7 +2052,7 @@ Next target:
 
 ## FOS-0435 Classification Custom Rule Registration Review
 
-Status: reviewed.
+Status: accepted.
 
 Review findings:
 - Verified `AddClassificationRule<TClassificationRule>()` remains a narrow
@@ -2080,9 +2080,48 @@ Constraints preserved:
 - No classification rule generation.
 - No AI/NLP integration.
 
+Acceptance:
+- Accepted as a static DI registration boundary for custom classification rules.
+- No behavior changes were required during review.
+
 Tests:
-- `dotnet test --filter FullyQualifiedName~Should_Register_Classification_Runtime`: 7 passing.
 - `dotnet test`: 543 passing.
 
 Next target:
-- FOS-0436 Classification Custom Rule Registration Acceptance.
+- FOS-0437 Classification Rule Ordering Extension Review.
+
+## FOS-0437 Classification Rule Ordering Extension Review
+
+Status: accepted.
+
+Review findings:
+- Verified classification rule ordering still uses `ClassificationRule.Priority`
+  deterministically through `OrderByDescending(rule => rule.Priority)`.
+- Verified custom classification rules participate in the same ordering path as
+  curated rules because `RuleRegistry` exposes all registered
+  `ClassificationRule` instances to `ClassificationEngine`.
+- Verified same-priority behavior remains stable by preserving
+  `RuleRegistry.GetRules()` enumeration order for equal priorities.
+- Verified `DefaultRuleRegistry` remains the registry boundary that captures
+  registered rule instances.
+- Verified `ClassificationEngine` does not own DI registration ordering
+  concerns; it only consumes `RuleRegistry` and applies execution priority.
+- Verified runtime registration still uses `TryAddEnumerable` for idempotent
+  rule registration by implementation type.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test`: 543 passing.
+
+Next target:
+- FOS-0438 Classification Rule Ordering Acceptance.

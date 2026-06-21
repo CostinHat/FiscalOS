@@ -2059,9 +2059,9 @@ Verification:
 Recommended next milestone:
 - FOS-0435 Classification Custom Rule Registration Review.
 
-## FOS-0435 Classification Custom Rule Registration Review Snapshot
+## FOS-0435 Classification Custom Rule Registration Acceptance Snapshot
 
-FOS-0435 reviews the custom classification rule registration boundary added in
+FOS-0435 accepts the custom classification rule registration boundary added in
 FOS-0434 and confirms no additional runtime behavior or architectural surface
 was introduced.
 
@@ -2089,8 +2089,44 @@ Still deferred:
 - AI/NLP integration.
 
 Verification:
-- `dotnet test --filter FullyQualifiedName~Should_Register_Classification_Runtime`: 7 passing.
 - `dotnet test`: 543 passing.
 
 Recommended next milestone:
-- FOS-0436 Classification Custom Rule Registration Acceptance.
+- FOS-0437 Classification Rule Ordering Extension Review.
+
+## FOS-0437 Classification Rule Ordering Extension Review Snapshot
+
+FOS-0437 reviews the existing classification rule ordering behavior and accepts
+the current priority-based execution path without introducing a new ordering
+extension or changing runtime behavior.
+
+Validated:
+- Classification execution still orders rules by descending
+  `ClassificationRule.Priority`.
+- Curated and custom classification rules participate in the same ordering path
+  once exposed by `RuleRegistry`.
+- Same-priority behavior remains stable by preserving the registry enumeration
+  order for rules with equal priority.
+- `DefaultRuleRegistry` remains the boundary that captures registered rule
+  instances before execution.
+- `ClassificationEngine` consumes `RuleRegistry` and applies execution priority;
+  it does not own DI registration ordering concerns.
+- Runtime rule registration remains idempotent by implementation type through
+  `TryAddEnumerable`.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Dynamic rule loading.
+- Explicit duplicate `RuleId` policy.
+- New ordering extension points.
+- Rule generation.
+- Graph implementation or graph traversal changes.
+- AI/NLP integration.
+
+Verification:
+- `dotnet test`: 543 passing.
+
+Recommended next milestone:
+- FOS-0438 Classification Rule Ordering Acceptance.
