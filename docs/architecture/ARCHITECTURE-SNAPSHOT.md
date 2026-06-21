@@ -2226,3 +2226,35 @@ Verification:
 
 Recommended next milestone:
 - FOS-0441 Classification Rule Metadata Contract Review.
+
+## FOS-0441 Classification Rule Metadata Contract Review Snapshot
+
+FOS-0441 reviews the classification rule metadata contract without changing
+runtime behavior. The contract remains owned by each `ClassificationRule`
+implementation.
+
+Validated:
+- `RuleId` is classification rule metadata and is not DI identity.
+- `Description` is explanatory metadata only.
+- `Priority` is execution-order metadata only.
+- Metadata values are supplied by `ClassificationRule` implementations.
+- `RuleRegistry` consumes registered rules and does not own metadata policy.
+- `ClassificationEngine` consumes metadata for ordering and decision output but
+  does not define metadata semantics.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Dynamic rule loading.
+- Metadata persistence or external configuration.
+- Ingestion changes.
+- Rule generation.
+- Graph implementation or graph traversal changes.
+- AI/NLP integration.
+
+Verification:
+- `dotnet test`: 543 passing.
+
+Recommended next milestone:
+- FOS-0442 Classification Rule Metadata Contract Acceptance.
