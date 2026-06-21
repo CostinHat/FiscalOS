@@ -2765,3 +2765,37 @@ Tests:
 
 Next target:
 - FOS-0456 Classification Rule Evaluation Result Contract Acceptance.
+
+## FOS-0456 Classification Rule Evaluation Result Contract Acceptance
+
+Status: accepted.
+
+Accepted scope:
+- Accepted `RuleEvaluationResult` as a rule-level outcome contract.
+- Accepted ownership as remaining with classification rule evaluation.
+- Accepted that `RuleEvaluationResult` is not classification-engine outcome
+  identity.
+- Accepted that `RuleEvaluationResult` is not legal-basis identity.
+- Accepted that `RuleEvaluationResult` is not audit identity.
+- Accepted `RuleEvaluationResult` as immutable and deterministic under the
+  current sealed-record contract.
+- Accepted that `ClassificationEngine` consumes `RuleEvaluationResult` without
+  redefining its semantics.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No ingestion changes.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test`: 543 passing.
+
+Next target:
+- FOS-0457 Classification Decision Contract Review.
