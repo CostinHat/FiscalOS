@@ -2822,3 +2822,37 @@ Verification:
 
 Recommended next milestone:
 - FOS-0459 Classification Decision Explanation Contract Review.
+
+## FOS-0459 Classification Decision Explanation Contract Review Snapshot
+
+FOS-0459 reviews the classification decision explanation contract without
+changing runtime behavior.
+
+Validated:
+- `ExplanationGraph` remains the explanation contract for classification
+  outcomes.
+- `ExplanationGraph` ownership remains separate from `ClassificationResult`.
+- `ExplanationGraph` remains separate from `RuleEvaluationResult`.
+- `ExplanationGraph` remains separate from `DecisionLegalBasis`.
+- `ExplanationGraph` remains explanation-focused and is not outcome identity.
+- `ClassificationEngine` composes explanation data through
+  `DecisionExplanation` and audit graph construction without redefining
+  explanation semantics.
+- `ExplanationGraph` remains deterministic and immutable as a sealed-record
+  contract.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Dynamic rule loading.
+- Ingestion changes.
+- Rule generation.
+- Graph traversal implementation.
+- AI/NLP integration.
+
+Verification:
+- `dotnet test`: 543 passing.
+
+Recommended next milestone:
+- FOS-0460 Classification Decision Explanation Contract Acceptance.
