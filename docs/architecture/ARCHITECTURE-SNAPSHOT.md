@@ -2790,3 +2790,35 @@ Verification:
 
 Recommended next milestone:
 - FOS-0458 Classification Decision Contract Acceptance.
+
+## FOS-0458 Classification Decision Contract Acceptance Snapshot
+
+FOS-0458 accepts the classification decision result contract reviewed in
+FOS-0457 without changing runtime behavior.
+
+Accepted:
+- `ClassificationResult` remains the classification-engine outcome contract.
+- Ownership remains with `ClassificationEngine` orchestration.
+- `ClassificationResult` remains distinct from `RuleEvaluationResult`.
+- `ClassificationResult` remains distinct from `DecisionLegalBasis`.
+- `ClassificationResult` remains distinct from `ExplanationGraph` and audit
+  graph values.
+- `ClassificationResult` remains deterministic and immutable.
+- `ClassificationEngine` owns `ClassificationResult` creation.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Dynamic rule loading.
+- Classification result persistence.
+- Ingestion changes.
+- Rule generation.
+- Graph implementation or graph traversal changes.
+- AI/NLP integration.
+
+Verification:
+- `dotnet test`: 543 passing.
+
+Recommended next milestone:
+- FOS-0459 Classification Decision Explanation Contract Review.
