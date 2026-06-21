@@ -2294,3 +2294,40 @@ Tests:
 
 Next target:
 - FOS-0443 Classification Runtime Constructor Contract Review.
+
+## FOS-0443 Classification Runtime Constructor Contract Review
+
+Status: reviewed.
+
+Review findings:
+- Verified `ClassificationEngine` constructor boundaries remain explicit.
+- Verified constructor dependencies remain minimal: `RuleRegistry` and,
+  where injected, `ILegalBasisResolver`.
+- Verified `RuleRegistry` remains the source of classification rules.
+- Verified `ILegalBasisResolver` remains the Runtime-facing legal-basis
+  resolution boundary.
+- Verified constructor design does not inject `IServiceProvider` or introduce
+  service locator behavior.
+- Verified constructor design does not introduce Runtime-to-Domain dependency
+  inversion.
+- Verified the `ClassificationEngine(RuleRegistry)` constructor remains
+  justified as a compatibility constructor for existing direct construction
+  call sites.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No ingestion changes.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test`: 543 passing.
+
+Next target:
+- FOS-0444 Classification Runtime Constructor Contract Acceptance.
