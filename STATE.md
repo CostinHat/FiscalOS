@@ -2587,3 +2587,38 @@ Tests:
 
 Next target:
 - FOS-0451 Classification Default Curated Rule Set Review.
+
+## FOS-0451 Classification Default Curated Rule Set Review
+
+Status: reviewed.
+
+Review findings:
+- Verified the default curated runtime rule set remains intentionally small.
+- Verified `MicroenterpriseClassificationRule` remains part of the default
+  curated runtime set.
+- Verified `VatPayerClassificationRule` remains part of the default curated
+  runtime set.
+- Verified `AlwaysPassRule` remains excluded from runtime composition.
+- Verified curated rule inclusion is explicit and code-owned in
+  `AddClassificationRuntime(...)`.
+- Verified no dynamic discovery of classification rules exists.
+- Verified no configuration-driven rule loading exists.
+- Verified rule registration remains deterministic.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No ingestion changes.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test`: 543 passing.
+
+Next target:
+- FOS-0452 Classification Default Curated Rule Set Acceptance.
