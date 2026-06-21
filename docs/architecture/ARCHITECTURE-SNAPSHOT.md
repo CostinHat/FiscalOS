@@ -2323,3 +2323,36 @@ Verification:
 
 Recommended next milestone:
 - FOS-0444 Classification Runtime Constructor Contract Acceptance.
+
+## FOS-0444 Classification Runtime Constructor Contract Acceptance Snapshot
+
+FOS-0444 accepts the `ClassificationEngine` constructor contract reviewed in
+FOS-0443 without changing runtime behavior.
+
+Accepted:
+- Constructor boundaries remain explicit.
+- `RuleRegistry` remains the source of classification rules.
+- `ILegalBasisResolver` remains the legal-basis boundary.
+- Constructor dependencies remain minimal.
+- The `ClassificationEngine(RuleRegistry)` constructor remains documented and
+  justified as a compatibility path for existing direct construction call
+  sites.
+- Constructor design does not introduce service locator behavior.
+- Constructor design does not introduce Runtime-to-Domain dependency inversion.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Dynamic rule loading.
+- Constructor-based service location.
+- Ingestion changes.
+- Rule generation.
+- Graph implementation or graph traversal changes.
+- AI/NLP integration.
+
+Verification:
+- `dotnet test`: 543 passing.
+
+Recommended next milestone:
+- FOS-0445 Classification Runtime Override Contract Review.
