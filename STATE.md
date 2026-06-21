@@ -2401,3 +2401,38 @@ Tests:
 
 Next target:
 - FOS-0446 Classification Runtime Override Contract Acceptance.
+
+## FOS-0446 Classification Runtime Override Contract Acceptance
+
+Status: accepted.
+
+Accepted scope:
+- Accepted runtime override behavior as explicit and composition-root driven.
+- Accepted that `RuleRegistry` overrides remain honored before default
+  registration.
+- Accepted that `ILegalBasisResolver` overrides remain honored before default
+  registration.
+- Accepted default registration through `TryAdd*` semantics.
+- Accepted that `ClassificationEngine` remains unaware of DI override
+  mechanics.
+- Accepted that classification runtime composition does not introduce service
+  locator behavior.
+- Accepted that no runtime surface expansion was introduced.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No ingestion changes.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test`: 543 passing.
+
+Next target:
+- FOS-0447 Classification Runtime Service Lifetime Review.
