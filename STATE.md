@@ -2192,3 +2192,38 @@ Tests:
 
 Next target:
 - FOS-0440 Classification Duplicate Rule Identity Policy Acceptance.
+
+## FOS-0440 Classification Duplicate Rule Identity Policy Acceptance
+
+Status: accepted.
+
+Accepted scope:
+- Accepted duplicate classification rule registration handling as a DI
+  registration policy concern.
+- Accepted implementation type as the idempotency boundary for static custom
+  rule registration.
+- Accepted that DI rule identity is not derived from `RuleId`.
+- Accepted that DI rule identity is not derived from `Description`.
+- Accepted `RuleRegistry` as a consumer of registered rules, not an identity
+  authority.
+- Accepted that `ClassificationEngine` remains unaware of duplicate
+  registration policy.
+- Accepted duplicate `RuleId` handling as outside DI identity policy.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph or source hierarchy graph implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No ingestion changes.
+- No classification rule generation.
+- No AI/NLP integration.
+
+Tests:
+- `dotnet test`: 543 passing.
+
+Next target:
+- FOS-0441 Classification Rule Metadata Contract Review.
