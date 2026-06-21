@@ -2452,3 +2452,35 @@ Verification:
 
 Recommended next milestone:
 - FOS-0448 Classification Runtime Service Lifetime Acceptance.
+
+## FOS-0448 Classification Runtime Service Lifetime Acceptance Snapshot
+
+FOS-0448 accepts the classification runtime service lifetime contract reviewed
+in FOS-0447 without changing runtime composition.
+
+Accepted:
+- Classification runtime services remain singleton by design.
+- `ClassificationEngine` lifetime matches its dependency graph.
+- `RuleRegistry` lifetime matches immutable runtime rule registration.
+- `ILegalBasisResolver` lifetime matches current stateless behavior.
+- Current lifetimes do not introduce hidden mutable shared state.
+- Current lifetimes do not introduce scope-capture risks.
+- Current lifetimes do not introduce service locator behavior.
+- Runtime composition remains deterministic.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Dynamic rule loading.
+- Scoped runtime classification services.
+- Ingestion changes.
+- Rule generation.
+- Graph implementation or graph traversal changes.
+- AI/NLP integration.
+
+Verification:
+- `dotnet test`: 543 passing.
+
+Recommended next milestone:
+- FOS-0449 Classification Runtime Composition Determinism Review.
