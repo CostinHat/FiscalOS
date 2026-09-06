@@ -7,7 +7,11 @@ namespace FiscalOS.LegalKnowledge.Corpus;
 public enum StructuralAtomType { Act, Title, Chapter, Section, Article, Paragraph, Letter, Point }
 public enum AtomizationError { None, InvalidNormalizedMaterial, UnsupportedStructure, NoStructuralAtoms, InvalidHierarchy }
 public sealed record StructuralAtom(string StructuralAtomId, StructuralAtomType AtomType, string Designation, string? ParentAtomId, int Ordinal, int NormalizedStart, int NormalizedLength, string AtomizerVersion, IReadOnlyList<NormalizedSourceSpan> SourceSpans);
-public sealed record StructuralLegalDocument(string AtomizerVersion, IReadOnlyList<StructuralAtom> Atoms, AtomizationError Error = AtomizationError.None, string? ErrorMessage = null);
+public sealed record StructuralLegalDocument(string AtomizerVersion, IReadOnlyList<StructuralAtom> Atoms, AtomizationError Error = AtomizationError.None, string? ErrorMessage = null)
+{
+    public string? RawArtifactId { get; init; }
+    public string? NormalizationVersion { get; init; }
+}
 
 public static class LegalStructuralAtomizer
 {
@@ -42,7 +46,8 @@ public static class LegalStructuralAtomizer
                     atoms.Add(Create(material, StructuralAtomType.Point, point.Groups["n"].Value, paragraph.StructuralAtomId, point.Index, childStart + child.Groups["body"].Index + point.Index, point.Length));
             }
         }
-        return atoms.Count == 1 ? new(Version, atoms, AtomizationError.NoStructuralAtoms, "No article structure detected.") : new(Version, atoms);
+        var result = atoms.Count == 1 ? new StructuralLegalDocument(Version, atoms, AtomizationError.NoStructuralAtoms, "No article structure detected.") : new StructuralLegalDocument(Version, atoms);
+        return result with { RawArtifactId = material.RawArtifactId, NormalizationVersion = material.NormalizationVersion };
     }
 
     private static StructuralAtom Create(NormalizedLegalMaterial material, StructuralAtomType type, string designation, string? parent, int ordinal, int start, int length)
