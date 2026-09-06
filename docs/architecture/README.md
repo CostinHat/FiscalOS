@@ -31,6 +31,10 @@ to its document (where one exists) or names the commit that introduced it.
   -- Generic Legal Core owns shared structural legal primitives while excluding
   ingestion runtime, resolution execution, graph behavior, AI/NLP, and rule
   generation.
+- [FOS-0462-RESOLUTION-CLASSIFICATION-COLLABORATION-BOUNDARY.md](FOS-0462-RESOLUTION-CLASSIFICATION-COLLABORATION-BOUNDARY.md)
+  -- Resolution may provide separately traceable structural reference outputs
+  to Classification-adjacent composition without merging the capabilities or
+  their contracts.
 
 ## Traceability
 

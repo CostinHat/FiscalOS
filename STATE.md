@@ -3002,3 +3002,38 @@ Constraints preserved:
 
 Tests:
 - `dotnet test FiscalOS.sln --no-restore`: 543 passing.
+
+## FOS-0462 Resolution-Classification Collaboration Boundary Review and Acceptance
+
+Status: accepted.
+
+Review result:
+- Resolution may provide `ResolutionResult` and, when needed,
+  `ResolutionEvidencePackage` as explicit, read-only downstream context.
+- Classification may consume supplied Resolution status, structural candidates,
+  and correlation data only as context; this review creates no runtime coupling.
+- Resolution owns resolution policy, attempts, outcomes, corrections, audit,
+  provenance, and evidence-package composition.
+- Classification owns rules, evaluation, classification outcome,
+  `DecisionExplanation`, `DecisionLegalBasis`, and `AuditGraph`.
+- Resolved, ambiguous, and unresolved Resolution outcomes remain first-class;
+  Classification must not select ambiguous candidates or silently convert
+  unresolved outcomes into legal basis or classification conclusions.
+- Resolution and Classification remain separate first-class capabilities under
+  AR-02, with independently traceable contracts.
+
+Accepted scope:
+- The Resolution-to-Classification handoff remains one-way and read-only.
+- `ResolutionResult` and `ResolutionEvidencePackage` remain context only and
+  do not create runtime coupling.
+- Classification cannot select ambiguous Resolution candidates or convert
+  unresolved Resolution outcomes into legal basis, rule results, or conclusions.
+- Resolution and Classification contract ownership remains separate.
+- Assurance/Traceability remains transversal and independently traceable.
+
+Constraints preserved:
+- No production code, runtime API, test, or runtime redesign change.
+- No persistence, public API, graph infrastructure or traversal, AI/NLP,
+  ingestion change, or rule generation.
+- No merging of `ResolutionResult`, `DecisionLegalBasis`, `AuditGraph`,
+  provenance, evidence, or classification outcome contracts.
