@@ -7,6 +7,8 @@ namespace FiscalOS.LegalKnowledge;
 
 public enum SemanticKnowledgeKind { LegalDefinition }
 public enum SemanticCandidateError { None, UnsupportedSemanticKind, MissingStructuralGrounding, UnknownGroundingAtomId, InvalidDefinedTerm, InvalidDefinitionText }
+public enum SemanticCurationDisposition { Accepted, Rejected, NeedsReview }
+public enum SemanticCurationError { None, UnknownSemanticCandidate, CandidateConceptMismatch, InvalidSemanticCurator, InvalidSemanticReason, InvalidKnowledgeTime, UnsupportedSemanticDisposition }
 public sealed record StableLegalScope(string CanonicalActIdentity, string StructuralPath);
 
 public sealed class StructuralGrounding : IEquatable<StructuralGrounding>
@@ -54,4 +56,32 @@ public sealed class SemanticKnowledgeCandidate : IEquatable<SemanticKnowledgeCan
     public bool Equals(SemanticKnowledgeCandidate? other) => other is not null && SemanticCandidateId == other.SemanticCandidateId && SemanticConceptId == other.SemanticConceptId && Kind == other.Kind && DefinedTerm == other.DefinedTerm && DefinitionText == other.DefinitionText && EqualityComparer<StableLegalScope>.Default.Equals(LegalScope, other.LegalScope) && Grounding.Equals(other.Grounding);
     public override bool Equals(object? obj) => Equals(obj as SemanticKnowledgeCandidate);
     public override int GetHashCode() => HashCode.Combine(SemanticConceptId, SemanticCandidateId, Kind, DefinedTerm, DefinitionText, LegalScope, Grounding);
+}
+
+public sealed record SemanticCurationDecision(string SemanticCurationDecisionId, string SemanticCandidateId, string SemanticConceptId, SemanticCurationDisposition Disposition, string Reason, string Curator, DateTimeOffset KnowledgeTime, string CurationVersion);
+public sealed record SemanticCurationResult(SemanticCurationDecision? Decision, SemanticCurationError Error = SemanticCurationError.None);
+public sealed record AcceptedSemanticKnowledge(SemanticCurationDecision Decision, SemanticKnowledgeCandidate Candidate)
+{
+    public SemanticConceptId ConceptId => new(SemanticConceptIdValue);
+    private string SemanticConceptIdValue => Candidate.SemanticConceptId;
+}
+public readonly record struct SemanticConceptId(string Value);
+
+public static class SemanticCuration
+{
+    public const string Version = "semantic-curation-v1";
+    public static SemanticCurationResult Decide(SemanticKnowledgeCandidate? candidate, SemanticKnowledgeCandidate? suppliedCandidate, SemanticCurationDisposition disposition, string reason, string curator, DateTimeOffset knowledgeTime)
+    {
+        if (candidate is null || suppliedCandidate is null) return new(null, SemanticCurationError.UnknownSemanticCandidate);
+        if (candidate.SemanticCandidateId != suppliedCandidate.SemanticCandidateId) return new(null, SemanticCurationError.UnknownSemanticCandidate);
+        if (candidate.SemanticConceptId != suppliedCandidate.SemanticConceptId) return new(null, SemanticCurationError.CandidateConceptMismatch);
+        if (string.IsNullOrWhiteSpace(curator)) return new(null, SemanticCurationError.InvalidSemanticCurator);
+        if (string.IsNullOrWhiteSpace(reason)) return new(null, SemanticCurationError.InvalidSemanticReason);
+        if (knowledgeTime == default) return new(null, SemanticCurationError.InvalidKnowledgeTime);
+        var seed = string.Join("\u001F", candidate.SemanticCandidateId, candidate.SemanticConceptId, disposition, reason.Trim(), curator.Trim(), knowledgeTime.ToUniversalTime().ToString("O"), Version);
+        var id = "semantic-curation:" + Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(seed))).ToLowerInvariant();
+        return new(new SemanticCurationDecision(id, candidate.SemanticCandidateId, candidate.SemanticConceptId, disposition, reason.Trim(), curator.Trim(), knowledgeTime, Version));
+    }
+    public static AcceptedSemanticKnowledge? Promote(SemanticKnowledgeCandidate candidate, SemanticCurationDecision decision)
+        => decision.Disposition == SemanticCurationDisposition.Accepted && decision.SemanticCandidateId == candidate.SemanticCandidateId ? new(decision, candidate) : null;
 }
