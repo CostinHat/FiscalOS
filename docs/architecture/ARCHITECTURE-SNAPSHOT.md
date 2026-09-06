@@ -3135,3 +3135,12 @@ The implementation uses a small file-backed vertical repository and a restart
 test; it does not introduce a crawler, fiscal Classification, external transport,
 or generic persistence infrastructure. General source acquisition, richer
 version correction/replay and Public API exposure remain future work.
+
+## VS02 — Microenterprise Eligibility Classification (2026)
+
+VS02 adds a narrow application contract for a Romanian legal entity existing at
+31.12.2025. It evaluates verified C1-C6 conditions with tri-state facts and
+conservative outcomes. Curated knowledge references Codul fiscal Titlul III,
+OUG 8/2026 and ANAF guidance. The art. 47(3) exclusion list is intentionally
+not encoded; Unknown is Unsupported, and the historical 500,000 helper is not
+used.

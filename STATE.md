@@ -3069,6 +3069,13 @@ Constraints preserved:
 - No merging of Ingestion, Legal Knowledge, Resolution, Classification, audit,
   provenance, evidence, or decision contracts.
 
+## VS02 — Microenterprise Eligibility Classification — Romania, fiscal year 2026
+
+Status: implemented in the constrained verified scope. Added tri-state C1-C6
+facts, conservative outcomes, and curated 2026 Legal Knowledge metadata for
+Codul fiscal Titlul III, OUG 8/2026 and ANAF guidance. The historical 500,000
+threshold is not used; art. 47(3) exclusions remain Unknown/Unsupported.
+
 ## Vertical Slice 01 — Pure Legal Reference Resolution
 
 Status: implemented (initial production-readiness slice).

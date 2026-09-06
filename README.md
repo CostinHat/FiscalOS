@@ -35,3 +35,7 @@ bi-temporality where required, canonical-versus-consumer-scoped data separation,
 and an executable Consumer Independence guard. The next step is to operationalize
 those constraints and select Vertical Slice 01 against code and a real source;
 its concrete source, question and technologies remain open.
+
+VS02 adds a constrained, consumer-agnostic 2026 microenterprise eligibility
+contract using curated Legal Knowledge and conservative Unknown handling; it does
+not replace the historical rule or claim an exhaustive art. 47(3) exclusion list.
