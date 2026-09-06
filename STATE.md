@@ -2931,3 +2931,37 @@ Constraints preserved:
 Decision:
 - No refactor is required solely for AR-02.
 - Future milestones must use this re-baselined architecture as the architectural reference point.
+
+## FOS-0460 Classification Decision Explanation Contract Acceptance
+
+Status: accepted.
+
+Accepted scope:
+- Accepted `ExplanationGraph` as an explanation-focused contract for
+  classification outcomes.
+- Accepted that `ExplanationGraph` remains separate from
+  `ClassificationResult`, `RuleEvaluationResult`, and `DecisionLegalBasis`.
+- Accepted that explanation data is not classification outcome identity.
+- Accepted `ExplanationGraph` as deterministic and immutable under its current
+  sealed-record contract.
+- Accepted that `ClassificationEngine` composes the decision explanation
+  through `DecisionExplanation` and audit graph construction without
+  redefining explanation semantics.
+- Accepted that this boundary is consistent with Classification as a
+  first-class capability and with separate, transversal assurance/traceability
+  contracts under AR-02.
+
+Constraints preserved:
+- No persistence implementation.
+- No repository behavior changes.
+- No API endpoint implementation.
+- No graph traversal implementation.
+- No rule configuration persistence.
+- No dynamic rule loading.
+- No ingestion changes.
+- No classification rule generation.
+- No AI/NLP integration.
+- No runtime redesign.
+
+Tests:
+- `dotnet test FiscalOS.sln --no-restore`: 543 passing.

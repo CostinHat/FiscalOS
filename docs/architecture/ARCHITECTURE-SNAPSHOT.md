@@ -2878,3 +2878,37 @@ The dependency direction remains Runtime -> Domain -> Legal Core, with Domain in
 The iConta adapter remains a temporary Runtime placement; long-term ownership belongs at the application/iConta composition boundary.
 
 AR-02 requires no immediate refactor and does not authorize deferred infrastructure such as persistence, public API, AI/NLP, graph integration or automatic rule generation.
+
+## FOS-0460 Classification Decision Explanation Contract Acceptance Snapshot
+
+FOS-0460 accepts the classification decision explanation contract reviewed in
+FOS-0459 without changing runtime behavior.
+
+Accepted:
+- `ExplanationGraph` remains an explanation-focused contract for
+  classification outcomes.
+- `ExplanationGraph` remains separate from `ClassificationResult`,
+  `RuleEvaluationResult`, and `DecisionLegalBasis`.
+- Explanation data remains separate from classification outcome identity.
+- `ExplanationGraph` remains deterministic and immutable as a sealed-record
+  contract.
+- `ClassificationEngine` continues to compose the decision explanation through
+  `DecisionExplanation` and audit graph construction without redefining
+  explanation semantics.
+- The boundary remains consistent with Classification as a first-class
+  capability and with separate, transversal assurance/traceability contracts
+  under AR-02.
+
+Still deferred:
+- Classification API endpoints.
+- Classification persistence or repositories.
+- Rule configuration persistence.
+- Dynamic rule loading.
+- Ingestion changes.
+- Rule generation.
+- Graph traversal implementation.
+- AI/NLP integration.
+- Runtime redesign.
+
+Verification:
+- `dotnet test FiscalOS.sln --no-restore`: 543 passing.
