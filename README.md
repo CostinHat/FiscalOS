@@ -39,3 +39,9 @@ its concrete source, question and technologies remain open.
 VS02 adds a constrained, consumer-agnostic 2026 microenterprise eligibility
 contract using curated Legal Knowledge and conservative Unknown handling; it does
 not replace the historical rule or claim an exhaustive art. 47(3) exclusion list.
+
+CORPUS-01 Step 1 adds a raw legal-corpus import boundary: official artifacts are
+kept as immutable bytes with deterministic SHA-256 integrity, source metadata,
+canonical act identity, and explicit quarantine/variant decisions. Normalization,
+structural atomization, curation, and versioned Legal Knowledge remain subsequent
+steps.

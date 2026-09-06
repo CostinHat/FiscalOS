@@ -12,7 +12,10 @@
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Fixtures\corpus\imported-legislation\**\*" CopyToOutputDirectory="PreserveNewest" />
     <None Update="Fixtures\*.txt" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\*.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="Fixtures\corpus\*.html" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\FiscalOS.Core\FiscalOS.Core.csproj" />
