@@ -3019,6 +3019,20 @@ Still deferred:
 - Merging Ingestion, Legal Knowledge, Resolution, Classification, audit,
   provenance, evidence, or decision contracts.
 
+## AR-04 Production-grade Vertical Readiness Snapshot
+
+AR-04 is accepted. It operationalizes AR-03 without implementing Vertical Slice
+01: semantic bi-temporality applies where required; canonical data remains
+separate from consumer-scoped data; Consumer Independence requires executable
+structural enforcement; curation, temporal supersession and legal conflict stay
+separate; and correction-and-replay is required for the first vertical.
+
+The current IConta adapter placement remains isolated Runtime debt and must be
+relocated outside canonical Runtime when the first real Application/API boundary
+is built. The next step is to operationalize these guards and validate/select a
+narrow Vertical Slice 01; source, case, persistence, API/UI and deployment
+technology remain open.
+
 ## AR-03 Product Independence & Platform Direction Snapshot
 
 AR-03 is accepted as the strategic architecture baseline.

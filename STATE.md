@@ -3069,6 +3069,31 @@ Constraints preserved:
 - No merging of Ingestion, Legal Knowledge, Resolution, Classification, audit,
   provenance, evidence, or decision contracts.
 
+## AR-04 — Production-grade Vertical Readiness Constraints
+
+Status: accepted.
+
+- Accepted semantic bi-temporality for data where legal temporality and
+  reproducibility require valid time plus system/knowledge time.
+- Accepted canonical FiscalOS platform data versus consumer-scoped/private data
+  boundary; canonical models do not acquire consumer identity or TenantId for
+  integration convenience.
+- Accepted executable Consumer Independence enforcement through project/assembly
+  boundaries, dependency direction, ownership and architecture tests.
+- Accepted separation of curation, temporal supersession and legal conflict;
+  the existing ConflictResolver remains a contextual precedence mechanism.
+- Accepted Application/API boundary independent of transport and UI as
+  first-party consumer.
+- Accepted correction-and-replay as a required end-to-end demonstration for the
+  first vertical.
+- Existing IContaLegalReferenceAdapter placement in Runtime is isolated debt;
+  it must move outside canonical Runtime no later than the first real
+  Application/API boundary.
+
+Next step: operationalize AR-04 constraints and validate/select Vertical Slice
+01 against current code and an authoritative real source. The vertical, source,
+technologies and commercial model remain unselected.
+
 ## AR-03 — FiscalOS Product Independence & Platform Direction
 
 Status: accepted.

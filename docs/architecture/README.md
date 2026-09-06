@@ -45,6 +45,9 @@ to its document (where one exists) or names the commit that introduced it.
 - [AR-03.md](AR-03.md) -- Accepted independent-product, consumer-agnostic and
   API-first strategic baseline; no production persistence, Public API or
   human-facing application is implied as currently implemented.
+- [AR-04.md](AR-04.md) -- Accepted readiness constraints for Vertical Slice 01:
+  semantic bi-temporality, canonical/consumer-scoped data boundary and
+  executable Consumer Independence enforcement.
 
 ## Traceability
 
@@ -97,9 +100,10 @@ path summary and the single-citation vs competing-citation coverage.
 - AR-02 internal capability boundaries remain valid: small generic Legal Core;
   distinct Ingestion, Legal Knowledge, Resolution and Classification; Runtime →
   Domain; and transversal Assurance/Traceability.
-- The next roadmap objective is a narrow, measurable production-grade vertical
-  slice. The source, supported question, persistence and API technologies,
-  deployment model, and commercial packaging are still open.
+- The next roadmap step operationalizes AR-04 and selects a narrow, measurable
+  production-grade Vertical Slice 01. The source, supported question,
+  persistence/API technologies, deployment model and commercial packaging remain
+  open.
 - `LegalGraph` and `LegalAtom` in ARCH-0006 remain planning terms, not
   implemented code models. Current implemented types include `LegalCitation`,
   curated regime/rule models, `PurposeGraph`, `AuditGraph`, and

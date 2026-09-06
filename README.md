@@ -28,7 +28,8 @@ Ingestion, Legal Knowledge, Resolution and Classification capabilities;
 Runtime → Domain dependency direction; and transversal, separately traceable
 Assurance/Traceability contracts.
 
-The next objective is to define and deliver a narrow, measurable,
-production-grade vertical slice using a real authoritative source. Its concrete
-source, supported question, persistence technology, API technology, deployment
-model and commercial packaging remain open decisions.
+AR-04 accepts the readiness constraints for that objective: semantic
+bi-temporality where required, canonical-versus-consumer-scoped data separation,
+and an executable Consumer Independence guard. The next step is to operationalize
+those constraints and select Vertical Slice 01 against code and a real source;
+its concrete source, question and technologies remain open.
