@@ -8,16 +8,20 @@ namespace FiscalOS.LegalKnowledge;
 public enum SemanticKnowledgeKind { LegalDefinition }
 public enum SemanticCandidateError { None, UnsupportedSemanticKind, MissingStructuralGrounding, UnknownGroundingAtomId, InvalidDefinedTerm, InvalidDefinitionText }
 public enum SemanticCurationDisposition { Accepted, Rejected, NeedsReview }
-public enum SemanticCurationError { None, UnknownSemanticCandidate, CandidateConceptMismatch, InvalidSemanticCurator, InvalidSemanticReason, InvalidKnowledgeTime, UnsupportedSemanticDisposition }
+public enum SemanticCurationError { None, UnknownSemanticCandidate, CandidateConceptMismatch, InvalidSemanticCurator, InvalidSemanticReason, InvalidKnowledgeTime, UnsupportedSemanticDisposition, UnknownSemanticPredecessor, SelfSemanticSupersession, SemanticSupersessionCycle, SemanticConceptMismatchAcrossSupersession }
 public sealed record StableLegalScope(string CanonicalActIdentity, string StructuralPath);
 
 public sealed class StructuralGrounding : IEquatable<StructuralGrounding>
 {
     public string RawArtifactId { get; }
+    public string NormalizationVersion { get; }
+    public string AtomizerVersion { get; }
     public IReadOnlyList<string> StructuralAtomIds { get; }
-    public StructuralGrounding(string rawArtifactId, IEnumerable<string> atomIds)
+    public StructuralGrounding(string rawArtifactId, IEnumerable<string> atomIds, string normalizationVersion = "", string atomizerVersion = "")
     {
         RawArtifactId = rawArtifactId;
+        NormalizationVersion = normalizationVersion;
+        AtomizerVersion = atomizerVersion;
         StructuralAtomIds = new ReadOnlyCollection<string>(atomIds.Distinct(StringComparer.Ordinal).OrderBy(x => x, StringComparer.Ordinal).ToArray());
     }
     public bool Equals(StructuralGrounding? other) => other is not null && RawArtifactId == other.RawArtifactId && StructuralAtomIds.SequenceEqual(other.StructuralAtomIds);
@@ -36,6 +40,7 @@ public sealed class SemanticKnowledgeCandidate : IEquatable<SemanticKnowledgeCan
     public StableLegalScope LegalScope { get; }
     public StructuralGrounding Grounding { get; }
     private SemanticKnowledgeCandidate(SemanticKnowledgeKind kind, string conceptId, string candidateId, string term, string text, StableLegalScope scope, StructuralGrounding grounding) { Kind = kind; SemanticConceptId = conceptId; SemanticCandidateId = candidateId; DefinedTerm = term; DefinitionText = text; LegalScope = scope; Grounding = grounding; }
+    internal static SemanticKnowledgeCandidate Rehydrate(SemanticKnowledgeKind kind, string conceptId, string candidateId, string term, string text, StableLegalScope scope, StructuralGrounding grounding) => new(kind, conceptId, candidateId, term, text, scope, grounding);
     public static (SemanticKnowledgeCandidate? Candidate, SemanticCandidateError Error) Create(SemanticKnowledgeKind kind, string term, string text, CuratedStructuralMaterial material, IEnumerable<string> atomIds, StableLegalScope legalScope)
     {
         if (kind != SemanticKnowledgeKind.LegalDefinition) return (null, SemanticCandidateError.UnsupportedSemanticKind);
@@ -46,19 +51,25 @@ public sealed class SemanticKnowledgeCandidate : IEquatable<SemanticKnowledgeCan
         var available = material.Decision.StructuralAtomIds.ToHashSet(StringComparer.Ordinal);
         if (ids.Any(id => !available.Contains(id))) return (null, SemanticCandidateError.UnknownGroundingAtomId);
         var normalizedTerm = term.Trim(); var normalizedText = text.Trim();
-        var grounding = new StructuralGrounding(material.Decision.RawArtifactId, ids);
+        var grounding = new StructuralGrounding(material.Decision.RawArtifactId, ids, material.Decision.NormalizationVersion, material.Decision.AtomizerVersion);
         var conceptId = "concept:" + Hash(Canonical(kind, legalScope.CanonicalActIdentity.Trim(), legalScope.StructuralPath.Trim(), normalizedTerm));
         var candidateId = "candidate:" + Hash(Canonical(conceptId, kind, normalizedTerm, normalizedText, grounding.RawArtifactId, string.Join(",", grounding.StructuralAtomIds), material.Decision.NormalizationVersion, material.Decision.AtomizerVersion, SchemaVersion));
         return (new SemanticKnowledgeCandidate(kind, conceptId, candidateId, normalizedTerm, normalizedText, legalScope, grounding), SemanticCandidateError.None);
     }
     private static string Canonical(params object[] values) => string.Join("\u001F", values.Select(v => v.ToString() ?? ""));
     private static string Hash(string value) => Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(value))).ToLowerInvariant();
+    internal bool HasValidIdentity(string normalizationVersion = "norm-v1", string atomizerVersion = "atom-v1")
+    {
+        var concept = "concept:" + Hash(Canonical(Kind, LegalScope.CanonicalActIdentity.Trim(), LegalScope.StructuralPath.Trim(), DefinedTerm));
+        var candidate = "candidate:" + Hash(Canonical(concept, Kind, DefinedTerm, DefinitionText, Grounding.RawArtifactId, string.Join(",", Grounding.StructuralAtomIds), normalizationVersion, atomizerVersion, SchemaVersion));
+        return concept == SemanticConceptId && candidate == SemanticCandidateId;
+    }
     public bool Equals(SemanticKnowledgeCandidate? other) => other is not null && SemanticCandidateId == other.SemanticCandidateId && SemanticConceptId == other.SemanticConceptId && Kind == other.Kind && DefinedTerm == other.DefinedTerm && DefinitionText == other.DefinitionText && EqualityComparer<StableLegalScope>.Default.Equals(LegalScope, other.LegalScope) && Grounding.Equals(other.Grounding);
     public override bool Equals(object? obj) => Equals(obj as SemanticKnowledgeCandidate);
     public override int GetHashCode() => HashCode.Combine(SemanticConceptId, SemanticCandidateId, Kind, DefinedTerm, DefinitionText, LegalScope, Grounding);
 }
 
-public sealed record SemanticCurationDecision(string SemanticCurationDecisionId, string SemanticCandidateId, string SemanticConceptId, SemanticCurationDisposition Disposition, string Reason, string Curator, DateTimeOffset KnowledgeTime, string CurationVersion);
+public sealed record SemanticCurationDecision(string SemanticCurationDecisionId, string SemanticCandidateId, string SemanticConceptId, SemanticCurationDisposition Disposition, string Reason, string Curator, DateTimeOffset KnowledgeTime, string CurationVersion, string? SupersedesSemanticDecisionId = null);
 public sealed record SemanticCurationResult(SemanticCurationDecision? Decision, SemanticCurationError Error = SemanticCurationError.None);
 public sealed record AcceptedSemanticKnowledge(SemanticCurationDecision Decision, SemanticKnowledgeCandidate Candidate)
 {
