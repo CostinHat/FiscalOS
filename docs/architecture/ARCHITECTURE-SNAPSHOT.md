@@ -3018,3 +3018,32 @@ Still deferred:
   runtime redesign.
 - Merging Ingestion, Legal Knowledge, Resolution, Classification, audit,
   provenance, evidence, or decision contracts.
+
+## FOS-0464 Ingestion-Legal Knowledge Handoff Boundary Acceptance Snapshot
+
+FOS-0464 accepts the FOS-0463 Ingestion-to-Legal Knowledge handoff boundary
+without changing runtime behavior.
+
+Accepted:
+- Ingestion remains separate from Legal Knowledge, Resolution, and
+  Classification; the handoff is explicit and does not collapse ownership.
+- Ingestion retains ingestion-stage ownership, while Legal Knowledge owns
+  separately accepted curated legal knowledge after handoff.
+- Resolution and Classification remain separately owned first-class
+  capabilities.
+- Audit, Provenance, and Evidence remain transversal and independently
+  traceable.
+- Ingestion does not perform Resolution, Classification, fiscal/legal
+  conclusions, or automatic fiscal-rule generation.
+- No direct coupling to `ClassificationEngine` or Resolution engines,
+  repositories, or pipelines is introduced.
+- The current narrow, deterministic, in-memory Ingestion foundation remains
+  valid.
+- AR-02 remains preserved.
+
+Still deferred:
+- Runtime handoff implementation, durable persistence, public API exposure,
+  AI/NLP, graph infrastructure or traversal, automatic rule generation, and
+  unrelated runtime redesign.
+- Merging Ingestion, Legal Knowledge, Resolution, Classification, audit,
+  provenance, evidence, or decision contracts.

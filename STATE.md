@@ -3068,3 +3068,31 @@ Constraints preserved:
   automatic rule generation, or runtime redesign.
 - No merging of Ingestion, Legal Knowledge, Resolution, Classification, audit,
   provenance, evidence, or decision contracts.
+
+## FOS-0464 Ingestion-Legal Knowledge Handoff Boundary Acceptance
+
+Status: accepted.
+
+Accepted scope:
+- Ingestion remains separate from Legal Knowledge, Resolution, and
+  Classification; the handoff is explicit and does not collapse ownership.
+- Ingestion retains ingestion-stage ownership, while Legal Knowledge owns
+  separately accepted curated legal knowledge after handoff.
+- Resolution and Classification remain separately owned first-class
+  capabilities.
+- Audit, Provenance, and Evidence remain transversal and independently
+  traceable.
+- Ingestion does not perform Resolution, Classification, fiscal/legal
+  conclusions, or automatic fiscal-rule generation.
+- No direct coupling to `ClassificationEngine` or Resolution engines,
+  repositories, or pipelines is introduced.
+- The current narrow, deterministic, in-memory Ingestion foundation remains
+  valid.
+- AR-02 remains preserved.
+
+Constraints preserved:
+- No production code, runtime API, persistence, public API, AI/NLP, graph
+  infrastructure or traversal, ingestion redesign, rule generation, or
+  unrelated runtime redesign.
+- No merging of Ingestion, Legal Knowledge, Resolution, Classification, audit,
+  provenance, evidence, or decision contracts.

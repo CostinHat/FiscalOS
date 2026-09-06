@@ -149,3 +149,27 @@ The handoff is coherent with AR-02. Ingestion remains a narrow deterministic
 foundation that supplies traceable candidate material; Legal Knowledge retains
 separate curation ownership; Resolution and Classification remain separate
 downstream capabilities; and Assurance/Traceability remains transversal.
+
+## FOS-0464 Acceptance
+
+FOS-0464 accepts this boundary.
+
+- Ingestion remains separate from Legal Knowledge, Resolution, and
+  Classification; the handoff is explicit and does not collapse ownership.
+- Ingestion retains ingestion-stage ownership, while Legal Knowledge owns
+  separately accepted curated legal knowledge after handoff.
+- Resolution and Classification remain separately owned first-class
+  capabilities.
+- Audit, Provenance, and Evidence remain transversal and independently
+  traceable.
+- Ingestion does not perform Resolution, Classification, fiscal/legal
+  conclusions, or automatic fiscal-rule generation.
+- No direct coupling to `ClassificationEngine` or Resolution engines,
+  repositories, or pipelines is introduced.
+- The current narrow, deterministic, in-memory Ingestion foundation remains
+  valid.
+- AR-02 remains preserved.
+
+No production code, runtime API, persistence, public API, AI/NLP, graph
+infrastructure or traversal, ingestion redesign, rule generation, or unrelated
+runtime redesign is introduced.
