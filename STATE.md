@@ -3069,6 +3069,63 @@ Constraints preserved:
 - No merging of Ingestion, Legal Knowledge, Resolution, Classification, audit,
   provenance, evidence, or decision contracts.
 
+## AR-03 — FiscalOS Product Independence & Platform Direction
+
+Status: accepted.
+
+Accepted strategic baseline:
+- FiscalOS is an independent fiscal/legal knowledge product and platform. It
+  owns its lifecycle, canonical data, capabilities, data/persistence lifecycle,
+  stable interfaces, and evolution independently of any consumer.
+- FiscalOS is consumer-agnostic. The Consumer Independence Principle is an
+  architectural invariant: consumer-specific adapters and orchestration remain
+  outside canonical capability and Domain ownership.
+- FiscalOS is API-first. The architecture must support future authorized
+  commercial external use through a Public API; this does not expose every
+  capability publicly or implement an API today.
+- Durable persistence and a real authoritative, versioned and explicitly
+  curated fiscal/legal data lifecycle are production-grade requirements.
+- A FiscalOS human interface, if delivered, is a first-party consumer of the
+  same stable platform capabilities.
+- Commercial Evolution Principle is accepted: reusable platform foundations are
+  built first and commercial services are added incrementally against
+  demonstrated demand.
+- Delivery shifts toward executable, evidence-backed vertical slices with real
+  data and measurable outcomes.
+- AI/NLP is currently controlled and verifiable. It cannot silently become
+  authoritative Legal Knowledge, a rule, Classification, fiscal conclusion,
+  legal basis, Evidence, or Audit. Any greater autonomy requires a separate
+  architecture decision, sufficient evidence, and risk-proportionate controls.
+
+AR-02 relationship:
+- AR-03 supersedes only AR-02 section 11's incompatible strategic positioning
+  of FiscalOS as an internal engine without independent-product or Public API
+  direction.
+- AR-02 remains the accepted historical baseline for its valid internal
+  boundaries: small generic Legal Core; distinct Legal Knowledge and Ingestion;
+  separate first-class Resolution and Classification; Runtime -> Domain;
+  separate Explanation, Legal Basis, Evidence, Provenance and Audit contracts;
+  and transversal Assurance/Traceability.
+
+Current implementation and immediate roadmap:
+- AR-03 does not claim current durable persistence, production source
+  acquisition, Public API exposure, human-facing application, or AI/NLP
+  implementation.
+- The immediate objective is to define and then deliver one narrow, measurable
+  production-grade vertical slice:
+  authoritative real source -> acquisition -> immutable raw preservation ->
+  normalization -> version/effective-date handling -> explicit curation ->
+  Legal Knowledge -> Resolution and/or supported Classification -> Explanation
+  + legal basis + Evidence/Provenance -> durable persistence -> authorized API
+  response.
+- The concrete source, first fiscal/legal question, persistence technology, API
+  technology, UI technology, deployment topology, pricing, commercial model,
+  and AI model/vendor remain open.
+- Not all future questions must be resolved before implementation. Before each
+  stage or vertical slice, only the architectural, legal, operational, and
+  product decisions concretely necessary for that stage must be resolved;
+  remaining decisions may be informed by evidence from real vertical slices.
+
 ## FOS-0464 Ingestion-Legal Knowledge Handoff Boundary Acceptance
 
 Status: accepted.

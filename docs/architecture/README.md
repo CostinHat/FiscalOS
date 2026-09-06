@@ -39,6 +39,12 @@ to its document (where one exists) or names the commit that introduced it.
   -- Ingestion may hand off traceable successful raw-document candidate material
   to explicit Legal Knowledge curation without automatic promotion or coupling
   to Resolution or Classification.
+- [AR-02.md](AR-02.md) -- Historical accepted re-baseline of FiscalOS internal
+  capability boundaries; its strategic product-positioning statements are
+  superseded only as recorded by AR-03.
+- [AR-03.md](AR-03.md) -- Accepted independent-product, consumer-agnostic and
+  API-first strategic baseline; no production persistence, Public API or
+  human-facing application is implied as currently implemented.
 
 ## Traceability
 
@@ -83,9 +89,18 @@ path summary and the single-citation vs competing-citation coverage.
 
 ## Current Status
 
-- **181 tests passing.**
-- **Working tree clean.**
-- **Legislation ingestion planning opened, not implemented** (ARCH-0005);
-  out-of-scope items (parser, NLP, AI extraction, rule generator, database, API,
-  runtime changes) remain deferred.
-- `LegalGraph` and `LegalAtom` in ARCH-0006 are planning terms, not implemented code models yet. Current implemented types remain `LegalCitation`, curated regime/rule models, `PurposeGraph`, `AuditGraph`, and `KnowledgeProjectionResult`.
+- AR-03 is the accepted strategic baseline: FiscalOS is an independent,
+  consumer-agnostic, API-first fiscal/legal knowledge product and platform.
+- The current implementation remains a narrow deterministic in-memory
+  foundation; durable persistence, authoritative production source acquisition,
+  Public API exposure and a human-facing interface are not implemented yet.
+- AR-02 internal capability boundaries remain valid: small generic Legal Core;
+  distinct Ingestion, Legal Knowledge, Resolution and Classification; Runtime →
+  Domain; and transversal Assurance/Traceability.
+- The next roadmap objective is a narrow, measurable production-grade vertical
+  slice. The source, supported question, persistence and API technologies,
+  deployment model, and commercial packaging are still open.
+- `LegalGraph` and `LegalAtom` in ARCH-0006 remain planning terms, not
+  implemented code models. Current implemented types include `LegalCitation`,
+  curated regime/rule models, `PurposeGraph`, `AuditGraph`, and
+  `KnowledgeProjectionResult`.
