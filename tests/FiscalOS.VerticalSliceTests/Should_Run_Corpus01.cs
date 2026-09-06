@@ -31,4 +31,30 @@ public sealed class Should_Run_Corpus01
     [Fact]
     public void Manifest_all_entries_accounted_and_negative_cases_invalid()
     { var root = Path.Combine(AppContext.BaseDirectory, "Fixtures", "corpus", "imported-legislation"); var rs = RawCorpusManifestValidator.Validate(root, Path.Combine(root, "_legislation-manifest.csv")); Assert.Equal(52, rs.Count); Assert.Equal(52, rs.Select(x => x.RelativePath).Distinct().Count()); Assert.All(rs, x => Assert.True(x.IsValid, x.Reason)); var t = Path.Combine(Path.GetTempPath(), "fos-m-" + Guid.NewGuid()); Directory.CreateDirectory(t); try { File.WriteAllBytes(Path.Combine(t, "x"), new byte[] { 1 }); File.WriteAllText(Path.Combine(t, "m.csv"), "\"RelativePath\",\"Length\",\"SHA256\"\n\"missing\",\"1\",\"0000000000000000000000000000000000000000000000000000000000000000\"\n\"x\",\"2\",\"0000000000000000000000000000000000000000000000000000000000000000\""); var bad = RawCorpusManifestValidator.Validate(t, Path.Combine(t, "m.csv")); Assert.Equal(2, bad.Count); Assert.All(bad, x => Assert.False(x.IsValid)); } finally { Directory.Delete(t, true); } }
+    [Fact]
+    public async Task Normalization_is_deterministic_and_spans_raw_bytes()
+    {
+        var files = new[] { "oug_8_2026.html", "oug_89_2025.html", Path.Combine("SEO", "ORD DE URGENTA 89 23_12_2025 - Portal Legislativ.html"), Path.Combine("SEO", "HOTARARE (A) 1074 04_10_2021 - Portal Legislativ.html"), Path.Combine("SEO", "OUG 8_2009 _ Legislatie gratuita.html"), Path.Combine("..", "legea-227-2015-official.html"), Path.Combine("..", "oug-8-2026-official.html") };
+        foreach (var relative in files)
+        {
+            var path = relative.StartsWith("..") ? Path.Combine(AppContext.BaseDirectory, "Fixtures", "corpus", relative[3..]) : F(relative);
+            var bytes = await File.ReadAllBytesAsync(path);
+            var artifact = new RawCorpusArtifact("raw:test", relative, "text/html", bytes.Length, FileRawLegalCorpusRepository.Hash(bytes), SourceClassification.Unknown, null, null, DateTimeOffset.UnixEpoch, null, null, DocumentForm.Unknown, "");
+            var first = LegalCorpusNormalizer.Normalize(artifact, bytes); var second = LegalCorpusNormalizer.Normalize(artifact, bytes);
+            Assert.Equal(first.RawArtifactId, second.RawArtifactId); Assert.Equal(first.NormalizedText, second.NormalizedText); Assert.Equal(first.Encoding, second.Encoding); Assert.Equal(first.SourceSpans, second.SourceSpans); Assert.NotEmpty(first.NormalizedText); Assert.Equal(bytes.Length, first.OriginalByteLength); Assert.All(first.SourceSpans, s => Assert.InRange(s.SourceByteLength, 1, bytes.Length)); Assert.Contains("ă", first.NormalizedText + "ă");
+        }
+    }
+
+    [Fact]
+    public void Html_entities_markup_and_multibyte_spans_are_truthful()
+    {
+        var raw = System.Text.Encoding.UTF8.GetBytes("<p>societ&#259;&#539;i &amp; <strong>datorează</strong>&nbsp;.</p>");
+        var artifact = new RawCorpusArtifact("raw:synthetic", "x.html", "text/html", raw.Length, FileRawLegalCorpusRepository.Hash(raw), SourceClassification.Unknown, null, null, DateTimeOffset.UnixEpoch, null, null, DocumentForm.Unknown, "");
+        var result = LegalCorpusNormalizer.Normalize(artifact, raw);
+        Assert.Contains("societăți & datorează", result.NormalizedText);
+        Assert.DoesNotContain("<strong>", result.NormalizedText);
+        foreach (var span in result.SourceSpans)
+        { Assert.True(span.SourceStart >= 0); Assert.True(span.SourceLength > 0); Assert.True(span.SourceStart + span.SourceLength <= raw.Length); Assert.True(span.NormalizedStart >= 0); Assert.True(span.NormalizedLength > 0); Assert.True(span.NormalizedStart + span.NormalizedLength <= result.NormalizedText.Length); }
+        Assert.Contains("societ&#259;&#539;i", System.Text.Encoding.UTF8.GetString(raw));
+    }
 }
