@@ -35,6 +35,10 @@ to its document (where one exists) or names the commit that introduced it.
   -- Resolution may provide separately traceable structural reference outputs
   to Classification-adjacent composition without merging the capabilities or
   their contracts.
+- [FOS-0463-INGESTION-LEGAL-KNOWLEDGE-HANDOFF-BOUNDARY.md](FOS-0463-INGESTION-LEGAL-KNOWLEDGE-HANDOFF-BOUNDARY.md)
+  -- Ingestion may hand off traceable successful raw-document candidate material
+  to explicit Legal Knowledge curation without automatic promotion or coupling
+  to Resolution or Classification.
 
 ## Traceability
 

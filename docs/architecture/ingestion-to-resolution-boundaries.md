@@ -54,3 +54,9 @@ The handoff from ingestion to resolution includes:
 - Source metadata snapshot ID.
 - Repository-neutral content reference, if available.
 
+## Related Legal Knowledge Handoff
+
+The separate Ingestion-to-Legal Knowledge handoff is defined in
+[FOS-0463-INGESTION-LEGAL-KNOWLEDGE-HANDOFF-BOUNDARY.md](FOS-0463-INGESTION-LEGAL-KNOWLEDGE-HANDOFF-BOUNDARY.md).
+It supplies traceable candidate material to explicit curation and does not
+authorize Ingestion to resolve references, classify, or generate rules.

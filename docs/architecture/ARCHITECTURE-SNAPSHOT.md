@@ -2987,3 +2987,34 @@ Still deferred:
   ingestion changes, and rule generation.
 - Merging `ResolutionResult`, `DecisionLegalBasis`, `AuditGraph`, provenance,
   evidence, or classification outcome contracts.
+
+## FOS-0463 Ingestion-Legal Knowledge Handoff Boundary Review Snapshot
+
+FOS-0463 defines a documentation-only handoff from the narrow deterministic
+Ingestion foundation to explicit Legal Knowledge curation without changing
+runtime behavior.
+
+Reviewed boundary:
+- Ingestion may hand off successful, traceable raw-document candidate material
+  only after raw identity and Ingestion traceability are complete.
+- The handoff may include raw content or reference, raw identity/version,
+  fingerprint/hash, source and snapshot context, batch/replay context, and
+  independent Ingestion audit/provenance links.
+- Ingestion retains source, raw identity, batch, replay, failure, audit, and
+  provenance ownership; Legal Knowledge owns separate curation of accepted
+  material.
+- Ingestion cannot resolve legal references, classify, produce fiscal/legal
+  conclusions, generate rules, or directly couple to Resolution or
+  `ClassificationEngine`.
+- Failed, skipped, or incomplete Ingestion output cannot become accepted Legal
+  Knowledge without a separate explicit curation decision.
+- Resolution and Classification remain separate downstream first-class
+  capabilities, and Assurance/Traceability remains transversal with separate
+  Ingestion, Resolution, and Classification contracts.
+
+Still deferred:
+- Runtime handoff implementation, durable persistence, and public API exposure.
+- AI/NLP, graph infrastructure or traversal, automatic rule generation, and
+  runtime redesign.
+- Merging Ingestion, Legal Knowledge, Resolution, Classification, audit,
+  provenance, evidence, or decision contracts.
