@@ -3069,6 +3069,23 @@ Constraints preserved:
 - No merging of Ingestion, Legal Knowledge, Resolution, Classification, audit,
   provenance, evidence, or decision contracts.
 
+## AR-04 Executable Guardrails
+
+Status: implemented.
+
+- Added deterministic Legal Core temporal primitives for ValidTime, KnowledgeTime,
+  TemporalInterval and BiTemporalValidity, with reversed-bound invariants and
+  explicit applicability/knowledge queries.
+- Added architecture tests proving canonical project files contain no
+  consumer-specific project references and preserving project dependency
+  direction.
+- The IContaLegalReferenceAdapter remains isolated technical debt in Runtime and
+  is not registered in canonical Runtime composition; relocation remains required
+  when the first real Application/API boundary is built.
+- No persistence, external API, UI, AI/NLP, multi-tenancy or correction-and-replay
+  implementation was introduced.
+- Verification: dotnet test FiscalOS.sln --no-restore — 546 passing.
+
 ## AR-04 — Production-grade Vertical Readiness Constraints
 
 Status: accepted.

@@ -3019,6 +3019,16 @@ Still deferred:
 - Merging Ingestion, Legal Knowledge, Resolution, Classification, audit,
   provenance, evidence, or decision contracts.
 
+## AR-04 Executable Guardrails Snapshot
+
+AR-04 temporal and Consumer Independence guardrails are now executable without
+starting Vertical Slice 01. Legal Core provides deterministic ValidTime,
+KnowledgeTime, TemporalInterval and BiTemporalValidity primitives. Architecture
+tests verify canonical project boundaries do not reference consumer-specific
+projects. The IConta adapter remains isolated Runtime debt until the first real
+Application/API boundary. Persistence, external API, UI, AI/NLP,
+multi-tenancy and end-to-end correction/replay remain deferred.
+
 ## AR-04 Production-grade Vertical Readiness Snapshot
 
 AR-04 is accepted. It operationalizes AR-03 without implementing Vertical Slice
