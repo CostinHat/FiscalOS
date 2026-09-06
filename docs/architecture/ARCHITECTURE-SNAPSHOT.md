@@ -2856,3 +2856,25 @@ Verification:
 
 Recommended next milestone:
 - FOS-0460 Classification Decision Explanation Contract Acceptance.
+
+## AR-02 Architecture Baseline
+
+FiscalOS architecture is conceptually centered on five cooperating capabilities:
+
+1. Generic Legal Core
+2. Legal Knowledge
+3. Legislation Ingestion
+4. Legal Reference Resolution
+5. Classification / Deterministic Decision
+
+Assurance / Traceability (Audit, Provenance, Evidence) is transversal across Resolution and Classification.
+
+Resolution and Classification remain separate responsibilities:
+- Resolution determines the relevant legal reference.
+- Classification determines the fiscal/legal category and decision, with explanation.
+
+The dependency direction remains Runtime -> Domain -> Legal Core, with Domain independent of Runtime.
+
+The iConta adapter remains a temporary Runtime placement; long-term ownership belongs at the application/iConta composition boundary.
+
+AR-02 requires no immediate refactor and does not authorize deferred infrastructure such as persistence, public API, AI/NLP, graph integration or automatic rule generation.

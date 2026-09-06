@@ -2905,3 +2905,29 @@ Tests:
 
 Next target:
 - FOS-0460 Classification Decision Explanation Contract Acceptance.
+
+## AR-02 — FiscalOS Architecture Re-Baseline Review
+
+Status: accepted and closed.
+
+Completed:
+- Re-baselined FiscalOS around Legal Core, Legal Knowledge, Ingestion, Legal Reference Resolution and Classification/Decision.
+- Elevated Classification to a first-class architectural capability.
+- Preserved Legal Reference Resolution as a separate responsibility.
+- Re-framed Audit, Provenance and Evidence conceptually as transversal assurance/traceability infrastructure while keeping their contracts separate.
+- Preserved Generic Legal Core as the owner of shared structural legal primitives.
+- Preserved Ingestion as a separate capability and the current runtime as a narrow, deterministic, in-memory foundation.
+- Recorded iConta adapter placement inside Runtime as temporary technical debt; long-term ownership remains at an application/iConta composition boundary.
+
+Constraints preserved:
+- No persistence implementation.
+- No public API exposure.
+- No AI/NLP integration.
+- No graph implementation.
+- No automatic rule generation.
+- No broad runtime redesign.
+- No immediate adapter relocation.
+
+Decision:
+- No refactor is required solely for AR-02.
+- Future milestones must use this re-baselined architecture as the architectural reference point.
