@@ -1,0 +1,3 @@
+# Raw legal corpus artifacts must remain byte-identical.
+tests/FiscalOS.VerticalSliceTests/Fixtures/corpus/**/*.html -text
+tests/FiscalOS.VerticalSliceTests/Fixtures/corpus/**/*.pdf -text
