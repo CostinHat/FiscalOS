@@ -2829,12 +2829,14 @@ FOS-0459 reviews the classification decision explanation contract without
 changing runtime behavior.
 
 Validated:
-- `ExplanationGraph` remains the explanation contract for classification
-  outcomes.
-- `ExplanationGraph` ownership remains separate from `ClassificationResult`.
-- `ExplanationGraph` remains separate from `RuleEvaluationResult`.
-- `ExplanationGraph` remains separate from `DecisionLegalBasis`.
-- `ExplanationGraph` remains explanation-focused and is not outcome identity.
+- `DecisionExplanation` is the canonical runtime explanation surface for
+  classification outcomes.
+- `ExplanationGraph` is a dormant generic Core projection shape, not the live
+  decision explanation contract.
+- `DecisionExplanation` composes separate `DecisionLegalBasis` and `AuditGraph`
+  contracts without becoming classification outcome identity.
+- `ExplanationGraph` remains separate from `ClassificationResult`,
+  `RuleEvaluationResult`, and `DecisionLegalBasis`.
 - `ClassificationEngine` composes explanation data through
   `DecisionExplanation` and audit graph construction without redefining
   explanation semantics.
@@ -2885,8 +2887,12 @@ FOS-0460 accepts the classification decision explanation contract reviewed in
 FOS-0459 without changing runtime behavior.
 
 Accepted:
-- `ExplanationGraph` remains an explanation-focused contract for
+- `DecisionExplanation` remains the canonical runtime explanation surface for
   classification outcomes.
+- `ExplanationGraph` remains a dormant generic Core projection shape, not the
+  live decision explanation contract.
+- `DecisionLegalBasis` and `AuditGraph` remain separate contracts composed by
+  `DecisionExplanation`.
 - `ExplanationGraph` remains separate from `ClassificationResult`,
   `RuleEvaluationResult`, and `DecisionLegalBasis`.
 - Explanation data remains separate from classification outcome identity.
@@ -2908,6 +2914,39 @@ Still deferred:
 - Rule generation.
 - Graph traversal implementation.
 - AI/NLP integration.
+- Runtime redesign.
+
+Verification:
+- `dotnet test FiscalOS.sln --no-restore`: 543 passing.
+
+## FOS-0461 Classification Explanation Surface Alignment Review and Acceptance Snapshot
+
+FOS-0461 reviews and accepts the alignment between explanation documentation
+and the implemented runtime without changing runtime behavior.
+
+Findings:
+- The canonical runtime composition is
+  `ClassificationDecision -> DecisionExplanation -> (DecisionLegalBasis, AuditGraph)`.
+- `ClassificationDecision` is the runtime decision envelope.
+- `DecisionExplanation` is the sole canonical runtime explanation surface.
+- `DecisionLegalBasis` remains the legal-basis and conflict-resolution contract.
+- `AuditGraph` remains the separate audit/traceability contract.
+- `ExplanationGraph` remains a dormant generic Core projection shape and is not
+  constructed, returned, or consumed by the live decision path.
+- `KnowledgeProjectionResult` remains an optional downstream projection, not a
+  canonical decision or explanation contract.
+
+Accepted alignment:
+- Classification remains a first-class capability.
+- Legal Reference Resolution remains separate from Classification.
+- Legal basis, audit, provenance, evidence, and classification outcome remain
+  separate contracts within transversal Assurance/Traceability.
+- `ExplanationGraph` does not become a live runtime contract.
+
+Still deferred:
+- Graph infrastructure, traversal, and visualization.
+- Classification persistence or repositories and public API endpoints.
+- Dynamic rule loading, rule generation, ingestion changes, and AI/NLP.
 - Runtime redesign.
 
 Verification:

@@ -2875,14 +2875,14 @@ Next target:
 Status: reviewed.
 
 Review findings:
-- Verified `ExplanationGraph` remains the explanation contract for
-  classification outcomes.
-- Verified `ExplanationGraph` ownership remains separate from
-  `ClassificationResult`.
-- Verified `ExplanationGraph` remains separate from `RuleEvaluationResult`.
-- Verified `ExplanationGraph` remains separate from `DecisionLegalBasis`.
-- Verified `ExplanationGraph` remains explanation-focused and is not reused as
-  outcome identity.
+- Verified `DecisionExplanation` is the canonical runtime explanation surface
+  for classification outcomes.
+- Verified `ExplanationGraph` is a dormant generic Core projection shape, not
+  the live decision explanation contract.
+- Verified `DecisionExplanation` composes separate `DecisionLegalBasis` and
+  `AuditGraph` contracts without becoming classification outcome identity.
+- Verified `ExplanationGraph` remains separate from `ClassificationResult`,
+  `RuleEvaluationResult`, and `DecisionLegalBasis`.
 - Verified `ClassificationEngine` composes explanation data through
   `DecisionExplanation` and the audit graph builder without redefining
   explanation semantics.
@@ -2937,10 +2937,14 @@ Decision:
 Status: accepted.
 
 Accepted scope:
-- Accepted `ExplanationGraph` as an explanation-focused contract for
-  classification outcomes.
-- Accepted that `ExplanationGraph` remains separate from
-  `ClassificationResult`, `RuleEvaluationResult`, and `DecisionLegalBasis`.
+- Accepted `DecisionExplanation` as the canonical runtime explanation surface
+  for classification outcomes.
+- Accepted `ExplanationGraph` as a dormant generic Core projection shape, not
+  the live decision explanation contract.
+- Accepted that `DecisionLegalBasis` and `AuditGraph` remain separate
+  contracts composed by `DecisionExplanation`.
+- Accepted that `ExplanationGraph` remains separate from `ClassificationResult`,
+  `RuleEvaluationResult`, and `DecisionLegalBasis`.
 - Accepted that explanation data is not classification outcome identity.
 - Accepted `ExplanationGraph` as deterministic and immutable under its current
   sealed-record contract.
@@ -2962,6 +2966,39 @@ Constraints preserved:
 - No classification rule generation.
 - No AI/NLP integration.
 - No runtime redesign.
+
+Tests:
+- `dotnet test FiscalOS.sln --no-restore`: 543 passing.
+
+## FOS-0461 Classification Explanation Surface Alignment Review and Acceptance
+
+Status: reviewed and accepted.
+
+Review findings:
+- The implemented canonical runtime composition is
+  `ClassificationDecision -> DecisionExplanation -> (DecisionLegalBasis, AuditGraph)`.
+- `ClassificationDecision` remains the runtime decision envelope; its
+  `Explanation` member is `DecisionExplanation`.
+- `DecisionLegalBasis` remains the legal-basis and conflict-resolution contract.
+- `AuditGraph` remains the audit/traceability contract attached through
+  `DecisionExplanation`.
+- `ExplanationGraph` remains a dormant generic Core projection shape; it is not
+  constructed, returned, or consumed by the live decision path.
+- `KnowledgeProjectionResult` remains an optional downstream projection, not a
+  canonical decision or explanation contract.
+
+Accepted decision:
+- `DecisionExplanation` is the sole canonical runtime explanation surface.
+- `ExplanationGraph` does not become a live runtime contract.
+- Classification remains a first-class capability.
+- Legal Reference Resolution remains separate from Classification.
+- Legal basis, audit, provenance, evidence, and classification outcome remain
+  separate contracts within transversal Assurance/Traceability.
+
+Constraints preserved:
+- Documentation only; no production code, runtime API, or test changes.
+- No graph infrastructure, traversal, visualization, persistence, API, AI/NLP,
+  rule generation, or ingestion changes.
 
 Tests:
 - `dotnet test FiscalOS.sln --no-restore`: 543 passing.

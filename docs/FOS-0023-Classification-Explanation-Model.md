@@ -1,5 +1,11 @@
 \# FOS-0023 Classification Explanation Model
 
+> **Historical / superseded for runtime ownership.** This document does not
+> define the current runtime explanation surface. The current canonical
+> composition is `ClassificationDecision -> DecisionExplanation ->
+> (DecisionLegalBasis, AuditGraph)`. `ExplanationGraph` is a dormant generic
+> Core projection shape, not a live decision explanation contract.
+
 
 
 \## Purpose
@@ -26,7 +32,7 @@ Permite trasabilitate completă între:
 
 
 
-\## Core Concepts
+\## Historical Core Concepts (superseded for runtime ownership)
 
 
 
@@ -108,7 +114,11 @@ Explicație completă pentru audit.
 
 
 
-\## Relationships
+\## Historical Relationships (superseded for runtime ownership)
+
+The relationships below are historical and do not define the current runtime
+composition. Current ownership is `ClassificationDecision ->
+DecisionExplanation -> (DecisionLegalBasis, AuditGraph)`.
 
 
 
