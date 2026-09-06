@@ -15,9 +15,11 @@ fiscal/legal data, durable persistence, independently traceable outputs, and
 evidence-backed vertical slices. A FiscalOS human interface, if delivered, is a
 first-party consumer of the same stable platform boundaries.
 
-The current implementation remains a narrow deterministic in-memory foundation:
-durable persistence, production source acquisition, Public API exposure and a
-human-facing interface are roadmap requirements, not current capabilities.
+The current implementation remains narrow and deterministic. Vertical Slice 01
+now provides a small file-backed, fixture/live-content-compatible legal-reference
+composition for Article 7; it is not a general crawler or Public API. Broader
+durable platform storage, production source acquisition and external API exposure
+remain roadmap work.
 
 ## Architecture
 

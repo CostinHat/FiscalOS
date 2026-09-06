@@ -3123,3 +3123,15 @@ Still deferred:
   unrelated runtime redesign.
 - Merging Ingestion, Legal Knowledge, Resolution, Classification, audit,
   provenance, evidence, or decision contracts.
+## Vertical Slice 01 — Pure Legal Reference Resolution
+
+The first production-readiness slice is deliberately narrow: supplied Portal
+Legislativ source material for `Legea nr. 227/2015, art. 7` is hash-identified,
+persisted with knowledge/valid-time and explicit curation metadata, then resolved
+through the existing Resolution runtime. `ResolutionEvidencePackage` continues
+to compose independent Resolution, Audit, Provenance and Evidence contracts.
+
+The implementation uses a small file-backed vertical repository and a restart
+test; it does not introduce a crawler, fiscal Classification, external transport,
+or generic persistence infrastructure. General source acquisition, richer
+version correction/replay and Public API exposure remain future work.

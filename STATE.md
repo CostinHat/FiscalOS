@@ -3069,6 +3069,21 @@ Constraints preserved:
 - No merging of Ingestion, Legal Knowledge, Resolution, Classification, audit,
   provenance, evidence, or decision contracts.
 
+## Vertical Slice 01 — Pure Legal Reference Resolution
+
+Status: implemented (initial production-readiness slice).
+
+- A narrow `LegalReferenceVerticalSlice` acquires supplied authoritative-source
+  content, computes a deterministic SHA-256 hash, persists immutable raw material
+  and curation metadata, and seeds the existing Resolution runtime.
+- The canonical query is `Legea nr. 227/2015, art. 7`; the result remains a
+  `ResolutionEvidencePackage` with independent audit/provenance/evidence.
+- A restart/reload test proves semantic resolution survives recreation of the
+  runtime using file-backed state.
+- This slice does not claim a general Portal Legislativ crawler, external API,
+  Classification, or correction-and-replay production workflow; those remain
+  scoped follow-ups requiring real source/version evidence.
+
 ## AR-04 Executable Guardrails
 
 Status: implemented.

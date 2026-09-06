@@ -12,6 +12,9 @@
     <PackageReference Include="coverlet.collector" Version="6.0.2" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="Fixtures\*.txt" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\src\FiscalOS.Core\FiscalOS.Core.csproj" />
     <ProjectReference Include="..\..\src\FiscalOS.Api\FiscalOS.Api.csproj" />
     <ProjectReference Include="..\..\src\FiscalOS.Runtime\FiscalOS.Runtime.csproj" />
