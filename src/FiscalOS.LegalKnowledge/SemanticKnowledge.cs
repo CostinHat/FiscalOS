@@ -8,7 +8,12 @@ namespace FiscalOS.LegalKnowledge;
 public enum SemanticKnowledgeKind { LegalDefinition }
 public enum SemanticCandidateError { None, UnsupportedSemanticKind, MissingStructuralGrounding, UnknownGroundingAtomId, InvalidDefinedTerm, InvalidDefinitionText }
 public enum SemanticCurationDisposition { Accepted, Rejected, NeedsReview }
-public enum SemanticCurationError { None, UnknownSemanticCandidate, CandidateConceptMismatch, InvalidSemanticCurator, InvalidSemanticReason, InvalidKnowledgeTime, UnsupportedSemanticDisposition, UnknownSemanticPredecessor, SelfSemanticSupersession, SemanticSupersessionCycle, SemanticConceptMismatchAcrossSupersession }
+public enum SemanticCurationError { None, UnknownSemanticCandidate, CandidateConceptMismatch, InvalidSemanticCurator, InvalidSemanticReason, InvalidKnowledgeTime, UnsupportedSemanticDisposition, UnknownPredecessor, SelfSupersession, SupersessionCycle, SemanticConceptMismatchAcrossSupersession, MissingLegalValidFrom, InvalidLegalValidRange }
+public sealed record LegalValidTime(DateOnly ValidFrom, DateOnly? ValidTo = null)
+{
+    public static (LegalValidTime? Value, SemanticCurationError Error) Create(DateOnly? from, DateOnly? to)
+        => from is null ? (null, SemanticCurationError.MissingLegalValidFrom) : to < from ? (null, SemanticCurationError.InvalidLegalValidRange) : (new LegalValidTime(from.Value, to), SemanticCurationError.None);
+}
 public sealed record StableLegalScope(string CanonicalActIdentity, string StructuralPath);
 
 public sealed class StructuralGrounding : IEquatable<StructuralGrounding>
@@ -69,7 +74,7 @@ public sealed class SemanticKnowledgeCandidate : IEquatable<SemanticKnowledgeCan
     public override int GetHashCode() => HashCode.Combine(SemanticConceptId, SemanticCandidateId, Kind, DefinedTerm, DefinitionText, LegalScope, Grounding);
 }
 
-public sealed record SemanticCurationDecision(string SemanticCurationDecisionId, string SemanticCandidateId, string SemanticConceptId, SemanticCurationDisposition Disposition, string Reason, string Curator, DateTimeOffset KnowledgeTime, string CurationVersion, string? SupersedesSemanticDecisionId = null);
+public sealed record SemanticCurationDecision(string SemanticCurationDecisionId, string SemanticCandidateId, string SemanticConceptId, SemanticCurationDisposition Disposition, string Reason, string Curator, DateTimeOffset KnowledgeTime, string CurationVersion, string? SupersedesSemanticDecisionId = null, LegalValidTime? LegalValidTime = null);
 public sealed record SemanticCurationResult(SemanticCurationDecision? Decision, SemanticCurationError Error = SemanticCurationError.None);
 public sealed record AcceptedSemanticKnowledge(SemanticCurationDecision Decision, SemanticKnowledgeCandidate Candidate)
 {
@@ -81,7 +86,7 @@ public readonly record struct SemanticConceptId(string Value);
 public static class SemanticCuration
 {
     public const string Version = "semantic-curation-v1";
-    public static SemanticCurationResult Decide(SemanticKnowledgeCandidate? candidate, SemanticKnowledgeCandidate? suppliedCandidate, SemanticCurationDisposition disposition, string reason, string curator, DateTimeOffset knowledgeTime)
+    public static SemanticCurationResult Decide(SemanticKnowledgeCandidate? candidate, SemanticKnowledgeCandidate? suppliedCandidate, SemanticCurationDisposition disposition, string reason, string curator, DateTimeOffset knowledgeTime, LegalValidTime? legalValidTime = null)
     {
         if (candidate is null || suppliedCandidate is null) return new(null, SemanticCurationError.UnknownSemanticCandidate);
         if (candidate.SemanticCandidateId != suppliedCandidate.SemanticCandidateId) return new(null, SemanticCurationError.UnknownSemanticCandidate);
@@ -89,9 +94,9 @@ public static class SemanticCuration
         if (string.IsNullOrWhiteSpace(curator)) return new(null, SemanticCurationError.InvalidSemanticCurator);
         if (string.IsNullOrWhiteSpace(reason)) return new(null, SemanticCurationError.InvalidSemanticReason);
         if (knowledgeTime == default) return new(null, SemanticCurationError.InvalidKnowledgeTime);
-        var seed = string.Join("\u001F", candidate.SemanticCandidateId, candidate.SemanticConceptId, disposition, reason.Trim(), curator.Trim(), knowledgeTime.ToUniversalTime().ToString("O"), Version);
+        var temporal = legalValidTime is null ? null : $"legal-valid:{legalValidTime.ValidFrom:yyyy-MM-dd}:{(legalValidTime.ValidTo.HasValue ? legalValidTime.ValidTo.Value.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture) : "none")}"; var seed = temporal is null ? string.Join("\u001F", candidate.SemanticCandidateId, candidate.SemanticConceptId, disposition, reason.Trim(), curator.Trim(), knowledgeTime.ToUniversalTime().ToString("O"), Version) : string.Join("\u001F", candidate.SemanticCandidateId, candidate.SemanticConceptId, disposition, reason.Trim(), curator.Trim(), knowledgeTime.ToUniversalTime().ToString("O"), Version, temporal);
         var id = "semantic-curation:" + Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(seed))).ToLowerInvariant();
-        return new(new SemanticCurationDecision(id, candidate.SemanticCandidateId, candidate.SemanticConceptId, disposition, reason.Trim(), curator.Trim(), knowledgeTime, Version));
+        return new(new SemanticCurationDecision(id, candidate.SemanticCandidateId, candidate.SemanticConceptId, disposition, reason.Trim(), curator.Trim(), knowledgeTime, Version, null, legalValidTime));
     }
     public static AcceptedSemanticKnowledge? Promote(SemanticKnowledgeCandidate candidate, SemanticCurationDecision decision)
         => decision.Disposition == SemanticCurationDisposition.Accepted && decision.SemanticCandidateId == candidate.SemanticCandidateId ? new(decision, candidate) : null;
