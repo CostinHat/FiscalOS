@@ -8,6 +8,7 @@ public interface ISemanticKnowledgeRepository
     Task<SemanticCurationDecision?> GetDecisionAsync(string id, CancellationToken cancellationToken = default);
     Task<IReadOnlyList<SemanticCurationDecision>> GetHistoryAsync(string conceptId, CancellationToken cancellationToken = default);
     Task<SemanticKnowledgeCandidate?> GetCandidateAsync(string id, CancellationToken cancellationToken = default);
+    Task<IReadOnlyList<SemanticKnowledgeCandidate>> GetCandidatesAsync(CancellationToken cancellationToken = default);
     Task<SemanticAsOfResult> GetAsOfAsync(string conceptId, DateOnly legalDate, DateTimeOffset knowledgeAsOf, CancellationToken cancellationToken = default);
 }
 
@@ -44,6 +45,7 @@ public sealed class FileSemanticKnowledgeRepository : ISemanticKnowledgeReposito
     }
     public async Task<SemanticCurationDecision?> GetDecisionAsync(string id, CancellationToken cancellationToken = default) => (await ReadAsync(cancellationToken)).Select(x => x.Decision).FirstOrDefault(x => x.SemanticCurationDecisionId == id);
     public async Task<SemanticKnowledgeCandidate?> GetCandidateAsync(string id, CancellationToken cancellationToken = default) => (await ReadAsync(cancellationToken)).FirstOrDefault(x => x.Candidate.SemanticCandidateId == id)?.Candidate;
+    public async Task<IReadOnlyList<SemanticKnowledgeCandidate>> GetCandidatesAsync(CancellationToken cancellationToken = default) => (await ReadAsync(cancellationToken)).Select(x => x.Candidate).ToArray();
     public async Task<SemanticAsOfResult> GetAsOfAsync(string conceptId, DateOnly legalDate, DateTimeOffset knowledgeAsOf, CancellationToken cancellationToken = default)
     {
         var records = await ReadAsync(cancellationToken);
