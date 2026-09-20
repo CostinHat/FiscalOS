@@ -28,8 +28,26 @@ public sealed record CorpusAtomizationBatchResult(IReadOnlyList<CorpusAtomizatio
     public int TotalArticleCount => Items.Sum(i => i.ArticleCount);
 }
 
+public sealed record PersistedCorpusAtomizationBatchResult(
+    CorpusAtomizationBatchResult Atomization,
+    StructuralAtomSaveResult Persistence);
+
 public static class LegalCorpusBatchAtomizer
 {
+    public static async Task<PersistedCorpusAtomizationBatchResult> AtomizeAndSaveAsync(
+        IRawLegalCorpusRepository repository,
+        IStructuralAtomRepository atomRepository,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(atomRepository);
+        var batch = await AtomizeAsync(repository, cancellationToken);
+        var documents = batch.Items
+            .Where(item => item.Status == CorpusAtomizationStatus.Atomized)
+            .Select(item => item.StructuralDocument!);
+        var persistence = await atomRepository.SaveAsync(documents, cancellationToken);
+        return new(batch, persistence);
+    }
+
     public static async Task<CorpusAtomizationBatchResult> AtomizeAsync(
         IRawLegalCorpusRepository repository,
         CancellationToken cancellationToken = default)

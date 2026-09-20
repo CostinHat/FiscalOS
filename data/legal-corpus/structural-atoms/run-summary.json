@@ -1,0 +1,13 @@
+{
+  "SourceCommit": "bed3e3e0916637811a25a63e395d35589ef8c2b6",
+  "NormalizerVersion": "corpus-normalizer-v3",
+  "AtomizerVersion": "corpus-atomizer-v1",
+  "Documents": 52,
+  "AtomizedDocuments": 52,
+  "FailedDocuments": 0,
+  "Atoms": 8375,
+  "Articles": 2788,
+  "SavedDocuments": 52,
+  "SavedAtoms": 8375,
+  "ReplaySkippedDocuments": 52
+}
