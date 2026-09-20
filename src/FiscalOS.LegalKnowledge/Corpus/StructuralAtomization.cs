@@ -16,7 +16,7 @@ public sealed record StructuralLegalDocument(string AtomizerVersion, IReadOnlyLi
 public static class LegalStructuralAtomizer
 {
     public const string Version = "corpus-atomizer-v1";
-    private static readonly Regex Article = new(@"(?im)^\s*(?:ART(?:ICOLUL)?\.?\s+)(?<n>\d+[A-Za-z]?)\s*[.—-]?(?<body>.*)$", RegexOptions.Compiled);
+    private static readonly Regex Article = new(@"(?im)^\s*(?:ART(?:ICOLUL)?\.?\s+)(?<n>\d+[A-Za-z]?|[IVXLCDM]+|UNIC)\s*[.—-]?(?<body>.*)$", RegexOptions.Compiled);
     private static readonly Regex Paragraph = new(@"(?m)^\s*\((?<n>\d+[\^]?\d*)\)\s+(?<body>.+)$", RegexOptions.Compiled);
     private static readonly Regex Letter = new(@"(?m)^\s*(?<n>[a-zăâîșț])\)\s+(?<body>.+)$", RegexOptions.Compiled);
     private static readonly Regex Point = new(@"(?m)^\s*(?<n>\d+)\.\s+(?<body>.+)$", RegexOptions.Compiled);
