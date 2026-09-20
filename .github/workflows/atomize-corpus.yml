@@ -1,0 +1,40 @@
+name: Atomize legal corpus
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - codex/persist-corpus-atoms
+    paths:
+      - '.github/workflows/atomize-corpus.yml'
+      - 'src/FiscalOS.LegalKnowledge/Corpus/**'
+      - 'tools/FiscalOS.CorpusAtomizer/**'
+
+permissions:
+  contents: write
+
+jobs:
+  atomize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+      - name: Atomize and save
+        run: >-
+          dotnet run --project tools/FiscalOS.CorpusAtomizer/FiscalOS.CorpusAtomizer.csproj --
+          "$RUNNER_TEMP/fiscalos-raw"
+          tests/FiscalOS.VerticalSliceTests/Fixtures/corpus/imported-legislation
+          data/legal-corpus/structural-atoms
+      - name: Verify persisted corpus
+        run: |
+          test "$(find data/legal-corpus/structural-atoms/structural-documents -type f -name '*.json' | wc -l)" -eq 52
+          git diff --check
+      - name: Commit atoms
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/legal-corpus/structural-atoms
+          git diff --cached --quiet || git commit -m "data: save atomized legal corpus"
+          git push

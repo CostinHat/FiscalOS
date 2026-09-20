@@ -44,6 +44,39 @@ public sealed class Should_Run_Corpus01_BatchAtomization
             second.Items.Select(Signature));
     }
 
+    [Fact]
+    public async Task Atomized_documents_are_saved_once_and_replays_are_skipped()
+    {
+        var rawRoot = Path.Combine(Path.GetTempPath(), "fiscalos-raw-" + Guid.NewGuid());
+        var atomRoot = Path.Combine(Path.GetTempPath(), "fiscalos-atoms-" + Guid.NewGuid());
+        try
+        {
+            var raw = System.Text.Encoding.UTF8.GetBytes("<html><body><p>Articolul 1</p><p>(1) Regula.</p></body></html>");
+            var corpus = new FileRawLegalCorpusRepository(rawRoot);
+            await corpus.AcquireAsync(
+                "act.html", "text/html", raw, SourceClassification.OfficialPortal, null, null,
+                DocumentForm.Unknown, null, DateTimeOffset.UnixEpoch,
+                ImportDisposition.AcceptedRawCandidate, "test");
+            var atoms = new FileStructuralAtomRepository(atomRoot);
+
+            var first = await LegalCorpusBatchAtomizer.AtomizeAndSaveAsync(corpus, atoms);
+            var replay = await LegalCorpusBatchAtomizer.AtomizeAndSaveAsync(corpus, atoms);
+
+            Assert.Equal(1, first.Persistence.SavedDocumentCount);
+            Assert.Equal(first.Atomization.TotalAtomCount, first.Persistence.SavedAtomCount);
+            Assert.Equal(0, first.Persistence.SkippedDocumentCount);
+            Assert.Equal(0, replay.Persistence.SavedDocumentCount);
+            Assert.Equal(0, replay.Persistence.SavedAtomCount);
+            Assert.Equal(1, replay.Persistence.SkippedDocumentCount);
+            Assert.Single(Directory.GetFiles(Path.Combine(atomRoot, "structural-documents"), "*.json"));
+        }
+        finally
+        {
+            if (Directory.Exists(rawRoot)) Directory.Delete(rawRoot, true);
+            if (Directory.Exists(atomRoot)) Directory.Delete(atomRoot, true);
+        }
+    }
+
     private static string Signature(CorpusAtomizationItem item) =>
         $"{item.Artifact.RawArtifactId}|{item.Status}|{item.AtomCount}|{item.ArticleCount}";
 
