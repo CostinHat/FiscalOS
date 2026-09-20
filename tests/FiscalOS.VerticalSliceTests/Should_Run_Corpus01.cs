@@ -57,4 +57,51 @@ public sealed class Should_Run_Corpus01
         { Assert.True(span.SourceStart >= 0); Assert.True(span.SourceLength > 0); Assert.True(span.SourceStart + span.SourceLength <= raw.Length); Assert.True(span.NormalizedStart >= 0); Assert.True(span.NormalizedLength > 0); Assert.True(span.NormalizedStart + span.NormalizedLength <= result.NormalizedText.Length); }
         Assert.Contains("societ&#259;&#539;i", System.Text.Encoding.UTF8.GetString(raw));
     }
+
+    [Fact]
+    public void Html_payload_is_detected_by_content_even_when_file_is_named_pdf()
+    {
+        var raw = System.Text.Encoding.UTF8.GetBytes("<!doctype html><html><body><p>Articolul 1</p><p>Conținut.</p></body></html>");
+        var artifact = new RawCorpusArtifact("raw:misnamed", "act.pdf", "application/pdf", raw.Length, FileRawLegalCorpusRepository.Hash(raw), SourceClassification.Unknown, null, null, DateTimeOffset.UnixEpoch, null, null, DocumentForm.Unknown, "");
+
+        var normalized = LegalCorpusNormalizer.Normalize(artifact, raw);
+        var structural = LegalStructuralAtomizer.Atomize(normalized);
+
+        Assert.Equal(NormalizationError.None, normalized.Error);
+        Assert.Contains(structural.Atoms, atom => atom.AtomType == StructuralAtomType.Article && atom.Designation == "1");
+    }
+
+    [Fact]
+    public void Roman_and_unique_article_designations_are_structural_articles()
+    {
+        var raw = System.Text.Encoding.UTF8.GetBytes("<html><body><p>Articolul I</p><p>Prima regulă.</p><p>Articolul UNIC</p><p>A doua regulă.</p></body></html>");
+        var artifact = new RawCorpusArtifact("raw:roman", "act.html", "text/html", raw.Length, FileRawLegalCorpusRepository.Hash(raw), SourceClassification.Unknown, null, null, DateTimeOffset.UnixEpoch, null, null, DocumentForm.Unknown, "");
+
+        var structural = LegalStructuralAtomizer.Atomize(LegalCorpusNormalizer.Normalize(artifact, raw));
+
+        Assert.Contains(structural.Atoms, atom => atom.AtomType == StructuralAtomType.Article && atom.Designation == "I");
+        Assert.Contains(structural.Atoms, atom => atom.AtomType == StructuralAtomType.Article && atom.Designation == "UNIC");
+    }
+
+    [Fact]
+    public void Portal_table_of_contents_is_excluded_from_legal_content()
+    {
+        var html = """
+            <html><body>
+            <aside>Cuprinsul Actului <a>Articolul 1</a></aside>
+            <div id="div_Formaconsolidata" class="content_forma_act" data-state="loaded">
+              <span class="S_ART"><span class="S_ART_TTL">Articolul 1</span><span class="S_ART_BDY">Regula oficială.</span></span>
+            </div>
+            <div id="div_Formadebaza" data-state="empty"></div>
+            </body></html>
+            """;
+        var raw = System.Text.Encoding.UTF8.GetBytes(html);
+        var artifact = new RawCorpusArtifact("raw:portal", "act.html", "text/html", raw.Length, FileRawLegalCorpusRepository.Hash(raw), SourceClassification.OfficialPortal, null, null, DateTimeOffset.UnixEpoch, null, null, DocumentForm.Consolidated, "");
+
+        var normalized = LegalCorpusNormalizer.Normalize(artifact, raw);
+        var structural = LegalStructuralAtomizer.Atomize(normalized);
+
+        Assert.DoesNotContain("Cuprinsul Actului", normalized.NormalizedText);
+        Assert.Single(structural.Atoms.Where(atom => atom.AtomType == StructuralAtomType.Article));
+    }
 }
