@@ -13,22 +13,29 @@ public sealed record NormalizedLegalMaterial(string RawArtifactId, long Original
 
 public static class LegalCorpusNormalizer
 {
-    public const string Version = "corpus-normalizer-v1";
+    public const string Version = "corpus-normalizer-v3";
     private static readonly Regex Tags = new("<[^>]+>", RegexOptions.Compiled | RegexOptions.Singleline);
     private static readonly Regex NonContent = new("<(script|style|noscript)[^>]*>[\\s\\S]*?</\\1>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly Regex BlockBoundary = new("</?(?:p|div|br|li|tr|td|h[1-6]|section|article|header|footer)[^>]*>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly Regex LegalStructureBoundary = new("</?span\\b[^>]*class=\\\"[^\\\"]*\\b(?:S_ART_TTL|S_ALN_TTL|S_LIT_TTL|S_PCT_TTL)\\b[^\\\"]*\\\"[^>]*>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly Regex LoadedConsolidatedForm = new("<div\\b(?=[^>]*\\bid=\\\"div_Formaconsolidata\\\")(?=[^>]*\\bdata-state=\\\"loaded\\\")[^>]*>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+    private static readonly Regex DivTag = new("</?div\\b[^>]*>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     public static NormalizedLegalMaterial Normalize(RawCorpusArtifact artifact, ReadOnlySpan<byte> bytes)
     {
-        if (artifact.ContentType.Contains("pdf", StringComparison.OrdinalIgnoreCase) || artifact.OriginalFileName.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase))
-            return Failure(artifact, NormalizationError.UnsupportedFormat, "PDF text extraction is not enabled.");
         if (!TryDecode(bytes, out var text, out var encoding))
             return Failure(artifact, NormalizationError.UnsupportedEncoding, "Input is not valid UTF-8.");
-        var content = NonContent.Replace(text, "");
+        var isHtml = LooksLikeHtml(text);
+        if (!isHtml && (artifact.ContentType.Contains("pdf", StringComparison.OrdinalIgnoreCase) || artifact.OriginalFileName.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase)))
+            return Failure(artifact, NormalizationError.UnsupportedFormat, "PDF text extraction is not enabled.");
+        var (selectedContent, sourceCharacterOffset) = SelectLegalContent(text, isHtml);
+        var content = NonContent.Replace(selectedContent, "");
         var matches = Regex.Matches(content, @">(?<text>[^<]+)<", RegexOptions.Singleline);
         var pieces = new List<(string Text, int RawCharStart)>();
         foreach (Match match in matches)
             if (!string.IsNullOrWhiteSpace(match.Groups["text"].Value)) pieces.Add((match.Groups["text"].Value, match.Groups["text"].Index));
-        var normalized = WebUtility.HtmlDecode(Tags.Replace(content, ""));
+        var structuralContent = LegalStructureBoundary.Replace(BlockBoundary.Replace(content, "\n"), "\n");
+        var normalized = WebUtility.HtmlDecode(Tags.Replace(structuralContent, ""));
         normalized = Regex.Replace(normalized.Replace("\r\n", "\n").Replace('\r', '\n'), "[ \t]+", " ");
         normalized = Regex.Replace(normalized, "\n{3,}", "\n\n").Trim();
         if (normalized.Length == 0) return Failure(artifact, NormalizationError.EmptyNormalizedContent, "No normalized content.");
@@ -39,12 +46,38 @@ public static class LegalCorpusNormalizer
             var decoded = WebUtility.HtmlDecode(piece.Text);
             var start = normalized.IndexOf(decoded, normalizedCursor, StringComparison.Ordinal);
             if (start < 0) continue;
-            var rawStart = Encoding.UTF8.GetByteCount(content[..piece.RawCharStart]);
+            var rawStart = Encoding.UTF8.GetByteCount(text[..sourceCharacterOffset]) + Encoding.UTF8.GetByteCount(content[..piece.RawCharStart]);
             spans.Add(new(artifact.RawArtifactId, rawStart, Encoding.UTF8.GetByteCount(piece.Text), start, decoded.Length));
             normalizedCursor = start + decoded.Length;
         }
         if (spans.Count == 0) spans.Add(new(artifact.RawArtifactId, 0, bytes.Length, 0, normalized.Length));
         return new(artifact.RawArtifactId, bytes.Length, normalized, encoding, Version, spans);
+    }
+
+    private static (string Content, int SourceCharacterOffset) SelectLegalContent(string text, bool isHtml)
+    {
+        if (!isHtml) return (text, 0);
+        var opening = LoadedConsolidatedForm.Match(text);
+        if (!opening.Success) return (text, 0);
+
+        var depth = 1;
+        foreach (Match tag in DivTag.Matches(text, opening.Index + opening.Length))
+        {
+            depth += tag.Value.StartsWith("</", StringComparison.Ordinal) ? -1 : 1;
+            if (depth != 0) continue;
+            var start = opening.Index + opening.Length;
+            return (text[start..tag.Index], start);
+        }
+
+        return (text, 0);
+    }
+
+    private static bool LooksLikeHtml(string text)
+    {
+        var sample = text.AsSpan().TrimStart();
+        return sample.StartsWith("<!DOCTYPE html", StringComparison.OrdinalIgnoreCase) ||
+               sample.StartsWith("<html", StringComparison.OrdinalIgnoreCase) ||
+               text.Contains("<body", StringComparison.OrdinalIgnoreCase);
     }
 
     private static bool TryDecode(ReadOnlySpan<byte> bytes, out string text, out string encoding)
